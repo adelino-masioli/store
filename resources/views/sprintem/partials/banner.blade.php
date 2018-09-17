@@ -1,14 +1,14 @@
 <!-- Banner -->
 
 <div class="banner">
-    <div class="banner_background" style="background-image:url({{asset('templates/sprintem')}}/images/banner_background.jpg)"></div>
+    <div class="banner_background" style="background-image:url({{asset('templates/'.config('app.template'))}}/images/banner_background.jpg)"></div>
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container-fluid">
                     <div class="row text-center">
-                        <div class="text-center"><img class="img-fluid" src="{{asset('templates/sprintem')}}/images/banner.jpg" alt=""></div>
+                        <div class="text-center"><img class="img-fluid" src="{{asset('templates/'.config('app.template'))}}/images/banner.jpg" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="carousel-item">
                 <div class="container-fluid">
                     <div class="row text-center">
-                        <div class="text-center"><img class="img-fluid" src="{{asset('templates/sprintem')}}/images/banner_2.jpg" alt=""></div>
+                        <div class="text-center"><img class="img-fluid" src="{{asset('templates/'.config('app.template'))}}/images/banner_2.jpg" alt=""></div>
                     </div>
                 </div>
             </div>

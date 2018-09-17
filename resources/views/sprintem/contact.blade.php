@@ -4,8 +4,8 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" type="text/css" href="{{asset('templates/sprintem')}}/styles/main_styles.css">
-        <link rel="stylesheet" type="text/css" href="{{asset('templates/sprintem')}}/styles/responsive.css">
+        <link rel="stylesheet" type="text/css" href="{{asset('templates/'.config('app.template'))}}/styles/main_styles.css">
+        <link rel="stylesheet" type="text/css" href="{{asset('templates/'.config('app.template'))}}/styles/responsive.css">
     @endpush
 
     @include('sprintem.partials.header') {{--include header--}}
@@ -22,7 +22,7 @@
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="{{asset('templates/sprintem')}}/images/contact_1.png" alt=""></div>
+                            <div class="contact_info_image"><img src="{{asset('templates/'.config('app.template'))}}/images/contact_1.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Telefone</div>
                                 <div class="contact_info_text">{{$configuration['phone']}}</div>
@@ -31,7 +31,7 @@
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="{{asset('templates/sprintem')}}/images/contact_2.png" alt=""></div>
+                            <div class="contact_info_image"><img src="{{asset('templates/'.config('app.template'))}}/images/contact_2.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Email</div>
                                 <div class="contact_info_text">{{$configuration['email']}}</div>
@@ -40,7 +40,7 @@
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="{{asset('templates/sprintem')}}/images/contact_3.png" alt=""></div>
+                            <div class="contact_info_image"><img src="{{asset('templates/'.config('app.template'))}}/images/contact_3.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Endereço</div>
                                 <div class="contact_info_text">{{$configuration['address']}}</div>

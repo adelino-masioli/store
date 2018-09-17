@@ -10,12 +10,12 @@
 
 						<div class="owl-carousel owl-theme brands_slider">
 							
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/fiat.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/ford.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/hyandai.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/iveco.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/kia.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/reanult.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/fiat.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/ford.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/hyandai.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/iveco.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/kia.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/'.config('app.template'))}}/images/patner/reanult.jpg" alt=""></div></div>
 
 						</div>
 						

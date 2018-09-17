@@ -14,7 +14,7 @@ class ProductController extends Controller
         $category =  Category::where('slug', $category_slug)->first();
         $categories = Category::orderBy('name', 'ask')->take(12)->get();
         $products = Product::productByCategory($category->id);
-        return view('sprintem.products', compact('category', 'categories', 'products'));
+        return view(config('app.template').'.products', compact('category', 'categories', 'products'));
     }
 
     public static function show($product_slug)
@@ -22,6 +22,6 @@ class ProductController extends Controller
         $categories = Category::orderBy('name', 'ask')->take(12)->get();
         $product = Product::where('slug', $product_slug)->first();
         $category = Product::productCategory($product->id);
-        return view('sprintem.product', compact('categories', 'category',  'product'));
+        return view(config('app.template').'.product', compact('categories', 'category',  'product'));
     }
 }

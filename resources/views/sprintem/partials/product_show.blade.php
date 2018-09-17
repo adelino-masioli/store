@@ -5,7 +5,7 @@
 
             <!-- Selected Image -->
             <div class="col-lg-6 order-lg-2 order-1">
-                <div class="image_selected text-center"><img class="img-fluid" src="{{asset('catalog/sprintem')}}/{{\App\Models\ProductImage::getCoverImage($product->id)}}" alt="{{$product->name}}"></div>
+                <div class="image_selected text-center"><img class="img-fluid" src="{{asset('catalog/'.config('app.template'))}}/{{\App\Models\ProductImage::getCoverImage($product->id)}}" alt="{{$product->name}}"></div>
 
                 <div class="product_text"><p>{!! $product->description !!}</p></div>
             </div>
@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="col-xs-12 col-md-8">
                                             <a href="https://api.whatsapp.com/send?phone={{$configuration['whatsapp']}}" target="_blank"  class="button whats_button btn-block">
-                                                <img class="img-fluid" src="{{asset('templates/sprintem')}}/images/whatsapp.png" alt="WhatsApp">
+                                                <img class="img-fluid" src="{{asset('templates/'.config('app.template'))}}/images/whatsapp.png" alt="WhatsApp">
                                                 CONTATO PELO WHATSAPP
                                             </a>
                                         </div>

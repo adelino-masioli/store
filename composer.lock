@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7904d07d1e1765a0a199aa11d6301a3",
+    "content-hash": "1e5bc028c4231713b9ce5b09bd037ff5",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2288,6 +2288,76 @@
                 "environment"
             ],
             "time": "2018-07-29T20:33:41+00:00"
+        },
+        {
+            "name": "yajra/laravel-datatables-oracle",
+            "version": "v8.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/laravel-datatables.git",
+                "reference": "e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c",
+                "reference": "e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.4.*|5.5.*",
+                "illuminate/filesystem": "5.4.*|5.5.*",
+                "illuminate/http": "5.4.*|5.5.*",
+                "illuminate/support": "5.4.*|5.5.*",
+                "illuminate/view": "5.4.*|5.5.*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.5"
+            },
+            "suggest": {
+                "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTable.",
+                "yajra/laravel-datatables-fractal": "Plugin for server-side response using Fractal.",
+                "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTable."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Yajra\\DataTables\\DataTablesServiceProvider"
+                    ],
+                    "aliases": {
+                        "DataTables": "Yajra\\DataTables\\Facades\\DataTables"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\DataTables\\": "src/"
+                },
+                "files": [
+                    "src/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "jQuery DataTables API for Laravel 4|5",
+            "keywords": [
+                "datatables",
+                "jquery",
+                "laravel"
+            ],
+            "time": "2017-08-31T01:50:52+00:00"
         }
     ],
     "packages-dev": [

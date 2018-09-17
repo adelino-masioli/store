@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
                     <div class="newsletter_title_container">
-                        <div class="newsletter_icon"><img src="{{asset('templates/sprintem')}}/images/send.png" alt=""></div>
+                        <div class="newsletter_icon"><img src="{{asset('templates/'.config('app.template'))}}/images/send.png" alt=""></div>
                         <div class="newsletter_title">Assine nossa Newsletter</div>
                         <div class="newsletter_text"><p>...e receba novidades em seu email.</p></div>
                     </div>
