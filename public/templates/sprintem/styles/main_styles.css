@@ -3418,7 +3418,7 @@ select option
 }
 .newsletter_input
 {
-	width: 100%;
+	width: 45%;
 	height: 50px;
 	background: #FFFFFF;
 	border: solid 1px #e5e5e5;
@@ -3475,10 +3475,11 @@ select option
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	cursor: pointer;
+    z-index: 1;
 }
 .newsletter_button:hover
 {
-	opacity: 0.8;
+    background: #020273;
 }
 .newsletter_unsubscribe_link
 {
@@ -4015,4 +4016,35 @@ Shop Sidebar
     height: 50px;
     background: #fafafa;
     margin-top: 120px;
+}
+
+
+/*alert*/
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0rem;
+    border: 1px solid transparent;
+    border-radius: 0rem;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    text-align: center;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
+}
+.alert-margin-top{
+    margin-top: 25px;
+}
+
+/*result_search*/
+.result_search{
+    margin-top: 25px;
+    padding-top: 15px;
 }

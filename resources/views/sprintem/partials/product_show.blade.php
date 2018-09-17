@@ -18,23 +18,24 @@
 
                     <div class="order_info box-shadow">
                         <legend>SOLICITAR ORÇAMENTO</legend>
-                        <form action="#">
-                            <input type="hidden" id="txt_product_id_quote" name="txt_product_id_quote" value="{{$product->id}}">
+                        <form action="{{route('post-quote')}}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="txt_product_id_quote" name="product_name" value="{{$product->name}}">
                             <div class="form-group">
                                 <label for="txt_name_quote">Nome</label>
-                                <input type="text" class="form-control" id="txt_name_quote" name="txt_name_quote" placeholder="Informe seu nome">
+                                <input type="text" class="form-control" id="txt_name_quote" name="name" placeholder="Informe seu nome" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="txt_email_quote">E-mail</label>
-                                <input type="email" class="form-control" id="txt_email_quote" name="txt_email_quote"  placeholder="Informe seu e-mail">
+                                <input type="email" class="form-control" id="txt_email_quote" name="email"  placeholder="Informe seu e-mail" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="txt_about_quote">Assunto</label>
-                                <input type="email" class="form-control" id="txt_about_quote"  name="txt_about_quote"  placeholder="Informe o assunto">
+                                <input type="text" class="form-control" id="txt_about_quote"  name="about"  placeholder="Informe o assunto" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="txt_message_quote">Mensagem</label>
-                                <textarea  class="form-control" id="txt_message_quote" name="txt_message_quote"  placeholder="Informe o assunto"></textarea>
+                                <textarea  class="form-control" id="txt_message_quote" name="message"  placeholder="Informe o assunto" required="required"></textarea>
                             </div>
                             <div class="button_container">
                                 <div class="row">
@@ -50,6 +51,11 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @include('sprintem.messages.messages_register_quote')
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

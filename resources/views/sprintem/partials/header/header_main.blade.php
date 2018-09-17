@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="col-lg-3 col-sm-3 col-3 order-1">
                     <div class="logo_container">
-                        <div class="logo"><a href="#">OneTech</a></div>
+                        <div class="logo"><a href="{{url('/')}}"><img class="img-fluid" src="{{asset('templates/sprintem')}}/images/brand_sprintem.png" alt="{{$configuration['name']}}"></a></div>
                     </div>
                 </div>
 
@@ -15,8 +15,9 @@
                     <div class="header_search">
                         <div class="header_search_content">
                             <div class="header_search_form_container">
-                                <form action="#" class="header_search_form clearfix">
-                                    <input type="search" required="required" class="header_search_input" placeholder="Informe sua busca...">
+                                <form action="{{url('busca')}}" method="post" class="header_search_form clearfix">
+                                    {{ csrf_field() }}
+                                    <input type="search" required="required" class="header_search_input" name="search" placeholder="Informe sua busca...">
                                     <div class="custom_dropdown d-none">
                                         <div class="custom_dropdown_list">
                                             <span class="custom_dropdown_placeholder clc">All Categories</span>

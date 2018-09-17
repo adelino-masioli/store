@@ -10,10 +10,17 @@
                         <div class="newsletter_text"><p>...e receba novidades em seu email.</p></div>
                     </div>
                     <div class="newsletter_content clearfix">
-                        <form action="#" class="newsletter_form">
-                            <input type="email" class="newsletter_input" required="required" id="txt_email_newsletter" name="txt_email_newsletter" placeholder="Informe seu email">
-                            <button class="newsletter_button">Inscrever</button>
+                        <form action="{{route('post-newsletter')}}" method="post" class="newsletter_form">
+                            {{ csrf_field() }}
+                            <input type="text" class="newsletter_input" required="required" id="txt_name_newsletter" name="name" placeholder="Nome">
+                            <input type="email" class="newsletter_input" required="required" id="txt_email_newsletter" name="email" placeholder="Email">
+                            <button type="submit" class="newsletter_button">Inscrever</button>
                         </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @include('sprintem.messages.messages_register')
                     </div>
                 </div>
             </div>

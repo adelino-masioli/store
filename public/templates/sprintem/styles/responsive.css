@@ -102,7 +102,7 @@
 	}
 	.newsletter_form
 	{
-		width: 456px;
+		width: 100%;
 	}
 }
 
@@ -261,6 +261,7 @@
 	.newsletter_title_container
 	{
 		width: 100%;
+		text-align: center;
 	}
 	.newsletter_content
 	{
@@ -269,7 +270,7 @@
 	}
 	.newsletter_form
 	{
-		width: calc(100% - 114px);
+		width: 100%;
 	}
 	.footer_col:not(:last-child)
 	{
@@ -670,15 +671,15 @@
 	}
 	.newsletter_icon
 	{
-		position: relative;
+		position: absolute;
 		width: 40px;
-		top: auto; 
-		-webkit-transform: translate(-50%, 0px); 
-		-moz-transform: translate(-50%, 0px); 
-		-ms-transform: translate(-50%, 0px); 
-		-o-transform: translate(-50%, 0px); 
-		transform: translate(-50%, 0px); 
-		left: 50%; 
+		top:-35px;
+		-webkit-transform: translate(-50%, 0px);
+		-moz-transform: translate(-50%, 0px);
+		-ms-transform: translate(-50%, 0px);
+		-o-transform: translate(-50%, 0px);
+		transform: translate(-50%, 0px);
+		left: 50%;
 		margin-bottom: 20px;
 	}
 	.newsletter_button
@@ -692,7 +693,7 @@
 	    -ms-transform: translateX(-50%);
 	    -o-transform: translateX(-50%);
 	    transform: translateX(-50%);
-	    width: 113px;
+	    width: 100%;
 	    height: 40px;
 	    background: #020297;
 	    color: #FFFFFF;
@@ -705,7 +706,7 @@
 	    border-top-left-radius: 5px;
 	    border-bottom-left-radius: 5px;
 	    cursor: pointer;
-	    margin-top: 20px;
+	    margin-top: 0px;
 	}
 	.newsletter_input
 	{
@@ -713,6 +714,8 @@
 		padding-left: 15px;
 		height: 40px;
 		line-height: 40px;
+        width: 100%;
+        margin-bottom: 15px;
 	}
 	.newsletter_input::-webkit-input-placeholder
 	{

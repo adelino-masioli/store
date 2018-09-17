@@ -1,6 +1,6 @@
 @extends('sprintem.template.app')
 
-@section('title', 'Sobre a Sprintem')
+@section('title', 'Sprintem')
 
 @section('content')
     @push('styles')
@@ -10,23 +10,7 @@
 
     @include('sprintem.partials.header') {{--include header--}}
 
-
-    <!-- About -->
-
-    <div class="single_post">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="single_post_title">Sobre Nós</div>
-                    <div class="single_post_text">
-                        {!! $configuration['about'] !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    @include('sprintem.partials.products_result') {{--include banner--}}
 
     @include('sprintem.partials.brands') {{--include banner--}}
 

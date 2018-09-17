@@ -8,12 +8,12 @@
 					<div class="footer_column footer_contact">
 						<div class="row">
 							<div class="col col-xs-12 col-md-2 logo_container">
-								<div class="logo"><a href="#">OneTech</a></div>
+								<div class="logo"><a href="{{url('/')}}"><img class="img-fluid" src="{{asset('templates/sprintem')}}/images/brand_sprintem.png" alt="{{$configuration['name']}}"></a></div>
 							</div>
 							<div class="col col-xs-12 col-md-7">
-								<div class="footer_phone">+38 068 005 3570</div>
+								<div class="footer_phone">{{$configuration['phone']}}</div>
 								<div class="footer_contact_text">
-									<p>17 Princess Road, London - Grester London NW18JR, UK</p>
+									<p>{{$configuration['address']}} - {{$configuration['city']}} - {{$configuration['state']}}</p>
 								</div>
 							</div>
 							<div class="col col-xs-12 col-md-3 footer_social text-right">

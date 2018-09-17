@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row">
             <div class="col d-flex flex-row">
-                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('templates/sprintem')}}/images/phone.png" alt=""></div>+38 068 005 3570</div>
-                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('templates/sprintem')}}/images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('templates/sprintem')}}/images/phone.png" alt=""></div>{{$configuration['phone']}}</div>
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('templates/sprintem')}}/images/mail.png" alt=""></div><a href="mailto:{{$configuration['email']}}">{{$configuration['email']}}</a></div>
                 <div class="top_bar_content ml-auto">
                     <div class="top_bar_menu d-none">
                         <ul class="standard_dropdown top_bar_dropdown">
