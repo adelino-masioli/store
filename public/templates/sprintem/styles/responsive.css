@@ -302,6 +302,9 @@
 
 @media only screen and (max-width: 768px)
 {
+    .whats_button{
+        margin-top: 15px;
+    }
 	
 }
 
@@ -790,6 +793,10 @@
 	.tabs {
 		padding-top: 40px;
 	}
+    .cart_button, .whats_button{
+        height: 46px;
+        text-align: center;
+    }
 }
 
 /************

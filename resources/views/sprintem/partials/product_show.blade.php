@@ -39,15 +39,21 @@
                             </div>
                             <div class="button_container">
                                 <div class="row">
-                                    <div class="col-xs-12 col-md-4">
-                                        <button type="submit" class="button cart_button btn-block">ENVIAR</button>
-                                    </div>
-                                    <div class="col-xs-12 col-md-8">
-                                        <button type="button" class="button whats_button btn-block">
-                                            <img class="img-fluid" src="{{asset('templates/sprintem')}}/images/whatsapp.png" alt="WhatsApp">
-                                            CONTATO PELO WHATSAPP
-                                        </button>
-                                    </div>
+                                    @if($configuration['whatsapp'] != '')
+                                        <div class="col-xs-12 col-md-4">
+                                            <button type="submit" class="button cart_button btn-block">ENVIAR</button>
+                                        </div>
+                                        <div class="col-xs-12 col-md-8">
+                                            <a href="https://api.whatsapp.com/send?phone={{$configuration['whatsapp']}}" target="_blank"  class="button whats_button btn-block">
+                                                <img class="img-fluid" src="{{asset('templates/sprintem')}}/images/whatsapp.png" alt="WhatsApp">
+                                                CONTATO PELO WHATSAPP
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="col-xs-12 col-md-12">
+                                            <button type="submit" class="button cart_button btn-block">ENVIAR</button>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 

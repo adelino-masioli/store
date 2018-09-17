@@ -925,8 +925,8 @@ $(document).ready(function()
 				nav:false,
 				dots:false,
 				autoWidth:true,
-				items:8,
-				margin:42
+				items:6,
+				margin:55
 			});
 
 			if($('.brands_prev').length)

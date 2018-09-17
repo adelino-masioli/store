@@ -10,14 +10,12 @@
 
 						<div class="owl-carousel owl-theme brands_slider">
 							
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_1.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_2.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_3.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_4.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_5.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_6.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_7.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/brands_8.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/fiat.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/ford.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/hyandai.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/iveco.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/kia.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{asset('templates/sprintem')}}/images/patner/reanult.jpg" alt=""></div></div>
 
 						</div>
 						

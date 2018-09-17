@@ -10,6 +10,18 @@
 <script src="{{asset('templates/sprintem')}}/plugins/slick-1.8.0/slick.js"></script>
 <script src="{{asset('templates/sprintem')}}/plugins/easing/easing.js"></script>
 <script src="{{asset('templates/sprintem')}}/js/custom.js"></script>
+
+<script>
+    $(document).ready(function($) {
+        var Body = $('body');
+        Body.addClass('preloader-site');
+    });
+
+    $(window).on('load', function() {
+        $('.preloader-wrapper').fadeOut();
+        $('body').removeClass('preloader-site');
+    });
+</script>
 </body>
 
 </html>

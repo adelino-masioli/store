@@ -17,3 +17,9 @@
 
 </head>
 <body>
+{{-- preloader-wrapper --}}
+<div class="preloader-wrapper">
+    <div class="preloader">
+        <img src="{{asset('templates/sprintem/images/preload.gif')}}" alt="{{$configuration['name']}}}">
+    </div>
+</div>
