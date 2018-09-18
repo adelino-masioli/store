@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txt_message_quote">Mensagem</label>
-                                <textarea  class="form-control" id="txt_message_quote" name="message"  placeholder="Informe o assunto" required="required"></textarea>
+                                <textarea  class="form-control" id="txt_message_quote" name="message"  placeholder="Informe a mensagem" required="required"></textarea>
                             </div>
                             <div class="button_container">
                                 <div class="row">
