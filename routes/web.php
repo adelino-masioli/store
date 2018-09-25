@@ -21,9 +21,14 @@ Auth::routes();
 Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
     Route::get('/register', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/products', 'ProductController@index')->name('products');
     Route::get('/datatable-products', 'ProductController@getDatatable')->name('datatable-products');
+    Route::get('/product-create', 'ProductController@create')->name('product-create');
+    Route::post('/product-store', 'ProductController@store')->name('product-store');
     Route::get('/product-edit/{id}', 'ProductController@edit')->name('product-edit');
     Route::get('/product-destroy/{id}', 'ProductController@destroy')->name('product-destroy');
     Route::post('/product-update', 'ProductController@update')->name('product-update');
     Route::post('/product-category', 'ProductController@productCategory')->name('product-category');
+    Route::post('/product-image', 'ProductImageController@store')->name('product-image-store');
+    Route::get('/product-image-destroy/{id}', 'ProductImageController@destroy')->name('product-image-destroy');
 });

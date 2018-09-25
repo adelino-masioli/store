@@ -18,6 +18,18 @@
             <li class="header">MENU NAVEGAÇÃO</li>
             <li class="active treeview menu-open">
                 <a href="#">
+                    <i class="fa fa-cube"></i> <span>Produtos</span>
+                    <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('products')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                    <li><a href="{{route('product-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                </ul>
+            </li>
+            <li class="active treeview menu-open">
+                <a href="#">
                     <i class="fa fa-users"></i> <span>Usuários</span>
                     <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -28,6 +40,9 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
                 </ul>
             </li>
+
+
+
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Configurações</span></a></li>
         </ul>
     </section>

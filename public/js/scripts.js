@@ -17,3 +17,30 @@ function toast(heading, text, position, color){
         loaderBg: color
     })
 }
+
+//selected tabs
+$(document).ready(function(){
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('#tabs a[href="' + activeTab + '"]').tab('show');
+    }
+
+
+    $('.checkbox').iCheck({
+        checkboxClass: 'icheckbox_minimal-grey',
+        radioClass   : 'iradio_minimal-grey'
+    });
+
+
+    $('.select2').select2();
+
+    $(":file").filestyle();
+});
+
+
+function formSubmit(form){
+    $(form).submit()
+}

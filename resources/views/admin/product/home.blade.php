@@ -19,14 +19,14 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="" class="btn btn-sm bg-aqua margin-r-5">Novo Produto</a>
+                    <a href="{{route('product-create')}}" class="btn btn-sm bg-aqua margin-r-5">Novo Produto</a>
                     <a href="" class="btn btn-sm bg-yellow">Nova Categoria</a>
                 </div>
 
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            @include('sprintem.messages.messages_register')
+                            @include('admin.messages.messages_register')
                         </div>
 
                         <div class="col-md-12">
@@ -34,9 +34,9 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
-                                    <th class="hidden-xs col-md-2 text-center">AÇÃO</th>
-                                    <th class="col-md-7 text-center">NOME DO PRODUTO</th>
-                                    <th class="hidden-xs col-md-2 text-center">STATUS</th>
+                                    <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
+                                    <th class="col-md-9 text-center">NOME DO PRODUTO</th>
+                                    <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -64,7 +64,7 @@
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
-                {data: 'status', name: 'status'},
+                {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {

@@ -9,10 +9,10 @@
             Produto
         @endslot
         @slot('small')
-            Editando o produto: {{$product->name}}
+            Cadastro de produto
         @endslot
         @slot('link')
-            Edição de produto
+            Novo produto
         @endslot
     @endcomponent
 
@@ -37,20 +37,15 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Produto</a></li>
-                                        <li role="presentation"><a href="#category" aria-controls="category" role="tab" data-toggle="tab">Categorias</a></li>
-                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab">Imagens</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="product">
-                                            <form action="{{route('product-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$product->id}}">
+                                            <form action="{{route('product-store')}}" method="post" class="panels" id="formsubmit">
                                                 @include('admin.product.partials.form')
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="category">@include('admin.product.partials.category')</div>
-                                        <div role="tabpanel" class="tab-pane" id="images">@include('admin.product.partials.image')</div>
                                     </div>
                                 </div>
                             </div>
@@ -86,29 +81,5 @@
             $('.money').mask('#.##0,00', {reverse: true});
         });
 
-        //select category
-        function selectCategory(id) {
-            let token = $('input[name=_token]').val()
-            let caetetory_selected = '#category_'+id;
-            if($(caetetory_selected + ' .cat_name').hasClass('active-selected-category')){
-                $(caetetory_selected + ' .cat_name').removeClass('active-selected-category');
-                $(caetetory_selected + ' .cat_status').removeClass('selected-category');
-                $(caetetory_selected + ' .cat_status').text('Não');
-            }else{
-                $(caetetory_selected + ' .cat_name').addClass('active-selected-category');
-                $(caetetory_selected + ' .cat_status').addClass('selected-category');
-                $(caetetory_selected + ' .cat_status').text('Sim');
-            }
-
-            var vUrl = '{{route('product-category')}}';
-            var vData = { product_id:'{{$product->id}}', category_id:id, _token:token};
-            $.post(
-                vUrl,
-                vData,
-                function(response,status){
-                    toast('Importante', 'Salvo com sucesso!', 'top-right', '#2594ff')
-                }
-            );
-        }
     </script>
 @endpush

@@ -23,12 +23,12 @@ body{
 }
 
 .selected-category{
-    background: #09b72f;
+    background: #00a65a ;
     color: #ffffff;
     cursor: default!important;
 }
 .selected-category:hover{
-    background: #09b72f!important;
+    background: #00a65a !important;
 }
 .active-selected-category{
     font-weight: bold;
@@ -59,6 +59,43 @@ body{
     padding: 8px;
     margin-bottom: 8px;
 }
+
+.select2-container--default .select2-selection--single{
+    border-radius: 0px;
+    height: 34px;
+    border: 1px solid #d2d6de;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    margin-top: -6px;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #f1f1f1;
+    color: #666666;
+}
+
+
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active{
+    border-top-color: #666666;
+}
+
+
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #666666;
+    border-color: #666666;
+}
+
 
 /*preload*/
 /*----------------------- Preloader -----------------------*/

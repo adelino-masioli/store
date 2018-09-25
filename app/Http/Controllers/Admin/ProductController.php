@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductImage;
+use App\Services\Messages;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -20,46 +22,53 @@ class ProductController extends Controller
     //index
     public function index()
     {
-        return view('admin.home');
+        return view('admin.product.home');
     }
 
     //get
     public function getDatatable(Request $request)
     {
-        $model = Product::select(['id',  'name', 'status',]);
+        $model = Product::select(['id',  'name', 'status',])->where('status', '!=', 3);
 
         return DataTables::eloquent($model)
             ->addColumn('status', function ($data) {
-                return $data->active==1 ? 'Ativo' : 'Inativo';
+                return $data->status== 1 ? 'Ativo' : 'Inativo';
             })
             ->addColumn('action', function ($data) {
-                return '<a href="'.route('product-edit', [$data->id]).'"  class="btn btn-primary btn-xs">Editar</a>
-                        <a href="'.route('product-destroy', [$data->id]).'"  class="btn btn-danger btn-xs">Excluir</a>
+                return '<a href="'.route('product-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="'.route('product-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })
             ->toJson();
     }
 
     //create
-    public static function create(Request $request)
+    public function create()
+    {
+        return view('admin.product.create');
+    }
+
+
+    //store
+    public static function store(Request $request)
     {
         try{
+            $messages = Messages::msgProduct();
             $validator = Validator::make($request->all(), [
-                'sku'              => 'required|string',
-                'name'             => 'required|string|max:200|unique:products',
-                'description'      => 'required|string',
-                'meta_title'       => 'required|string',
-                'meta_description' => 'required|string',
-                'meta_keyword'     => 'required|string',
-                'price'            => 'required|string',
-                'qty'              => 'required|string'
-            ]);
+                'sku'              => 'required',
+                'name'             => 'required|string|min:5|max:200|unique:products',
+                'description'      => 'required',
+                'meta_title'       => 'required',
+                'meta_description' => 'required',
+                'meta_keyword'     => 'required',
+                'price'            => 'required',
+                'qty'              => 'required'
+            ], $messages);
             if ($validator->fails()) {
-                session()->flash('error_quote', 'Erro ao salvar!');
-                return redirect()->back();
+                return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            Product::create([
+            $product = Product::create([
                 'sku'              => $request['sku'],
                 'name'             => $request['product_name'],
                 'slug'             => str_slug($request['product_name'], '-'),
@@ -67,14 +76,13 @@ class ProductController extends Controller
                 'meta_title'       => $request['meta_title'],
                 'meta_description' => $request['meta_description'],
                 'meta_keyword'     => $request['meta_keyword'],
-                'price'            => $request['price'],
+                'price'            => moneyReverse($request['price']),
                 'qty'              => $request['qty'],
-                'status'           => $request['status'],
+                'status'           => 2
             ]);
-            session()->flash('success_quote', 'Salvo com sucesso!');
-            return redirect()->back();
+            return redirect(route('product-edit', [$product->id]));
         }catch(\Exception $e){
-            session()->flash('error_quote', 'Erro ao salvar!');
+            session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();
         }
     }
@@ -85,7 +93,8 @@ class ProductController extends Controller
         $product = Product::findOrfail($id);
         $product_categories = ProductCategory::where('product_id', $id)->get()->pluck('category_id')->toArray();
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.product.edit', compact('product', 'categories', 'product_categories'));
+        $product_images = ProductImage::where('product_id', $id)->get();
+        return view('admin.product.edit', compact('product', 'categories', 'product_categories', 'product_images'));
     }
 
 
@@ -95,19 +104,19 @@ class ProductController extends Controller
         try{
             $product = Product::findOrFail($request->id);
 
+            $messages = Messages::msgProduct();
             $validator = Validator::make($request->all(), [
-                'sku'              => 'required|string',
-                'name'             => 'required|string|max:200|unique:products,name,'.$request['id'],
-                'description'      => 'required|string',
-                'meta_title'       => 'required|string',
-                'meta_description' => 'required|string',
-                'meta_keyword'     => 'required|string',
-                'price'            => 'required|string',
-                'qty'              => 'required|string'
-            ]);
+                'sku'              => 'required',
+                'name'             => 'required|string|min:5max:200|unique:products,name,'.$request['id'],
+                'description'      => 'required',
+                'meta_title'       => 'required',
+                'meta_description' => 'required',
+                'meta_keyword'     => 'required',
+                'price'            => 'required',
+                'qty'              => 'required'
+            ], $messages);
             if ($validator->fails()) {
-                session()->flash('error', 'Erro ao salvar!');
-                return redirect()->back();
+                return redirect()->back()->withErrors($validator);
                 exit();
             }
             $data = [
@@ -140,7 +149,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         if($product){
-            $product->delete();
+            $data['status'] = 3;
+            $product->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();

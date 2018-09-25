@@ -22,6 +22,9 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('Backend/dist/css/skins/_all-skins.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('Backend/bower_components/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('Backend/plugins/iCheck/all.css')}}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -81,6 +84,12 @@
     <script src="{{asset('Backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 
     <script src="{{asset('plugins/toast/jquery.toast.min.js')}}"></script>
+
+    <script src="{{asset('Backend/plugins/iCheck/icheck.min.js')}}"></script>
+
+    <script src="{{asset('Backend/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+
+    <script src="{{asset('plugins/bootstrap-filestyle-2.1.0/bootstrap-filestyle.min.js')}}"></script>
 
     <script src="{{asset('js/scripts.js')}}"></script>
 
