@@ -45,4 +45,9 @@ class User extends Authenticatable
     public function type() {
         return $this->belongsTo('App\Models\UserType', 'type_id');
     }
+
+    public function documents()
+    {
+        return $this->belongsToMany('App\Models\Document');
+    }
 }

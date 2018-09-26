@@ -38,4 +38,17 @@ class UploadImage
         $image->save($fullPathThumb, 100);
 
     }
+
+    public static function uploadFile($file, $fileName, $path)
+    {
+        $destinationPath = public_path($path);
+
+
+        if (!file_exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0775,true);
+        }
+
+        $file->move($destinationPath, $fileName);
+
+    }
 }

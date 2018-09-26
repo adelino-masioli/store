@@ -1,0 +1,2 @@
+<a href="{{route('documents')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat">Listagem de Documentos</a>
+<a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');">Salvar Documento</a>

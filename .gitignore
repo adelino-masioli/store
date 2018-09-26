@@ -3,6 +3,7 @@
 /public/catalog
 /public/avatar
 /public/brand
+/public/downloads
 /public/storage
 /storage/*.key
 /vendor

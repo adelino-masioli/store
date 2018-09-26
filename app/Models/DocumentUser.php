@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class UserComplement extends Model
+class DocumentUser extends Model
 {
     use Notifiable;
     /**
@@ -19,17 +19,14 @@ class UserComplement extends Model
      *
      * @var array
      */
-    protected $table = 'user_complements';
+    protected $table = 'document_users';
     protected $fillable = [
-        'company',
-        'zipcode',
-        'address',
-        'district',
-        'number',
-        'state',
-        'city',
-        'phone',
-        'cellphone',
-        'user_id'
+        'user_id',
+        'document_id'
     ];
+
+    public function documents()
+    {
+        return $this->belongsToMany('App\Model\Document', 'documents');
+    }
 }

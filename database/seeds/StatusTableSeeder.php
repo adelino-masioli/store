@@ -31,5 +31,15 @@ class StatusTableSeeder extends Seeder
             'status'  => 'Fechado',
             'flag'    => 'reader',
         ]);
+
+        DB::table('status')->insert([
+            'status'  => 'Não baixado',
+            'flag'    => 'document',
+        ]);
+
+        DB::table('status')->insert([
+            'status'  => 'Baixado',
+            'flag'    => 'document',
+        ]);
     }
 }

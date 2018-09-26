@@ -85,4 +85,14 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     //newsletter
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters');
     Route::get('/datatable-newsletters', 'NewsletterController@getDatatable')->name('datatable-newsletters');
+
+    //document
+    Route::get('/documents', 'DocumentController@index')->name('documents');
+    Route::get('/datatable-documents', 'DocumentController@getDatatable')->name('datatable-documents');
+    Route::get('/document/create', 'DocumentController@create')->name('document-create');
+    Route::post('/document/store', 'DocumentController@store')->name('document-store');
+    Route::get('/document/edit/{id}', 'DocumentController@edit')->name('document-edit');
+    Route::get('/document/destroy/{id}', 'DocumentController@destroy')->name('document-destroy');
+    Route::post('/document/update', 'DocumentController@update')->name('document-update');
+    Route::get('/document/download/{file}', 'DocumentController@download')->name('document-download');
 });

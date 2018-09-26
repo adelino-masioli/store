@@ -54,8 +54,7 @@
             </div>
         @endif
 
-
-            @if(isset($configurations) && $configurations != '')
+        @if(isset($configurations) && $configurations != '')
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="configuration_id">Empresa</label>
@@ -70,13 +69,21 @@
     </div>
 
 
-    @if(isset($user))
+    @if(isset($user)) {{--complements--}}
     <div class="box">
         <div class="box-header with-border">
             <strong>Complementos do usuário</strong>
         </div>
         <div class="box-body">
-            <div class="row">{{--complements--}}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="company">Nome da empresa</label>
+                        <input type="text" class="form-control" id="company" name="company" placeholder="Nome da empresa" value="@if(isset($user_complemento)){{$user_complemento->company}}@else{{old('company')}}@endif">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="zipcode">CEP</label>

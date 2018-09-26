@@ -103,4 +103,19 @@ class Messages
         return $messages;
     }
 
+
+    public  static function msgDocument()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o NOME DO ARQUIVO',
+            'name.string'               => 'Favor informar o NOME DO ARQUIVO como texto',
+            'name.min'                  => 'Favor informar o NOME DO ARQUIVO com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o NOME DO ARQUIVO com máximo 100 caracteres',
+            'type.required'             => 'Favor informar o TIPO DO ARQUIVO',
+            'description.required'      => 'Favor informar a DESCRIÇÃO',
+        ];
+
+        return $messages;
+    }
+
 }

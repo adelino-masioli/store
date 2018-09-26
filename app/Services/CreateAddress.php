@@ -18,6 +18,7 @@ class CreateAddress
         $user_complement_count = UserComplement::where('user_id', $request->id);
         if($user_complement_count->count() > 0){
             $array = [
+                'company'    => $request->company,
                 'zipcode'    => $request->zipcode,
                 'address'    => $request->address,
                 'district'   => $request->district,
@@ -32,6 +33,7 @@ class CreateAddress
             $user_complement_count->first()->update($array);
         }else{
             $array = [
+                'company'    => $request->company,
                 'zipcode'    => $request->zipcode,
                 'address'    => $request->address,
                 'district'   => $request->district,

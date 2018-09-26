@@ -17,6 +17,7 @@ class CreateUserComplementsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('company')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('address')->nullable();
             $table->string('district')->nullable();

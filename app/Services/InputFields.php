@@ -63,7 +63,7 @@ class InputFields
     }
 
     public static function inputFieldsCategory($request){
-        $status = $request['status'] ? $request['status'] : 2;
+        $status = $request['status_id'] ? $request['status_id'] : 2;
         $profile = Auth::user()->type_id;
         if($profile > 1){
             $configuration_id = Auth::user()->configuration_id;
@@ -84,7 +84,7 @@ class InputFields
 
 
     public static function inputFieldsProduct($request){
-        $status = $request['status'] ? $request['status'] : 2;
+        $status = $request['status_id'] ? $request['status_id'] : 2;
         $profile = Auth::user()->type_id;
         if($profile > 1){
             $configuration_id = Auth::user()->configuration_id;
@@ -104,6 +104,32 @@ class InputFields
             'qty'              => $request['qty'],
             'configuration_id' => $configuration_id,
             'status_id'        => $status
+        ];
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsDocument($request, $extension, $size, $fileName){
+        $status = $request['status_id'] ? $request['status_id'] : 5;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        $fields = [
+            'name'               => $request['name'],
+            'description'        => $request['description'],
+            'type'               => $request['type'],
+            'file'               => $fileName,
+            'extension'          => $extension,
+            'size'               => $size,
+            'date'               => date('Y:m:d'),
+            'time'               => date('H:i:s'),
+            'configuration_id'   => $configuration_id,
+            'status_id'          => $status
         ];
 
         return $fields;
