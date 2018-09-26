@@ -31,6 +31,9 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/configuration/edit/{id}', 'ConfigurationController@edit')->name('configuration-edit');
     Route::get('/configuration/destroy/{id}', 'ConfigurationController@destroy')->name('configuration-destroy');
     Route::post('/configuration/update', 'ConfigurationController@update')->name('configuration-update');
+    Route::post('/configuration/brand', 'ConfigurationController@updateBrand')->name('configuration-brand');
+    Route::get('/configuration/brand-destroy/{id}', 'ConfigurationController@destroyBrand')->name('configuration-brand-destroy');
+
 
     //user
     Route::get('/user/me', 'UserController@me')->name('me');
@@ -41,6 +44,8 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/user/edit/{id}', 'UserController@edit')->name('user-edit');
     Route::get('/user/destroy/{id}', 'UserController@destroy')->name('user-destroy');
     Route::post('/user/update', 'UserController@update')->name('user-update');
+    Route::post('/user/avatar', 'UserController@updateAvatar')->name('user-avatar');
+    Route::get('/user/avatar-destroy/{id}', 'UserController@destroyAvatar')->name('user-avatar-destroy');
 
     //product
     Route::get('/products', 'ProductController@index')->name('products');

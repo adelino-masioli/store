@@ -36,6 +36,7 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#singletab" aria-controls="singletab" role="tab" data-toggle="tab">Usuário</a></li>
+                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab">Avatar</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
@@ -46,6 +47,7 @@
                                                 @include('admin.user.partials.form')
                                             </form>
                                         </div>
+                                        <div role="tabpanel" class="tab-pane" id="images">@include('admin.user.partials.image')</div>
                                     </div>
                                 </div>
                             </div>

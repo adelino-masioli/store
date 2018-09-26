@@ -21,14 +21,22 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{asset('images/avatar.png')}}" class="user-image" alt="User Image">
+                        @if(Auth::user()->avatar != '')
+                            <img src="{{url('/').'/avatar/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="user-image">
+                        @else
+                            <img src="{{asset('images/avatar.png')}}" class="user-image" alt="{{Auth::user()->name}}">
+                        @endif
+
                         <span class="hidden-xs">{{Auth::user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="User Image">
-
+                            @if(Auth::user()->avatar != '')
+                                <img src="{{url('/').'/avatar/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
+                            @else
+                                <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
+                            @endif
                             <p>
                                 {{Auth::user()->name}}
                                 <small>{{Auth::user()->email}}</small>

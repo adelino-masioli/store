@@ -33,6 +33,7 @@ class Configuration extends Model
         'number',
         'state',
         'city',
+        'brand',
         'status_id',
     ];
 

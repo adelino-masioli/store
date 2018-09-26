@@ -29,6 +29,7 @@ class CreateConfigurationsTable extends Migration
             $table->string('number')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
+            $table->string('brand')->nullable();
             $table->timestamps();
         });
     }

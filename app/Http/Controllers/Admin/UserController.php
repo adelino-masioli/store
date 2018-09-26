@@ -5,15 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
 use App\Models\Status;
+use App\Models\UserComplement;
 use App\Models\UserType;
+use App\Services\CreateAddress;
 use App\Services\InputFields;
 use App\Services\Messages;
+use App\Services\UploadImage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use App\Traits\DataTableTrait;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -120,7 +124,9 @@ class UserController extends Controller
             $configurations = Configuration::get();
         }
 
-        return view('admin.user.edit', compact('user', 'status', 'types', 'configurations'));
+        $user_complemento = UserComplement::where('user_id', $id)->first();
+
+        return view('admin.user.edit', compact('user', 'status', 'types', 'configurations', 'user_complemento'));
     }
 
 
@@ -152,8 +158,52 @@ class UserController extends Controller
             $data = InputFields::inputFieldsUser($request);
             $result->update($data);
 
+
+            //create complement
+            CreateAddress::createComplement($request);
+
+
             session()->flash('success', 'Salvo com sucesso!');
             return redirect()->back();
+        }catch(\Exception $e){
+            session()->flash('error', 'Erro ao salvar!');
+            return redirect()->back();
+        }
+    }
+
+    //update avatar
+    public static function updateAvatar(Request $request)
+    {
+        try{
+            if($request->hasFile('image')) {
+                $result = User::findOrFail($request->user_id);
+                if(File::exists(public_path().'/avatar/thumb/'.$result->avatar)){
+                    File::delete(public_path().'/avatar/thumb/'.$result->avatar);
+                }
+                if(File::exists(public_path().'/avatar/'.$result->avatar)){
+                    File::delete(public_path().'/avatar/'.$result->avatar);
+                }
+
+                //get image attr
+                $image = $request->file('image');
+                $file = $image;
+                $extension = $image->getClientOriginalExtension();
+                $fileName = time() . random_int(100, 999) .'.' . $extension;
+                $path = 'avatar/';
+
+                $data['avatar'] = $fileName;
+                $result->update($data);
+
+                //upload image
+                UploadImage::uploadImage(200, 70,  $file, $fileName, $path);
+
+
+                session()->flash('success', 'Salvo com sucesso!');
+                return redirect()->back();
+            }else{
+                session()->flash('error', 'Favor selecionar o avatar!');
+                return redirect()->back();
+            }
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();
@@ -168,6 +218,24 @@ class UserController extends Controller
         if($result){
             $data['status_id'] = 3;
             $result->update($data);
+        }
+        session()->flash('success', 'Excluído com sucesso!');
+        return redirect()->back();
+    }
+
+    //destroy
+    public static function destroyAvatar($id)
+    {
+        $image = User::findOrfail($id);
+        if(File::exists(public_path().'/avatar/thumb/'.$image->avatar)){
+            File::delete(public_path().'/avatar/thumb/'.$image->avatar);
+        }
+        if(File::exists(public_path().'/avatar/'.$image->avatar)){
+            File::delete(public_path().'/avatar/'.$image->avatar);
+        }
+        if($image){
+            $data['avatar'] = '';
+            $image->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();

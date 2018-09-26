@@ -29,6 +29,6 @@ class UserComplement extends Model
         'city',
         'phone',
         'cellphone',
-        'status_id'
+        'user_id'
     ];
 }

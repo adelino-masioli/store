@@ -7,9 +7,11 @@ use App\Models\Configuration;
 use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
+use App\Services\UploadImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\File;
 
 class ConfigurationController extends Controller
 {
@@ -134,6 +136,44 @@ class ConfigurationController extends Controller
     }
 
 
+    //update brand
+    public static function updateBrand(Request $request)
+    {
+        try{
+            if($request->hasFile('image')) {
+                $result = Configuration::findOrFail($request->id);
+                if(File::exists(public_path().'/brand/thumb/'.$result->avatar)){
+                    File::delete(public_path().'/brand/thumb/'.$result->avatar);
+                }
+                if(File::exists(public_path().'/brand/'.$result->avatar)){
+                    File::delete(public_path().'/brand/'.$result->avatar);
+                }
+
+                //get image attr
+                $image = $request->file('image');
+                $file = $image;
+                $extension = $image->getClientOriginalExtension();
+                $fileName = time() . random_int(100, 999) .'.' . $extension;
+                $path = 'brand/';
+
+                $data['brand'] = $fileName;
+                $result->update($data);
+
+                //upload image
+                UploadImage::uploadImage(300, 100,  $file, $fileName, $path);
+
+                session()->flash('success', 'Salvo com sucesso!');
+                return redirect()->back();
+            }else{
+                session()->flash('error', 'Favor selecionar o avatar!');
+                return redirect()->back();
+            }
+        }catch(\Exception $e){
+            session()->flash('error', 'Erro ao salvar!');
+            return redirect()->back();
+        }
+    }
+
     //destroy
     public static function destroy($id)
     {
@@ -141,6 +181,25 @@ class ConfigurationController extends Controller
         if($result){
             $data['status_id'] = 3;
             $result->update($data);
+        }
+        session()->flash('success', 'Excluído com sucesso!');
+        return redirect()->back();
+    }
+
+
+    //destroy brand
+    public static function destroyBrand($id)
+    {
+        $image = Configuration::findOrfail($id);
+        if(File::exists(public_path().'/brand/thumb/'.$image->brand)){
+            File::delete(public_path().'/brand/thumb/'.$image->brand);
+        }
+        if(File::exists(public_path().'/brand/'.$image->brand)){
+            File::delete(public_path().'/brand/'.$image->brand);
+        }
+        if($image){
+            $data['brand'] = '';
+            $image->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();
