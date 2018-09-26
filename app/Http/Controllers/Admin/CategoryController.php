@@ -91,7 +91,7 @@ class CategoryController extends Controller
         try{
             $category = Category::findOrFail($request->id);
 
-            $messages = Messages::msgProduct();
+            $messages = Messages::msgCategory();
             $validator = Validator::make($request->all(), [
                 'name'             => 'required|string|min:5max:200|unique:categories,name,'.$request['id'],
                 'description'      => 'required'

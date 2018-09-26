@@ -40,4 +40,11 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/category/edit/{id}', 'CategoryController@edit')->name('category-edit');
     Route::get('/category/destroy/{id}', 'CategoryController@destroy')->name('category-destroy');
     Route::post('/category/update', 'CategoryController@update')->name('category-update');
+
+    //contact
+    Route::get('/contacts', 'ContactController@index')->name('contacts');
+    Route::get('/datatable-contacts', 'ContactController@getDatatable')->name('datatable-contacts');
+    Route::get('/contact/edit/{id}', 'ContactController@edit')->name('contact-edit');
+    Route::get('/contact/destroy/{id}', 'ContactController@destroy')->name('contact-destroy');
+    Route::post('/contact/update', 'ContactController@update')->name('contact-update');
 });

@@ -45,4 +45,13 @@ class Messages
         return $messages;
     }
 
+    public  static function msgContact()
+    {
+        $messages = [
+            'message.required'             => 'Favor informar a MENSAGEM',
+        ];
+
+        return $messages;
+    }
+
 }
