@@ -31,4 +31,18 @@ class Messages
         return $messages;
     }
 
+    public  static function msgCategory()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o NOME DA CATEGORIA',
+            'name.string'               => 'Favor informar o NOME DA CATEGORIA como texto',
+            'name.min'                  => 'Favor informar o NOME DA CATEGORIA com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o NOME DA CATEGORIA com máximo 100 caracteres',
+            'name.unique'               => 'Este NOME DA CATEGORIA já existe',
+            'description.required'      => 'Favor informar a DESCRIÇÃO',
+        ];
+
+        return $messages;
+    }
+
 }

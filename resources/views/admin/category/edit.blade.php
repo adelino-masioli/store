@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Produto
+            Categoria
         @endslot
         @slot('small')
-            Cadastro de produto
+            Editando a categoria: {{$category->name}}
         @endslot
         @slot('link')
-            Novo produto
+            Edição de categoria
         @endslot
     @endcomponent
 
@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        @include('admin.product.partials.menu')
+                        @include('admin.category.partials.menu')
                     </div>
 
                     <div class="box-body">
@@ -35,14 +35,15 @@
                                 <div class="nav-tabs-custom">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
-                                        <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Produto</a></li>
+                                        <li role="presentation" class="active"><a href="#category" aria-controls="category" role="tab" data-toggle="tab">Categoria</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="product">
-                                            <form action="{{route('product-store')}}" method="post" class="panels" id="formsubmit">
-                                                @include('admin.product.partials.form')
+                                        <div role="tabpanel" class="tab-pane active" id="category">
+                                            <form action="{{route('category-update')}}" method="post" class="panels" id="formsubmit">
+                                                <input type="hidden" name="id" value="{{$category->id}}">
+                                                @include('admin.category.partials.form')
                                             </form>
                                         </div>
                                     </div>
@@ -76,9 +77,6 @@
                 ]
             });
 
-            //money
-            $('.money').mask('#.##0,00', {reverse: true});
         });
-
     </script>
 @endpush

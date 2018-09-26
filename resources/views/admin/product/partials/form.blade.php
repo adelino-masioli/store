@@ -62,7 +62,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="qty">Status</label>
-                    <select name="status" class="form-control" id="status" name="status">
+                    <select name="status" class="form-control select2" id="status" name="status">
                         <option @if(isset($product)) @if($product->status == 1) selected @endif @endif value="1">Ativo</option>
                         <option @if(isset($product)) @if($product->status == 2) selected @endif @endif value="2">Inativo</option>
                     </select>

@@ -35,7 +35,7 @@ class ProductController extends Controller
                 return $data->status== 1 ? 'Ativo' : 'Inativo';
             })
             ->addColumn('action', function ($data) {
-                return '<a href="'.route('product-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                return '<a onclick="localStorage.clear();" href="'.route('product-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
                         <a href="'.route('product-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })

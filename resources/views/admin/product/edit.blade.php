@@ -21,8 +21,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="{{route('products')}}" class="btn btn-sm bg-aqua margin-r-5 btn-flat">Listagem de Produto</a>
-                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');">Salvar</a>
+                        @include('admin.product.partials.menu')
                     </div>
 
                     <div class="box-body">

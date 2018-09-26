@@ -16,7 +16,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU NAVEGAÇÃO</li>
-            <li class="active treeview menu-open">
+            <li class="treeview menu-open">
                 <a href="#">
                     <i class="fa fa-cube"></i> <span>Produtos</span>
                     <span class="pull-right-container">
@@ -28,7 +28,22 @@
                     <li><a href="{{route('product-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
                 </ul>
             </li>
-            <li class="active treeview menu-open">
+
+            <li class="treeview menu-open">
+                <a href="#">
+                    <i class="fa fa-cubes"></i> <span>Categorias</span>
+                    <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('categories')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                    <li><a href="{{route('category-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview menu-open">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Usuários</span>
                     <span class="pull-right-container">
