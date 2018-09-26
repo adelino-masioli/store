@@ -27,6 +27,7 @@ class Quote extends Model
         'phone',
         'about',
         'message',
-        'status'
+        'status_id',
+        'configuration_id'
     ];
 }

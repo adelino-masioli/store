@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Contact extends Model
+class UserComplement extends Model
 {
     use Notifiable;
     /**
@@ -19,14 +19,16 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $table = 'contacts';
+    protected $table = 'user_complements';
     protected $fillable = [
-        'name',
-        'email',
+        'zipcode',
+        'address',
+        'district',
+        'number',
+        'state',
+        'city',
         'phone',
-        'about',
-        'message',
-        'status_id',
-        'configuration_id'
+        'cellphone',
+        'status_id'
     ];
 }

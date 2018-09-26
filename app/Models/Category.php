@@ -21,9 +21,11 @@ class Category extends Model
      */
     protected $table = 'categories';
     protected $fillable = [
+        'deep',
         'name',
         'description',
         'slug',
-        'status'
+        'status_id',
+        'configuration_id',
     ];
 }

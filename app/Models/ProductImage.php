@@ -25,7 +25,7 @@ class ProductImage extends Model
         'name',
         'image',
         'is_cover',
-        'status'
+        'status_id'
     ];
 
     public static function getCoverImage($product_id)

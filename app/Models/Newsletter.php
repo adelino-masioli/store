@@ -22,6 +22,8 @@ class Newsletter extends Model
     protected $table = 'newsletters';
     protected $fillable = [
         'name',
-        'email'
+        'email',
+        'status_id',
+        'configuration_id'
     ];
 }

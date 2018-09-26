@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Contact extends Model
+class SubCategory extends Model
 {
     use Notifiable;
     /**
@@ -19,14 +19,14 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $table = 'contacts';
+    protected $table = 'sub_categories';
     protected $fillable = [
+        'deep',
         'name',
-        'email',
-        'phone',
-        'about',
-        'message',
+        'description',
+        'slug',
         'status_id',
-        'configuration_id'
+        'configuration_id',
+        'category_id',
     ];
 }

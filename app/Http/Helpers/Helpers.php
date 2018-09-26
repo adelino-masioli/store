@@ -91,3 +91,33 @@ function  moneyReverse($date)
     $price = str_replace('.', '', $date);
     return  str_replace(',', '.', $price);
 }
+//return status type
+function statusRegisterType($type)
+{
+    switch ($type) {
+        case 1:
+            return  "Ativo";
+            break;
+        case 2:
+            return  "Inativo";
+            break;
+        case 3:
+            return  "Excluído";
+            break;
+    }
+}
+//return user type
+function userType($type)
+{
+    switch ($type) {
+        case 1:
+            return  "Administrador";
+            break;
+        case 2:
+            return  "Moderador";
+            break;
+        case 3:
+            return  "Usuário";
+            break;
+    }
+}

@@ -22,13 +22,21 @@ class Configuration extends Model
     protected $table = 'configurations';
     protected $fillable = [
         'name',
+        'contact',
         'email',
         'phone',
         'whatsapp',
         'about',
+        'zipcode',
         'address',
         'district',
-        'state', 2,
-        'city'
+        'number',
+        'state',
+        'city',
+        'status_id',
     ];
+
+    public function status() {
+        return $this->belongsTo('App\Models\Status', 'status_id');
+    }
 }

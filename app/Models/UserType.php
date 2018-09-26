@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Contact extends Model
+class UserType extends Model
 {
     use Notifiable;
     /**
@@ -19,14 +19,8 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $table = 'contacts';
+    protected $table = 'user_types';
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'about',
-        'message',
-        'status_id',
-        'configuration_id'
+        'type'
     ];
 }

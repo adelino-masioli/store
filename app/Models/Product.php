@@ -30,7 +30,8 @@ class Product extends Model
         'slug',
         'price',
         'qty',
-        'status'
+        'status_id',
+        'configuration_id',
     ];
 
     public static function productByCategory($category_id)
