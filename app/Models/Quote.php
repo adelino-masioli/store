@@ -24,7 +24,9 @@ class Quote extends Model
         'product_name',
         'name',
         'email',
+        'phone',
         'about',
         'message',
+        'status'
     ];
 }

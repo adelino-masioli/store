@@ -31,6 +31,8 @@ class ProductImage extends Model
     public static function getCoverImage($product_id)
     {
         $image =  ProductImage::where('product_id', $product_id)->where('is_cover', 1)->first();
-        return $image->image;
+        if($image){
+            return $image->image;
+        }
     }
 }

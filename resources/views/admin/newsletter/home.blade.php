@@ -4,13 +4,13 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Dashboard
+        Newsletters
     @endslot
     @slot('small')
-        Listagem de Contatos
+        Listagem de Cadastros de emails do site
     @endslot
     @slot('link')
-        Contatos
+        Newsletters
     @endslot
 @endcomponent
 
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('quotes')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Orçamentos</a>
+                    <a href="{{route('contacts')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Contatos</a>
                 </div>
 
                 <div class="box-body">
@@ -29,16 +29,12 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="contacts-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="newsletters-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
-                                    <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">NOME DO CONTATO</th>
-                                    <th class="col-md-2 text-center">EMAIL</th>
-                                    <th class="col-md-1 text-center">TELEFONE</th>
-                                    <th class="col-md-3 text-center">ASSUNTO</th>
-                                    <th class="hidden-xs col-md-1 text-center">STATUS</th>
+                                    <th class="col-md-6 text-center">NOME DO CONTATO</th>
+                                    <th class="col-md-5 text-center">EMAIL</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -58,18 +54,14 @@
 @endsection
 @push('scripts')
     <script>
-        $('#contacts-table').DataTable({
+        $('#newsletters-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-contacts')}}',
+            ajax: '{{route('datatable-newsletters')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
-                {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
-                {data: 'phone', name: 'phone'},
-                {data: 'about', name: 'about'},
-                {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {

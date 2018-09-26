@@ -30,6 +30,10 @@
                                 <input type="email" class="form-control" id="txt_email_quote" name="email"  placeholder="Informe seu e-mail" required="required">
                             </div>
                             <div class="form-group">
+                                <label for="txt_phone_quote">Telefone</label>
+                                <input type="text" class="form-control" id="txt_phone_quote" name="phone"  placeholder="Informe seu telefone" required="required">
+                            </div>
+                            <div class="form-group">
                                 <label for="txt_about_quote">Assunto</label>
                                 <input type="text" class="form-control" id="txt_about_quote"  name="about"  placeholder="Informe o assunto" required="required">
                             </div>

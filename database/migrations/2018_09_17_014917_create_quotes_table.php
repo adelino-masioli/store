@@ -18,8 +18,10 @@ class CreateQuotesTable extends Migration
             $table->string('product_name');
             $table->string('name');
             $table->string('email');
+            $table->string('phone');
             $table->string('about');
             $table->text('message');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

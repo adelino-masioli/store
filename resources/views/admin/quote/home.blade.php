@@ -7,10 +7,10 @@
         Dashboard
     @endslot
     @slot('small')
-        Listagem de Contatos
+        Listagem de Orçamentos
     @endslot
     @slot('link')
-        Contatos
+        Orçamentos
     @endslot
 @endcomponent
 
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('quotes')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Orçamentos</a>
+                    <a href="{{route('contacts')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Contatos</a>
                 </div>
 
                 <div class="box-body">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="contacts-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="quotes-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
@@ -58,10 +58,10 @@
 @endsection
 @push('scripts')
     <script>
-        $('#contacts-table').DataTable({
+        $('#quotes-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-contacts')}}',
+            ajax: '{{route('datatable-quotes')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},

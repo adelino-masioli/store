@@ -13,25 +13,25 @@ class SiteController extends Controller
 {
     public static function index()
     {
-        $categories = Category::orderBy('name', 'ask')->take(12)->get();
-        $products = Product::orderBy('id', 'desc')->take(20)->get();
+        $categories = Category::orderBy('name', 'ask')->where('status', 1)->take(12)->get();
+        $products = Product::orderBy('id', 'desc')->where('status', 1)->take(20)->get();
         return view(config('app.template').'.index', compact('categories', 'products'));
     }
     public static function result(Request $request)
     {
-        $categories = Category::orderBy('name', 'ask')->take(12)->get();
-        $products = Product::where('name', 'like', '%' . $request['search'] . '%')->orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('name', 'ask')->where('status', 1)->take(12)->get();
+        $products = Product::where('name', 'like', '%' . $request['search'] . '%')->where('status', 1)->orderBy('id', 'desc')->get();
         $busca = $request['search'];
         return view(config('app.template').'.result', compact('categories', 'products', 'busca'));
     }
     public static function about()
     {
-        $categories = Category::orderBy('name', 'ask')->take(12)->get();
+        $categories = Category::orderBy('name', 'ask')->where('status', 1)->take(12)->get();
         return view(config('app.template').'.about', compact('categories'));
     }
     public static function contact()
     {
-        $categories = Category::orderBy('name', 'ask')->take(12)->get();
+        $categories = Category::orderBy('name', 'ask')->where('status', 1)->take(12)->get();
         return view(config('app.template').'.contact', compact('categories'));
     }
     public static function postNewsletter(Request $request)
@@ -64,6 +64,7 @@ class SiteController extends Controller
                 'product_name'  => 'required|string|max:200',
                 'name'          => 'required|string|max:200',
                 'email'         => 'required|string|email|max:200',
+                'phone'         => 'required',
                 'about'         => 'required|string|max:200',
                 'message'       => 'required|string'
             ]);
@@ -76,8 +77,10 @@ class SiteController extends Controller
                 'product_name'  => $request['product_name'],
                 'name'          => $request['name'],
                 'email'         => $request['email'],
+                'phone'         => $request['phone'],
                 'about'         => $request['about'],
                 'message'       => $request['message'],
+                'status'        => 2,
             ]);
             session()->flash('success_quote', 'Cadastro efetuado com sucesso!');
             return redirect()->back();
@@ -107,6 +110,7 @@ class SiteController extends Controller
                 'phone'         => $request['phone'],
                 'about'         => $request['about'],
                 'message'       => $request['message'],
+                'status'        => 2,
             ]);
             session()->flash('success_contact', 'Cadastro efetuado com sucesso!');
             return redirect()->back();

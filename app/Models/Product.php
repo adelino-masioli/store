@@ -35,7 +35,7 @@ class Product extends Model
 
     public static function productByCategory($category_id)
     {
-        $categories =  ProductCategory::where('category_id', $category_id)->get();
+        $categories =  ProductCategory::where('category_id', $category_id)->where('status', 1)->get();
 
         $productsArray = [];
         foreach ($categories as $category){
@@ -49,7 +49,7 @@ class Product extends Model
     public static function productCategory($product_id)
     {
         $category_id =  ProductCategory::where('product_id', $product_id)->first();
-        $category =  Category::where('id', $category_id->category_id)->first();
+        $category =  Category::where('id', $category_id->category_id)->where('status', 1)->first();
 
         return $category;
     }

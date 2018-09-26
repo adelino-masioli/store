@@ -47,4 +47,15 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/contact/edit/{id}', 'ContactController@edit')->name('contact-edit');
     Route::get('/contact/destroy/{id}', 'ContactController@destroy')->name('contact-destroy');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
+
+    //quote
+    Route::get('/quotes', 'QuoteController@index')->name('quotes');
+    Route::get('/datatable-quotes', 'QuoteController@getDatatable')->name('datatable-quotes');
+    Route::get('/quote/edit/{id}', 'QuoteController@edit')->name('quote-edit');
+    Route::get('/quote/destroy/{id}', 'QuoteController@destroy')->name('quote-destroy');
+    Route::post('/quote/update', 'QuoteController@update')->name('quote-update');
+
+    //newsletter
+    Route::get('/newsletters', 'NewsletterController@index')->name('newsletters');
+    Route::get('/datatable-newsletters', 'NewsletterController@getDatatable')->name('datatable-newsletters');
 });

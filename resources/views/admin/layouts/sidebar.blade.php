@@ -16,7 +16,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU NAVEGAÇÃO</li>
-            <li class="treeview menu-open">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cube"></i> <span>Produtos</span>
                     <span class="pull-right-container">
@@ -29,7 +29,7 @@
                 </ul>
             </li>
 
-            <li class="treeview menu-open">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cubes"></i> <span>Categorias</span>
                     <span class="pull-right-container">
@@ -43,7 +43,13 @@
             </li>
 
 
-            <li class="treeview menu-open">
+            <li><a href="{{route('contacts')}}"><i class="fa fa-envelope"></i> <span>Contatos</span></a></li>
+            <li><a href="{{route('newsletters')}}"><i class="fa fa-dollar"></i> <span>Orçamentos</span></a></li>
+            <li><a href="{{route('newsletters')}}"><i class="fa fa-send"></i> <span>Newsletters</span></a></li>
+
+
+
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Usuários</span>
                     <span class="pull-right-container">
