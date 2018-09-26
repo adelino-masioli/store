@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Newsletter;
+use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class NewsletterController extends Controller
 {
+    use DataTableTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,8 +24,14 @@ class NewsletterController extends Controller
     //get
     public function getDatatable(Request $request)
     {
-        $model = Newsletter::select(['id',  'name', 'email',]);
+        $model = new \App\Models\Newsletter;
+        $columns = ['id',  'name', 'email', 'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)->toJson();
+        return DataTables::eloquent($result)
+            ->addColumn('status', function ($data) {
+                return $data->status->status;
+            })
+            ->toJson();
     }
 }

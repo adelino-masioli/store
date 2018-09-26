@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductImage;
+use App\Models\Configuration;
+use App\Models\Status;
+use App\Services\InputFields;
 use App\Services\Messages;
+use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
+    use DataTableTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,11 +32,16 @@ class CategoryController extends Controller
     //get
     public function getDatatable(Request $request)
     {
-        $model = Category::select(['id',  'name', 'status',])->where('status', '!=', 3);
+        $model = new \App\Models\Category;
+        $columns = ['id',  'name',  'configuration_id', 'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)
+        return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
-                return $data->status== 1 ? 'Ativo' : 'Inativo';
+                return $data->status->status;
+            })
+            ->addColumn('configuration', function ($data) {
+                return $data->configuration_id ? $data->configuration->name : 'Sem proprietário';
             })
             ->addColumn('action', function ($data) {
                 return '<a onclick="localStorage.clear();" href="'.route('category-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
@@ -45,7 +54,14 @@ class CategoryController extends Controller
     //create
     public function create()
     {
-        return view('admin.category.create');
+        $status = Status::where('flag', 'default')->get();
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+        return view('admin.category.create', compact('status','configurations'));
     }
 
 
@@ -62,12 +78,7 @@ class CategoryController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            Category::create([
-                'name'             => $request['name'],
-                'slug'             => str_slug($request['name'], '-'),
-                'description'      => $request['description'],
-                'status'           => $request['status']
-            ]);
+            Category::create(InputFields::inputFieldsCategory($request));
 
             session()->flash('success', 'Salvo com sucesso!');
             return redirect()->back();
@@ -81,7 +92,15 @@ class CategoryController extends Controller
     public static function edit($id)
     {
         $category = Category::findOrfail($id);
-        return view('admin.category.edit', compact('category'));
+        $status = Status::where('flag', 'default')->get();
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+
+        return view('admin.category.edit', compact('category', 'status','configurations'));
     }
 
 
@@ -100,12 +119,7 @@ class CategoryController extends Controller
                 return redirect()->back()->withErrors($validator);
                 exit();
             }
-            $data = [
-                'name'             => $request['name'],
-                'slug'             => str_slug($request['name'], '-'),
-                'description'      => $request['description'],
-                'status'           => $request['status']
-            ];
+            $data = InputFields::inputFieldsCategory($request);
             $category->update($data);
 
             session()->flash('success', 'Salvo com sucesso!');

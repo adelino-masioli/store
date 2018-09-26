@@ -34,7 +34,8 @@
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-9 text-center">NOME DA CATEGORIA</th>
+                                    <th class="col-md-6 text-center">NOME DA CATEGORIA</th>
+                                    <th class="col-md-3 text-center">NOME DA EMPRESA</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -63,6 +64,7 @@
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
+                {data: 'configuration', name: 'configuration'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

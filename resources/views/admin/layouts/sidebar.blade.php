@@ -44,7 +44,7 @@
 
 
             <li><a href="{{route('contacts')}}"><i class="fa fa-envelope"></i> <span>Contatos</span></a></li>
-            <li><a href="{{route('newsletters')}}"><i class="fa fa-dollar"></i> <span>Orçamentos</span></a></li>
+            <li><a href="{{route('quotes')}}"><i class="fa fa-dollar"></i> <span>Orçamentos</span></a></li>
             <li><a href="{{route('newsletters')}}"><i class="fa fa-send"></i> <span>Newsletters</span></a></li>
 
 

@@ -33,8 +33,9 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
-                                    <th class="col-md-6 text-center">NOME DO CONTATO</th>
+                                    <th class="col-md-5 text-center">NOME DO CONTATO</th>
                                     <th class="col-md-5 text-center">EMAIL</th>
+                                    <th class="col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -62,6 +63,7 @@
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
+                {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {

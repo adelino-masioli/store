@@ -4,16 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Configuration;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
+use App\Models\Status;
+use App\Services\InputFields;
 use App\Services\Messages;
+use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    use DataTableTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,11 +35,17 @@ class ProductController extends Controller
     //get
     public function getDatatable(Request $request)
     {
-        $model = Product::select(['id',  'name', 'status',])->where('status', '!=', 3);
+        $model = new \App\Models\Product;
+        $columns = ['id',  'name',  'configuration_id', 'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)
+
+        return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
-                return $data->status== 1 ? 'Ativo' : 'Inativo';
+                return $data->status->status;
+            })
+            ->addColumn('configuration', function ($data) {
+                return $data->configuration_id ? $data->configuration->name : 'Sem proprietário';
             })
             ->addColumn('action', function ($data) {
                 return '<a onclick="localStorage.clear();" href="'.route('product-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
@@ -45,7 +58,14 @@ class ProductController extends Controller
     //create
     public function create()
     {
-        return view('admin.product.create');
+        $status = Status::where('flag', 'default')->get();
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+        return view('admin.product.create', compact('status','configurations'));
     }
 
 
@@ -68,18 +88,7 @@ class ProductController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            $product = Product::create([
-                'sku'              => $request['sku'],
-                'name'             => $request['product_name'],
-                'slug'             => str_slug($request['product_name'], '-'),
-                'description'      => $request['description'],
-                'meta_title'       => $request['meta_title'],
-                'meta_description' => $request['meta_description'],
-                'meta_keyword'     => $request['meta_keyword'],
-                'price'            => moneyReverse($request['price']),
-                'qty'              => $request['qty'],
-                'status'           => 2
-            ]);
+            $product = Product::create(InputFields::inputFieldsProduct($request));
             return redirect(route('product-edit', [$product->id]));
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
@@ -94,7 +103,16 @@ class ProductController extends Controller
         $product_categories = ProductCategory::where('product_id', $id)->get()->pluck('category_id')->toArray();
         $categories = Category::orderBy('name', 'asc')->get();
         $product_images = ProductImage::where('product_id', $id)->get();
-        return view('admin.product.edit', compact('product', 'categories', 'product_categories', 'product_images'));
+
+        $status = Status::where('flag', 'default')->get();
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+
+        return view('admin.product.edit', compact('product', 'categories', 'product_categories', 'product_images', 'status', 'configurations'));
     }
 
 
@@ -119,18 +137,7 @@ class ProductController extends Controller
                 return redirect()->back()->withErrors($validator);
                 exit();
             }
-            $data = [
-                'sku'              => $request['sku'],
-                'name'             => $request['name'],
-                'slug'             => str_slug($request['product_name'], '-'),
-                'description'      => $request['description'],
-                'meta_title'       => $request['meta_title'],
-                'meta_description' => $request['meta_description'],
-                'meta_keyword'     => $request['meta_keyword'],
-                'price'            => moneyReverse($request['price']),
-                'qty'              => $request['qty'],
-                'status'           => $request['status'],
-            ];
+            $data = InputFields::inputFieldsProduct($request);
             $product->update($data);
 
             session()->flash('success', 'Salvo com sucesso!');

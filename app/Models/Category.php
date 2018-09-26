@@ -28,4 +28,11 @@ class Category extends Model
         'status_id',
         'configuration_id',
     ];
+
+    public function status() {
+        return $this->belongsTo('App\Models\Status', 'status_id');
+    }
+    public function configuration() {
+        return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
 }

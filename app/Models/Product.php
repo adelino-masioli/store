@@ -54,4 +54,11 @@ class Product extends Model
 
         return $category;
     }
+
+    public function status() {
+        return $this->belongsTo('App\Models\Status', 'status_id');
+    }
+    public function configuration() {
+        return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
 }

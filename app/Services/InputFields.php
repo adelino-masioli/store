@@ -62,4 +62,51 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsCategory($request){
+        $status = $request['status'] ? $request['status'] : 2;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        $fields = [
+            'name'               => $request['name'],
+            'slug'               => str_slug($request['name'], '-'),
+            'description'        => $request['description'],
+            'status_id'          => $request['status_id'],
+            'configuration_id'   => $configuration_id
+        ];
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsProduct($request){
+        $status = $request['status'] ? $request['status'] : 2;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        $fields = [
+            'sku'              => $request['sku'],
+            'name'             => $request['name'],
+            'slug'             => str_slug($request['product_name'], '-'),
+            'description'      => $request['description'],
+            'meta_title'       => $request['meta_title'],
+            'meta_description' => $request['meta_description'],
+            'meta_keyword'     => $request['meta_keyword'],
+            'price'            => moneyReverse($request['price']),
+            'qty'              => $request['qty'],
+            'configuration_id' => $configuration_id,
+            'status_id'        => $status
+        ];
+
+        return $fields;
+    }
+
 }

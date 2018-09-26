@@ -46,25 +46,40 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="price">Preço<span class="text-danger">*</span></label>
                 <input type="text" class="form-control money" id="price" name="price" placeholder="Preço" value="@if(isset($product)){{$product->price}}@else{{old('price')}}@endif" required="required">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="qty">Quantidade<span class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantidade" value="@if(isset($product)){{$product->qty}}@else{{old('qty')}}@endif" required="required">
             </div>
         </div>
-        @if(isset($product))
-            <div class="col-md-4">
+        @if(isset($status))
+            <div class="col-md-3">
                 <div class="form-group">
-                    <label for="qty">Status</label>
-                    <select name="status" class="form-control select2" id="status" name="status">
-                        <option @if(isset($product)) @if($product->status == 1) selected @endif @endif value="1">Ativo</option>
-                        <option @if(isset($product)) @if($product->status == 2) selected @endif @endif value="2">Inativo</option>
+                    <label for="status_id">Status</label>
+                    <select class="form-control select2" id="status_id" name="status_id">
+                        @foreach($status as $status)
+                            <option @if(isset($product)) @if($product->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
+
+
+        @if(isset($configurations) && $configurations != '')
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="configuration_id">Empresa</label>
+                    <select class="form-control select2" id="configuration_id" name="configuration_id">
+                        @foreach($configurations as $configuration)
+                            <option @if(isset($product)) @if($product->configuration_id == $configuration->id) selected @endif @endif value="{{$configuration->id}}">{{$configuration->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

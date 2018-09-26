@@ -15,16 +15,33 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="qty">Status</label>
-                <select  class="form-control select2" id="status" name="status">
-                    <option @if(isset($category)) @if($category->status == 1) selected @endif @endif value="1">Ativo</option>
-                    <option @if(isset($category)) @if($category->status == 2) selected @endif @endif value="2">Inativo</option>
-                </select>
+        @if(isset($status))
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="status_id">Status</label>
+                    <select class="form-control select2" id="status_id" name="status_id">
+                        @foreach($status as $status)
+                            <option @if(isset($category)) @if($category->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
+        @endif
+
+
+        @if(isset($configurations) && $configurations != '')
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="configuration_id">Empresa</label>
+                    <select class="form-control select2" id="configuration_id" name="configuration_id">
+                        @foreach($configurations as $configuration)
+                            <option @if(isset($category)) @if($category->configuration_id == $configuration->id) selected @endif @endif value="{{$configuration->id}}">{{$configuration->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
     </div>

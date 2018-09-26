@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Quote;
+use App\Models\Status;
+use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class QuoteController extends Controller
 {
+    use DataTableTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,11 +27,14 @@ class QuoteController extends Controller
     //get
     public function getDatatable(Request $request)
     {
-        $model = Quote::select(['id',  'name', 'email', 'phone', 'about', 'status'])->where('status', '!=', 3);
+        $model = new \App\Models\Quote;
+        $columns = ['id',  'name', 'email', 'phone', 'about', 'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)
+
+        return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
-                return $data->status== 1 ? 'Aberto' : 'Concluído';
+                return $data->status->status;
             })
             ->addColumn('action', function ($data) {
                 return '<a onclick="localStorage.clear();" href="'.route('quote-edit', [$data->id]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-dollar"></i></a>
@@ -41,7 +48,8 @@ class QuoteController extends Controller
     public static function edit($id)
     {
         $quote = Quote::findOrfail($id);
-        return view('admin.quote.edit', compact('quote'));
+        $status = Status::where('flag', 'reader')->get();
+        return view('admin.quote.edit', compact('quote', 'status'));
     }
 
 
@@ -52,7 +60,7 @@ class QuoteController extends Controller
             $quote= Quote::findOrFail($request->id);
 
             $data = [
-                'status'           => $request['status']
+                'status_id'   => $request['status_id']
             ];
             $quote->update($data);
 
@@ -70,7 +78,7 @@ class QuoteController extends Controller
     {
         $quote = Quote::findOrfail($id);
         if($quote){
-            $data['status'] = 3;
+            $data['status_id'] = 3;
             $quote->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');

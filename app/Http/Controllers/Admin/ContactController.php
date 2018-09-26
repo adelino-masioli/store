@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Status;
+use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller
 {
+    use DataTableTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,11 +27,13 @@ class ContactController extends Controller
     //get
     public function getDatatable(Request $request)
     {
-        $model = Contact::select(['id',  'name', 'email', 'phone', 'about', 'status',])->where('status', '!=', 3);
+        $model = new \App\Models\Contact;
+        $columns = ['id',  'name', 'email', 'phone', 'about', 'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)
+        return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
-                return $data->status== 1 ? 'Aberto' : 'Concluído';
+                return $data->status->status;
             })
             ->addColumn('action', function ($data) {
                 return '<a onclick="localStorage.clear();" href="'.route('contact-edit', [$data->id]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-envelope-open-o"></i></a>
@@ -41,7 +47,8 @@ class ContactController extends Controller
     public static function edit($id)
     {
         $contact = Contact::findOrfail($id);
-        return view('admin.contact.edit', compact('contact'));
+        $status = Status::where('flag', 'reader')->get();
+        return view('admin.contact.edit', compact('contact', 'status'));
     }
 
 
@@ -52,7 +59,7 @@ class ContactController extends Controller
             $contact = Contact::findOrFail($request->id);
 
             $data = [
-                'status'           => $request['status']
+                'status_id'           => $request['status_id']
             ];
             $contact->update($data);
 
@@ -70,7 +77,7 @@ class ContactController extends Controller
     {
         $contact = Contact::findOrfail($id);
         if($contact){
-            $data['status'] = 3;
+            $data['status_id'] = 3;
             $contact->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');

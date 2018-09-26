@@ -11,15 +11,18 @@
                 <h5>@if(isset($quote)){{format_date($quote->created_at)}}@endif</h5>
             </div>
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="qty">Status</label>
-                    <select name="status" class="form-control select2" id="status" name="status">
-                        <option @if(isset($quote)) @if($quote->status == 1) selected @endif @endif value="1">Aberto</option>
-                        <option @if(isset($quote)) @if($quote->status == 2) selected @endif @endif value="2">Concluído</option>
-                    </select>
+            @if(isset($status))
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="status_id">Status</label>
+                        <select class="form-control select2" id="status_id" name="status_id">
+                            @foreach($status as $status)
+                                <option @if(isset($quote)) @if($quote->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
     <div class="mailbox-read-message">
