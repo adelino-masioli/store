@@ -57,14 +57,14 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Listagem</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                    <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                    <li><a href="{{route('user-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
                 </ul>
             </li>
 
 
 
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Configurações</span></a></li>
+            <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-red"></i> <span>Configurações</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

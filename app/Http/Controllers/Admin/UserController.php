@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductImage;
+use App\Models\Configuration;
+use App\Models\Status;
+use App\Models\UserType;
+use App\Services\InputFields;
 use App\Services\Messages;
 use App\User;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+use App\Traits\DataTableTrait;
 
 class UserController extends Controller
 {
+    use DataTableTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,21 +30,36 @@ class UserController extends Controller
         return view('admin.user.home');
     }
 
+
+    //me
+    public function me()
+    {
+        $id = Auth::user()->id;
+        $user = User::findOrfail($id);
+
+        return view('admin.user.me', compact('user'));
+    }
+
     //get
     public function getDatatable(Request $request)
     {
-        $model = User::select(['id',  'name', 'email', 'type', 'status',])->where('status', '!=', 3);
+        $model = new \App\User;
+        $columns = ['id',  'name', 'email', 'configuration_id', 'type_id',  'status_id'];
+        $result  = $this->dataTable($model, $columns);
 
-        return DataTables::eloquent($model)
+        return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
-                return $data->status== 1 ? 'Ativo' : 'Inativo';
+                return $data->status->status;
             })
             ->addColumn('type', function ($data) {
-                return userType($data->type);
+                return $data->type->type;
+            })
+            ->addColumn('configuration', function ($data) {
+                return $data->configuration_id ? $data->configuration->name : 'Super Usuário';
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('category-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('category-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                return '<a onclick="localStorage.clear();" href="'.route('user-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="'.route('user-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })
             ->toJson();
@@ -49,7 +68,16 @@ class UserController extends Controller
     //create
     public function create()
     {
-        return view('admin.user.create');
+        $status = Status::where('flag', 'default')->get();
+        $types = UserType::where('id', '>', 1)->get();
+
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+        return view('admin.user.create', compact('status', 'types', 'configurations'));
     }
 
 
@@ -62,19 +90,12 @@ class UserController extends Controller
                 'name'       => 'required|string|min:5|max:50',
                 'email'      => 'required|string|email|min:5|max:50|unique:users',
                 'password'   => 'required|min:6|confirmed', //password_confirmation
-                'type'       => 'required|min:6|confirmed'
             ], $messages);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            User::create([
-                'name'       => $request['name'],
-                'email'      => $request['email'],
-                'password'   => $request['password'],
-                'type'       => $request['type'],
-                'status'     => $request['status']
-            ]);
+            User::create(InputFields::inputFieldsUser($request));
 
             session()->flash('success', 'Salvo com sucesso!');
             return redirect()->back();
@@ -87,8 +108,19 @@ class UserController extends Controller
     //edit
     public static function edit($id)
     {
-        $category = User::findOrfail($id);
-        return view('admin.user.edit', compact('category'));
+        $user = User::findOrfail($id);
+
+        $status = Status::where('flag', 'default')->get();
+        $types = UserType::where('id', '>', 1)->get();
+
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configurations = '';
+        }else{
+            $configurations = Configuration::get();
+        }
+
+        return view('admin.user.edit', compact('user', 'status', 'types', 'configurations'));
     }
 
 
@@ -99,23 +131,25 @@ class UserController extends Controller
             $result = User::findOrFail($request->id);
 
             $messages = Messages::msgUser();
-            $validator = Validator::make($request->all(), [
-                'name'       => 'required|string|min:5|max:50',
-                'email'      => 'required|string|email|min:5|max:150|unique:users',
-                'password'   => 'required|min:6|confirmed', //password_confirmation
-                'type'       => 'required|min:6|confirmed'
-            ], $messages);
+
+            if($request['password']) {
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|string|min:5|max:50',
+                    'email' => 'required|string|email|min:5|max:150|unique:users,email,' . $request['id'],
+                    'password' => 'required|min:6|confirmed', //password_confirmation
+                ], $messages);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|string|min:5|max:50',
+                    'email' => 'required|string|email|min:5|max:150|unique:users,email,' . $request['id']
+                ], $messages);
+            }
+
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
                 exit();
             }
-            $data = [
-                'name'       => $request['name'],
-                'email'      => $request['email'],
-                'password'   => $request['password'],
-                'type'       => $request['type'],
-                'status'     => $request['status']
-            ];
+            $data = InputFields::inputFieldsUser($request);
             $result->update($data);
 
             session()->flash('success', 'Salvo com sucesso!');
@@ -132,7 +166,7 @@ class UserController extends Controller
     {
         $result = User::findOrfail($id);
         if($result){
-            $data['status'] = 3;
+            $data['status_id'] = 3;
             $result->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');

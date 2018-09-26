@@ -58,15 +58,18 @@ class Messages
     public  static function msgUser()
     {
         $messages = [
-            'name.required'   => 'Favor informar o NOME DO USUÁRIO',
-            'name.string'     => 'Favor informar o NOME DO USUÁRIO como texto',
-            'name.min'        => 'Favor informar o NOME DO USUÁRIO com mínimo 5 caracteres',
-            'name.max'        => 'Favor informar o NOME DO USUÁRIO com máximo 50 caracteres',
-            'email.required'  => 'Favor informar o EMAIL DO USUÁRIO',
-            'email.string'    => 'Favor informar o EMAIL DO USUÁRIO como texto',
-            'email.min'       => 'Favor informar o EMAIL DO USUÁRIO com mínimo 5 caracteres',
-            'email.max'       => 'Favor informar o EMAIL DO USUÁRIO com máximo 50 caracteres',
-            'email.unique'    => 'Este EMAIL DO USUÁRIO já está em uso',
+            'name.required'      => 'Favor informar o NOME DO USUÁRIO',
+            'name.string'        => 'Favor informar o NOME DO USUÁRIO como texto',
+            'name.min'           => 'Favor informar o NOME DO USUÁRIO com mínimo 5 caracteres',
+            'name.max'           => 'Favor informar o NOME DO USUÁRIO com máximo 50 caracteres',
+            'email.required'     => 'Favor informar o EMAIL DO USUÁRIO',
+            'email.string'       => 'Favor informar o EMAIL DO USUÁRIO como texto',
+            'email.min'          => 'Favor informar o EMAIL DO USUÁRIO com mínimo 5 caracteres',
+            'email.max'          => 'Favor informar o EMAIL DO USUÁRIO com máximo 50 caracteres',
+            'email.unique'       => 'Este EMAIL DO USUÁRIO já está em uso',
+            'password.required'  => 'Favor informar a SENHA',
+            'password.min'       => 'Favor informar a SENHA com mínimo 6 caracteres',
+            'password.confirmed' => 'Favor confirmar a SENHA',
         ];
 
         return $messages;

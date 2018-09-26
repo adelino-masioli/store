@@ -24,6 +24,12 @@ class ConfigurationController extends Controller
         return view('admin.configuration.home');
     }
 
+    //myConfig
+    public function myConfig()
+    {
+        return view('admin.configuration.myconfig');
+    }
+
     //get
     public function getDatatable(Request $request)
     {

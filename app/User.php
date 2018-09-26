@@ -31,4 +31,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function status() {
+        return $this->belongsTo('App\Models\Status', 'status_id');
+    }
+
+    public function configuration() {
+        return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
+
+    public function type() {
+        return $this->belongsTo('App\Models\UserType', 'type_id');
+    }
 }

@@ -23,6 +23,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/home', 'HomeController@index')->name('home');
 
     //configuration
+    Route::get('/configuration', 'ConfigurationController@myConfig')->name('configuration');
     Route::get('/configurations', 'ConfigurationController@index')->name('configurations');
     Route::get('/datatable-configurations', 'ConfigurationController@getDatatable')->name('datatable-configurations');
     Route::get('/configuration/create', 'ConfigurationController@create')->name('configuration-create');
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::post('/configuration/update', 'ConfigurationController@update')->name('configuration-update');
 
     //user
+    Route::get('/user/me', 'UserController@me')->name('me');
     Route::get('/users', 'UserController@index')->name('users');
     Route::get('/datatable-users', 'UserController@getDatatable')->name('datatable-users');
     Route::get('/user/create', 'UserController@create')->name('user-create');
