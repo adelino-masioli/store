@@ -38,7 +38,7 @@ class DocumentController extends Controller
     public function getDatatable(Request $request)
     {
         $model = new \App\Models\Document;
-        $columns = ['id',  'name',  'file', 'extension',  'created_at', 'updated_at', 'status_id'];
+        $columns = ['id',  'name',  'file', 'extension',  'created_at', 'type_id', 'updated_at', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
         return DataTables::eloquent($result)
@@ -47,6 +47,9 @@ class DocumentController extends Controller
             })
             ->addColumn('user', function ($data) {
                 return Document::user($data->id) ? Document::user($data->id)  : '--';
+            })
+            ->addColumn('type', function ($data) {
+                return $data->type->type;
             })
             ->addColumn('created_at', function ($data) {
                 return format_date($data->created_at);
@@ -195,9 +198,8 @@ class DocumentController extends Controller
                 $messages = Messages::msgDocument();
                 $validator = Validator::make($request->all(), [
                     'name'             => 'required|string|min:5|max:100',
-                    'type_id'           => 'required',
-                    'description'      => 'required',
-                    'file'             => 'required|mimes:jpeg,jpg,png,pdf,docx,doc',
+                    'type_id'          => 'required',
+                    'description'      => 'required'
                 ], $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator);

@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('document-create')}}" class="btn btn-sm bg-aqua margin-r-5">Novo Documento</a>
+                    <a href="{{route('document-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Compartilhar Novo Documento</a>
                 </div>
 
                 <div class="box-body">
@@ -34,8 +34,9 @@
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">NOME DO ARQUIVO</th>
+                                    <th class="col-md-2 text-center">NOME DO ARQUIVO</th>
                                     <th class="col-md-2 text-center">NOME DO CLIENTE</th>
+                                    <th class="col-md-1 text-center">TIPO</th>
                                     <th class="col-md-1 text-center">BAIXAR</th>
                                     <th class="col-md-1 text-center">EXTENSÃO</th>
                                     <th class="col-md-1 text-center">CRIADO</th>
@@ -69,11 +70,12 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
                 {data: 'user', name: 'user'},
+                {data: 'type', name: 'type', orderable: false, searchable: false},
                 {data: 'file', name: 'file', orderable: false, searchable: false, className: 'text-center'},
-                {data: 'extension', name: 'extension', className: 'text-center text-uppercase'},
+                {data: 'extension', name: 'extension', className: 'text-center text-uppercase', orderable: false, searchable: false},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
-                {data: 'status', name: 'status', className: 'text-center'},
+                {data: 'status', name: 'status', className: 'text-center', orderable: false, searchable: false},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {

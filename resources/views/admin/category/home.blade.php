@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('category-create')}}" class="btn btn-sm bg-aqua margin-r-5">Nova Categoria</a>
+                    <a href="{{route('category-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Nova Categoria</a>
                 </div>
 
                 <div class="box-body">

@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('banner-create')}}" class="btn btn-sm bg-aqua margin-r-5">Novo Banner</a>
+                    <a href="{{route('banner-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo Banner</a>
                 </div>
 
                 <div class="box-body">

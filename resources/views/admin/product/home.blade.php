@@ -19,8 +19,8 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('product-create')}}" class="btn btn-sm bg-aqua margin-r-5">Novo Produto</a>
-                    <a href="{{route('category-create')}}" class="btn btn-sm bg-yellow">Nova Categoria</a>
+                    <a href="{{route('product-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo Produto</a>
+                    <a href="{{route('category-create')}}" class="btn btn-sm bg-yellow"><i class="fa fa-plus-circle"></i> Nova Categoria</a>
                 </div>
 
                 <div class="box-body">
