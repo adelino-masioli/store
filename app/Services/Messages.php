@@ -45,6 +45,22 @@ class Messages
         return $messages;
     }
 
+
+    public  static function msgSubCategory()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o NOME DA SUBCATEGORIA',
+            'name.string'               => 'Favor informar o NOME DA SUBCATEGORIA como texto',
+            'name.min'                  => 'Favor informar o NOME DA SUBCATEGORIA com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o NOME DA SUBCATEGORIA com máximo 100 caracteres',
+            'name.unique'               => 'Este NOME DA SUBCATEGORIA já existe',
+            'description.required'      => 'Favor informar a DESCRIÇÃO',
+            'category_id.required'      => 'Favor selecionar a CATEGORIA',
+        ];
+
+        return $messages;
+    }
+
     public  static function msgContact()
     {
         $messages = [

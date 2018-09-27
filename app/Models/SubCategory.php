@@ -29,4 +29,14 @@ class SubCategory extends Model
         'configuration_id',
         'category_id',
     ];
+
+    public function status() {
+        return $this->belongsTo('App\Models\Status', 'status_id');
+    }
+    public function configuration() {
+        return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
+    public function category() {
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
 }

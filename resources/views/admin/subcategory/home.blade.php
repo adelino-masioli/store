@@ -7,10 +7,10 @@
         Dashboard
     @endslot
     @slot('small')
-        Listagem de Categorias
+        Listagem de SubCategorias
     @endslot
     @slot('link')
-        Categorias
+        SubCategorias
     @endslot
 @endcomponent
 
@@ -19,8 +19,8 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('category-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Nova Categoria</a>
-                    <a href="{{route('subcategory-create')}}" class="btn btn-sm bg-yellow margin-r-5"><i class="fa fa-plus-circle"></i> Adicionar Nova Subcategoria</a>
+                    <a href="{{route('subcategory-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus-circle"></i> Nova Subcategoria</a>
+                    <a href="{{route('category-create')}}" class="btn btn-sm bg-yellow margin-r-5"><i class="fa fa-plus"></i> Adicionar Nova Categoria</a>
                 </div>
 
                 <div class="box-body">
@@ -30,13 +30,13 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="categories-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="subcategories-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-6 text-center">NOME DA CATEGORIA</th>
-                                    <th class="col-md-3 text-center">NOME DA EMPRESA</th>
+                                    <th class="col-md-6 text-center">NOME DA SUBCATEGORIA</th>
+                                    <th class="col-md-3 text-center">CATEGORIA</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -57,15 +57,15 @@
 @endsection
 @push('scripts')
     <script>
-        $('#categories-table').DataTable({
+        $('#subcategories-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-categories')}}',
+            ajax: '{{route('datatable-subcategories')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
-                {data: 'configuration', name: 'configuration'},
+                {data: 'category', name: 'category'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

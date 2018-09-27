@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\Status;
+use App\Models\SubCategory;
 use App\Services\InputFields;
 use App\Services\Messages;
 use App\Traits\DataTableTrait;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     use DataTableTrait;
 
@@ -26,26 +27,26 @@ class CategoryController extends Controller
     //index
     public function index()
     {
-        return view('admin.category.home');
+        return view('admin.subcategory.home');
     }
 
     //get
     public function getDatatable(Request $request)
     {
-        $model = new \App\Models\Category;
-        $columns = ['id',  'name',  'configuration_id', 'status_id'];
+        $model = new \App\Models\SubCategory;
+        $columns = ['id',  'name', 'deep', 'category_id', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
                 return $data->status->status;
             })
-            ->addColumn('configuration', function ($data) {
-                return $data->configuration_id ? $data->configuration->name : 'Sem proprietário';
+            ->addColumn('category', function ($data) {
+                return $data->category_id ?  $data->category->name : '--';
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('category-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('category-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                return '<a onclick="localStorage.clear();" href="'.route('subcategory-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="'.route('subcategory-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })
             ->toJson();
@@ -55,13 +56,13 @@ class CategoryController extends Controller
     public function create()
     {
         $status = Status::where('flag', 'default')->get();
-        $profile = Auth::user()->type_id;
-        if($profile > 1){
+        $categories = Category::where('configuration_id', Auth::user()->configuration_id)->get();
+        if(Auth::user()->type_id > 1){
             $configurations = '';
         }else{
             $configurations = Configuration::get();
         }
-        return view('admin.category.create', compact('status','configurations'));
+        return view('admin.subcategory.create', compact('status','configurations', 'categories'));
     }
 
 
@@ -69,16 +70,17 @@ class CategoryController extends Controller
     public static function store(Request $request)
     {
         try{
-            $messages = Messages::msgCategory();
+            $messages = Messages::msgSubCategory();
             $validator = Validator::make($request->all(), [
-                'name'             => 'required|string|min:5|max:50|unique:categories',
-                'description'      => 'required'
+                'name'             => 'required|string|min:5|max:50|unique:sub_categories',
+                'description'      => 'required',
+                'category_id'      => 'required'
             ], $messages);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            Category::create(InputFields::inputFieldsCategory($request));
+            SubCategory::create(InputFields::inputFieldsSubCategory($request));
 
             session()->flash('success', 'Salvo com sucesso!');
             return redirect()->back();
@@ -91,7 +93,8 @@ class CategoryController extends Controller
     //edit
     public static function edit($id)
     {
-        $category = Category::findOrfail($id);
+        $subcategory = SubCategory::findOrfail($id);
+        $categories = Category::where('configuration_id', Auth::user()->configuration_id)->get();
         $status = Status::where('flag', 'default')->get();
         $profile = Auth::user()->type_id;
         if($profile > 1){
@@ -100,7 +103,7 @@ class CategoryController extends Controller
             $configurations = Configuration::get();
         }
 
-        return view('admin.category.edit', compact('category', 'status','configurations'));
+        return view('admin.subcategory.edit', compact('subcategory', 'status','configurations', 'categories'));
     }
 
 
@@ -108,19 +111,20 @@ class CategoryController extends Controller
     public static function update(Request $request)
     {
         try{
-            $category = Category::findOrFail($request->id);
+            $result = SubCategory::findOrFail($request->id);
 
-            $messages = Messages::msgCategory();
+            $messages = Messages::msgSubCategory();
             $validator = Validator::make($request->all(), [
-                'name'             => 'required|string|min:5max:200|unique:categories,name,'.$request['id'],
-                'description'      => 'required'
+                'name'             => 'required|string|min:5max:200|unique:sub_categories,name,'.$request['id'],
+                'description'      => 'required',
+                'category_id'      => 'required'
             ], $messages);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
                 exit();
             }
-            $data = InputFields::inputFieldsCategory($request);
-            $category->update($data);
+            $data = InputFields::inputFieldsSubCategory($request);
+            $result->update($data);
 
             session()->flash('success', 'Salvo com sucesso!');
             return redirect()->back();
@@ -134,10 +138,10 @@ class CategoryController extends Controller
     //destroy
     public static function destroy($id)
     {
-        $product = Category::findOrfail($id);
-        if($product){
+        $result = SubCategory::findOrfail($id);
+        if($result){
             $data['status_id'] = 3;
-            $product->update($data);
+            $result->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();

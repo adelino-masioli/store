@@ -68,6 +68,15 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/category/destroy/{id}', 'CategoryController@destroy')->name('category-destroy');
     Route::post('/category/update', 'CategoryController@update')->name('category-update');
 
+    //subcategory
+    Route::get('/subcategories', 'SubCategoryController@index')->name('subcategories');
+    Route::get('/datatable-subcategories', 'SubCategoryController@getDatatable')->name('datatable-subcategories');
+    Route::get('/subcategory/create', 'SubCategoryController@create')->name('subcategory-create');
+    Route::post('/subcategory/store', 'SubCategoryController@store')->name('subcategory-store');
+    Route::get('/subcategory/edit/{id}', 'SubCategoryController@edit')->name('subcategory-edit');
+    Route::get('/subcategory/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory-destroy');
+    Route::post('/subcategory/update', 'SubCategoryController@update')->name('subcategory-update');
+
     //contact
     Route::get('/contacts', 'ContactController@index')->name('contacts');
     Route::get('/datatable-contacts', 'ContactController@getDatatable')->name('datatable-contacts');

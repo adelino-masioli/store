@@ -72,11 +72,35 @@ class InputFields
         }
 
         $fields = [
+            'deep'               => 1,
             'name'               => $request['name'],
             'slug'               => str_slug($request['name'], '-'),
             'description'        => $request['description'],
-            'status_id'          => $request['status_id'],
+            'status_id'          => $status,
             'configuration_id'   => $configuration_id
+        ];
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsSubCategory($request){
+        $status = $request['status_id'] ? $request['status_id'] : 2;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        $fields = [
+            'deep'               => 2,
+            'name'               => $request['name'],
+            'slug'               => str_slug($request['name'], '-'),
+            'description'        => $request['description'],
+            'status_id'          => $status,
+            'configuration_id'   => $configuration_id,
+            'category_id'        => $request['category_id']
         ];
 
         return $fields;
