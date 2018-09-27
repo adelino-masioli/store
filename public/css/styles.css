@@ -97,6 +97,16 @@ body{
 }
 
 
+.info-box{
+    position: relative;
+}
+.info-box .small-box-footer{
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    color: #666666;
+}
+
 /*preload*/
 /*----------------------- Preloader -----------------------*/
 body.preloader-site {

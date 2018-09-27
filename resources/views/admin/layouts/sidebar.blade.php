@@ -19,69 +19,76 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MENU NAVEGAÇÃO</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-cube"></i> <span>Produtos</span>
-                    <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('products')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-                    <li><a href="{{route('product-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
-                </ul>
-            </li>
+            @if(Auth::user()->type_id < 4)
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-file-text-o"></i> <span>Documentos</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('documents')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                        <li><a href="{{route('document-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                    </ul>
+                </li>
+            @endif
 
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-cubes"></i> <span>Categorias</span>
-                    <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('categories')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-                    <li><a href="{{route('category-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
-                </ul>
-            </li>
+            @if(Auth::user()->type_id < 4)
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-cube"></i> <span>Produtos</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('products')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                        <li><a href="{{route('product-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                    </ul>
+                </li>
 
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-file-text-o"></i> <span>Documentos</span>
-                    <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('documents')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-                    <li><a href="{{route('document-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
-                </ul>
-            </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-cubes"></i> <span>Categorias</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('categories')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                        <li><a href="{{route('category-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                    </ul>
+                </li>
+            @endif
 
-
-            <li><a href="{{route('contacts')}}"><i class="fa fa-envelope"></i> <span>Contatos</span></a></li>
-            <li><a href="{{route('quotes')}}"><i class="fa fa-dollar"></i> <span>Orçamentos</span></a></li>
-            <li><a href="{{route('newsletters')}}"><i class="fa fa-send"></i> <span>Newsletters</span></a></li>
-
-
-
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i> <span>Usuários</span>
-                    <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-                    <li><a href="{{route('user-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
-                </ul>
-            </li>
+            @if(Auth::user()->type_id < 4)
+                <li><a href="{{route('contacts')}}"><i class="fa fa-envelope"></i> <span>Contatos</span></a></li>
+                <li><a href="{{route('quotes')}}"><i class="fa fa-dollar"></i> <span>Orçamentos</span></a></li>
+                <li><a href="{{route('newsletters')}}"><i class="fa fa-send"></i> <span>Newsletters</span></a></li>
+            @endif
 
 
 
-            <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-red"></i> <span>Configurações</span></a></li>
+
+            @if(Auth::user()->type_id < 3)
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-users"></i> <span>Usuários</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                        <li><a href="{{route('user-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                    </ul>
+                </li>
+            @endif
+
+            @if(Auth::user()->type_id < 3)
+                    <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-red"></i> <span>Configurações</span></a></li>
+            @endif
         </ul>
     </section>
     <!-- /.sidebar -->

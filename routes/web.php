@@ -19,8 +19,8 @@ Auth::routes();
 
 //admin products
 Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('/register', 'HomeController@index')->name('home');
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/register', 'DashboardController@index');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     //configuration
     Route::get('/configuration', 'ConfigurationController@myConfig')->name('configuration');
