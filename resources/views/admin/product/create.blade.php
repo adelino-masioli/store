@@ -75,10 +75,9 @@
                     ['para', ['paragraph']]
                 ]
             });
-
-            //money
-            $('.money').mask('#.##0,00', {reverse: true});
         });
+        //money
+        masMoney();
 
     </script>
 @endpush

@@ -14,10 +14,10 @@ class UploadImage
         $fullPathThumb = $destinationPathThumb.$fileName;
 
         if (!file_exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 0775);
+            File::makeDirectory($destinationPath, 0775,true);
         }
         if (!file_exists($destinationPathThumb)) {
-            File::makeDirectory($destinationPathThumb, 0775);
+            File::makeDirectory($destinationPathThumb, 0775,true);
         }
 
         //bigimage

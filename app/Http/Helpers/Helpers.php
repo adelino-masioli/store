@@ -126,3 +126,34 @@ function convertFileSize($size){
     $filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
     return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
 }
+
+
+function defineUploadPath($path=null, $thumb=null)
+{
+    if($thumb!=null){
+        return '/downloads/'.$path.'/'.config('app.template').'/thumb/';
+    }else{
+        return '/downloads/'.$path.'/'.config('app.template').'/';
+    }
+}
+function defineDownloadPath($path=null)
+{
+    return public_path().'/downloads/'.$path.'/'.config('app.template');
+}
+
+function destroyFile($path=null, $file=null, $thumb=null)
+{
+    $fullpath = public_path().'/downloads/'.$path.'/'.config('app.template');
+    if($thumb=='thumb'){
+        if(File::exists($fullpath.'/thumb/'.$file)){
+            File::delete($fullpath.'/thumb/'.$file);
+        }
+        if(File::exists($fullpath.'/'.$file)){
+            File::delete($fullpath.'/'.$file);
+        }
+    }else{
+        if(File::exists($fullpath.'/'.$file)){
+            File::delete($fullpath.'/'.$file);
+        }
+    }
+}

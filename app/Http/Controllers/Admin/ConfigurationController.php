@@ -154,7 +154,7 @@ class ConfigurationController extends Controller
                 $file = $image;
                 $extension = $image->getClientOriginalExtension();
                 $fileName = time() . random_int(100, 999) .'.' . $extension;
-                $path = 'brand/';
+                $path = defineUploadPath('brands', null);
 
                 $data['brand'] = $fileName;
                 $result->update($data);
@@ -190,16 +190,13 @@ class ConfigurationController extends Controller
     //destroy brand
     public static function destroyBrand($id)
     {
-        $image = Configuration::findOrfail($id);
-        if(File::exists(public_path().'/brand/thumb/'.$image->brand)){
-            File::delete(public_path().'/brand/thumb/'.$image->brand);
-        }
-        if(File::exists(public_path().'/brand/'.$image->brand)){
-            File::delete(public_path().'/brand/'.$image->brand);
-        }
-        if($image){
+        $file = Configuration::findOrfail($id);
+
+        destroyFile('brands', $file->brand, 'thumb');
+
+        if($file){
             $data['brand'] = '';
-            $image->update($data);
+            $file->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();

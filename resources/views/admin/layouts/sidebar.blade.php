@@ -6,7 +6,7 @@
         <div class="user-panel">
             <div class="pull-left image">
                 @if(Auth::user()->avatar != '')
-                    <img src="{{url('/').'/avatar/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
+                    <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
                 @else
                     <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
                 @endif
@@ -43,6 +43,19 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('categories')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
                     <li><a href="{{route('category-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-text-o"></i> <span>Documentos</span>
+                    <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('documents')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+                    <li><a href="{{route('document-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
                 </ul>
             </li>
 

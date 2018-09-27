@@ -22,7 +22,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if(Auth::user()->avatar != '')
-                            <img src="{{url('/').'/avatar/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="user-image">
+                            <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="user-image">
                         @else
                             <img src="{{asset('images/avatar.png')}}" class="user-image" alt="{{Auth::user()->name}}">
                         @endif
@@ -33,7 +33,7 @@
                         <!-- User image -->
                         <li class="user-header">
                             @if(Auth::user()->avatar != '')
-                                <img src="{{url('/').'/avatar/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
+                                <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
                             @else
                                 <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
                             @endif

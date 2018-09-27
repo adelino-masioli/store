@@ -189,7 +189,7 @@ class UserController extends Controller
                 $file = $image;
                 $extension = $image->getClientOriginalExtension();
                 $fileName = time() . random_int(100, 999) .'.' . $extension;
-                $path = 'avatar/';
+                $path = defineUploadPath('avatar', null);
 
                 $data['avatar'] = $fileName;
                 $result->update($data);
@@ -226,16 +226,13 @@ class UserController extends Controller
     //destroy
     public static function destroyAvatar($id)
     {
-        $image = User::findOrfail($id);
-        if(File::exists(public_path().'/avatar/thumb/'.$image->avatar)){
-            File::delete(public_path().'/avatar/thumb/'.$image->avatar);
-        }
-        if(File::exists(public_path().'/avatar/'.$image->avatar)){
-            File::delete(public_path().'/avatar/'.$image->avatar);
-        }
-        if($image){
+        $file = User::findOrfail($id);
+        destroyFile('avatar', $file->avatar, 'thumb');
+
+
+        if($file){
             $data['avatar'] = '';
-            $image->update($data);
+            $file->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();

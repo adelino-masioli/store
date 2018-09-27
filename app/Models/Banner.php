@@ -12,7 +12,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Document extends Model
+class Banner extends Model
 {
     use Notifiable;
     /**
@@ -20,33 +20,21 @@ class Document extends Model
      *
      * @var array
      */
-    protected $table = 'documents';
+    protected $table = 'banners';
     protected $fillable = [
         'name',
         'description',
         'file',
         'extension',
         'size',
-        'date',
-        'time',
         'status_id',
-        'configuration_id',
-        'type_id'
+        'configuration_id'
     ];
 
     public function status() {
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
-    public function type() {
-        return $this->belongsTo('App\Models\DocumentType', 'type_id');
-    }
     public function configuration() {
         return $this->belongsTo('App\Models\Configuration', 'configuration_id');
-    }
-    public static function user($id)
-    {
-        $getUserId = DocumentUser::where('document_id', $id)->first();
-        $getUser = User::where('id', $getUserId->user_id)->first();
-        return $getUser->name;
     }
 }

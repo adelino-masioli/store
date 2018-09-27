@@ -95,4 +95,16 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/document/destroy/{id}', 'DocumentController@destroy')->name('document-destroy');
     Route::post('/document/update', 'DocumentController@update')->name('document-update');
     Route::get('/document/download/{file}', 'DocumentController@download')->name('document-download');
+    Route::get('/document/destroy/file/{id}', 'DocumentController@destroyFile')->name('document-destroy-file');
+
+    //banne
+    Route::get('/banners', 'BannerController@index')->name('banners');
+    Route::get('/datatable-banners', 'BannerController@getDatatable')->name('datatable-banners');
+    Route::get('/banner/create', 'BannerController@create')->name('banner-create');
+    Route::post('/banner/store', 'BannerController@store')->name('banner-store');
+    Route::get('/banner/edit/{id}', 'BannerController@edit')->name('banner-edit');
+    Route::get('/banner/destroy/{id}', 'BannerController@destroy')->name('banner-destroy');
+    Route::post('/banner/update', 'BannerController@update')->name('banner-update');
+    Route::get('/banner/download/{file}', 'BannerController@download')->name('banner-download');
+    Route::get('/banner/destroy/file/{id}', 'BannerController@destroyFile')->name('banner-destroy-file');
 });

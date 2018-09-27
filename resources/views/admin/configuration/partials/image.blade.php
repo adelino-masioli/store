@@ -24,8 +24,8 @@
 @if($configuration && $configuration->brand != '')
     <div class="row">
         <div class="col-md-12 text-center">
-            @if(File::exists( public_path().'/brand/'.$configuration->brand))
-                <img src="{{url('/').'/brand/thumb/'.$configuration->brand}}" alt="{{$configuration->name}}">
+            @if(defineUploadPath('brands', null).'/'.$configuration->brand)
+                <img src="{{url('/').defineUploadPath('brands', null).'/thumb/'.$configuration->brand}}" alt="{{$configuration->name}}">
             @endif
         </div>
         <div class="col-md-12 text-center">

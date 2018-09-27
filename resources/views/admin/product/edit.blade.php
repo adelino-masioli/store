@@ -80,10 +80,10 @@
                     ['para', ['paragraph']]
                 ]
             });
-
-            //money
-            $('.money').mask('#.##0,00', {reverse: true});
         });
+
+        //money
+        masMoney();
 
         //select category
         function selectCategory(id) {

@@ -119,18 +119,60 @@ class InputFields
             $configuration_id = $request['configuration_id'];
         }
 
-        $fields = [
-            'name'               => $request['name'],
-            'description'        => $request['description'],
-            'type'               => $request['type'],
-            'file'               => $fileName,
-            'extension'          => $extension,
-            'size'               => $size,
-            'date'               => date('Y:m:d'),
-            'time'               => date('H:i:s'),
-            'configuration_id'   => $configuration_id,
-            'status_id'          => $status
-        ];
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'type_id' => $request['type_id'],
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }else{
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'type_id' => $request['type_id'],
+                'file' => $fileName,
+                'extension' => $extension,
+                'size' => $size,
+                'date' => date('Y:m:d'),
+                'time' => date('H:i:s'),
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsBanner($request, $extension, $size, $fileName){
+        $status = $request['status_id'] ? $request['status_id'] : 2;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }else{
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'file' => $fileName,
+                'extension' => $extension,
+                'size' => $size,
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }
 
         return $fields;
     }

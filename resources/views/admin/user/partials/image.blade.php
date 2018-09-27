@@ -24,8 +24,8 @@
 @if($user && $user->avatar != '')
     <div class="row">
         <div class="col-md-12 text-center">
-            @if(File::exists( public_path().'/avatar/'.$user->avatar))
-                <img src="{{url('/').'/avatar/thumb/'.$user->avatar}}" alt="{{$user->name}}">
+            @if(defineUploadPath('avatar', null).'/'.$user->avatar)
+                <img src="{{url('/').defineUploadPath('avatar', null).'/thumb/'.$user->avatar}}" alt="{{$user->name}}">
             @endif
         </div>
         <div class="col-md-12 text-center">

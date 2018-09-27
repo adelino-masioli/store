@@ -111,11 +111,28 @@ class Messages
             'name.string'               => 'Favor informar o NOME DO ARQUIVO como texto',
             'name.min'                  => 'Favor informar o NOME DO ARQUIVO com mínimo 5 caracteres',
             'name.max'                  => 'Favor informar o NOME DO ARQUIVO com máximo 100 caracteres',
-            'type.required'             => 'Favor informar o TIPO DO ARQUIVO',
+            'type_id.required'          => 'Favor informar o TIPO DO ARQUIVO',
             'description.required'      => 'Favor informar a DESCRIÇÃO',
+            'file.required'             => 'Favor selecionar o ARQUIVO',
+            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
         ];
 
         return $messages;
     }
 
+
+    public  static function msgBanner()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o TÍTULO DO BANNER',
+            'name.string'               => 'Favor informar o TÍTULO DO BANNER como texto',
+            'name.min'                  => 'Favor informar o TÍTULO DO BANNER com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o TÍTULO DO BANNER com máximo 50 caracteres',
+            'description.required'      => 'Favor informar a DESCRIÇÃO',
+            'file.required'             => 'Favor selecionar o ARQUIVO',
+            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+        ];
+
+        return $messages;
+    }
 }

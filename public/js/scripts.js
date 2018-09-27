@@ -108,3 +108,7 @@ function maskZipCode(){
 function formSubmit(form){
     $(form).submit()
 }
+
+function masMoney(){
+    $('.money').mask('#.##0,00', {reverse: true});
+}
