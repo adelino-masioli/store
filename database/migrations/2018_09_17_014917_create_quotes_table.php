@@ -19,12 +19,19 @@ class CreateQuotesTable extends Migration
             $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedInteger('configuration_id')->nullable();
             $table->foreign('configuration_id')->references('id')->on('configurations');
-            $table->string('product_name');
             $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('about');
-            $table->text('message');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('about')->nullable();
+            $table->text('description')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('address')->nullable();
+            $table->string('district')->nullable();
+            $table->string('number')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->decimal('total', 10,2)->nullable();
+            $table->decimal('discount', 10,2)->nullable();
             $table->timestamps();
         });
     }

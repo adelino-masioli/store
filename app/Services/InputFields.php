@@ -201,4 +201,34 @@ class InputFields
         return $fields;
     }
 
+
+    public static function inputFieldsQuote($request){
+        $status = $request['status_id'] ? $request['status_id'] : 3;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        $fields = [
+            'name'             => $request['name'],
+            'email'            => $request['email'],
+            'phone'            => $request['phone'],
+            'about'            => $request['about'],
+            'description'      => $request['description'],
+            'total'            => $request['total'],
+            'zipcode'          => $request['zipcode'],
+            'address'          => $request['address'],
+            'district'         => $request['district'],
+            'number'           => $request['number'],
+            'state'            => $request['state'],
+            'city'             => $request['city'],
+            'status_id'        => $status,
+            'configuration_id' => $configuration_id
+        ];
+
+        return $fields;
+    }
+
 }

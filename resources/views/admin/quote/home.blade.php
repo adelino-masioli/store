@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('contacts')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Contatos</a>
+                    <a href="{{route('quote-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo orçamento</a>
                 </div>
 
                 <div class="box-body">
@@ -34,10 +34,9 @@
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">NOME DO CONTATO</th>
+                                    <th class="col-md-3 text-center">NOME DO CLIENTE</th>
                                     <th class="col-md-2 text-center">EMAIL</th>
                                     <th class="col-md-1 text-center">TELEFONE</th>
-                                    <th class="col-md-3 text-center">ASSUNTO</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -68,7 +67,6 @@
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
                 {data: 'phone', name: 'phone'},
-                {data: 'about', name: 'about'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

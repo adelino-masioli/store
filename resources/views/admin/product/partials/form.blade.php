@@ -58,18 +58,21 @@
                 <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantidade" value="@if(isset($product)){{$product->qty}}@else{{old('qty')}}@endif" required="required">
             </div>
         </div>
-        @if(isset($status))
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="status_id">Status</label>
-                    <select class="form-control select2" id="status_id" name="status_id">
-                        @foreach($status as $status)
-                            <option @if(isset($product)) @if($product->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
-                        @endforeach
-                    </select>
+        @if(isset($product))
+            @if(isset($status))
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="status_id">Status</label>
+                        <select class="form-control select2" id="status_id" name="status_id">
+                            @foreach($status as $status)
+                                <option @if(isset($product)) @if($product->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
+            @endif
         @endif
+
 
 
         @if(isset($configurations) && $configurations != '')

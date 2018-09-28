@@ -20,6 +20,8 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             @if(Auth::user()->type_id < 4)
+                <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-file-text-o"></i> <span>Documentos</span>

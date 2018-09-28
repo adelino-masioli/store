@@ -87,9 +87,28 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     //quote
     Route::get('/quotes', 'QuoteController@index')->name('quotes');
     Route::get('/datatable-quotes', 'QuoteController@getDatatable')->name('datatable-quotes');
+    Route::get('/quote/create', 'QuoteController@create')->name('quote-create');
+    Route::post('/quote/store', 'QuoteController@store')->name('quote-store');
     Route::get('/quote/edit/{id}', 'QuoteController@edit')->name('quote-edit');
+    Route::get('/quote/show/{id}', 'QuoteController@show')->name('quote-show');
     Route::get('/quote/destroy/{id}', 'QuoteController@destroy')->name('quote-destroy');
     Route::post('/quote/update', 'QuoteController@update')->name('quote-update');
+    Route::post('/quote/update-status', 'QuoteController@updateStatus')->name('quote-update-status');
+    Route::post('/quote/discount/store', 'QuoteController@discount')->name('quote-discount-store');
+    Route::get('/quote/next/payment/{id}', 'QuoteController@nextPayment')->name('quote-next-payment');
+
+    //quote item
+    Route::post('/quote-item/search', 'QuoteItemController@search')->name('quote-item-search');
+    Route::post('/quote-item/store', 'QuoteItemController@store')->name('quote-item-store');
+    Route::post('/quote-item/destroy', 'QuoteItemController@destroy')->name('quote-item-destroy');
+    Route::get('/quote-item/get/{id}', 'QuoteItemController@get')->name('quote-item-get');
+
+    //quote payment
+    Route::get('/quote-payment/{id}', 'QuotePaymentController@payment')->name('quote-payment');
+    Route::get('/quote-next-payment-confirm/{id}', 'QuotePaymentController@paymentConfirm')->name('quote-next-payment-confirm');
+    Route::post('/quote-payment/store', 'QuotePaymentController@store')->name('quote-payment-store');
+
+
 
     //newsletter
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters');

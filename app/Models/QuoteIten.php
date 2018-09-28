@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Quote extends Model
+class QuoteIten extends Model
 {
     use Notifiable;
     /**
@@ -19,23 +19,14 @@ class Quote extends Model
      *
      * @var array
      */
-    protected $table = 'quotes';
+    protected $table = 'quote_itens';
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'about',
-        'description',
-        'total',
-        'discount',
-        'zipcode',
-        'address',
-        'district',
-        'number',
-        'state',
-        'city',
-        'status_id',
-        'configuration_id'
+        'product_name',
+        'qty',
+        'price',
+        'subtotal',
+        'quote_id',
+        'product_id'
     ];
 
     public function status() {

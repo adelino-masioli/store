@@ -157,3 +157,28 @@ function destroyFile($path=null, $file=null, $thumb=null)
         }
     }
 }
+
+//return bgcolor
+function bgColor($i)
+{
+    switch ($i) {
+        case 1:
+            return  "bg-aqua";
+            break;
+        case 2:
+            return  "bg-yellow";
+            break;
+        case 3:
+            return  "bg-green";
+            break;
+        case 4:
+            return  "bg-red";
+            break;
+        case 5:
+            return  "bg-fuchsia";
+            break;
+        case 6:
+            return  "bg-gray";
+            break;
+    }
+}

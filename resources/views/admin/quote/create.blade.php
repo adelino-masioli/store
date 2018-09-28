@@ -9,10 +9,10 @@
             Orçamento
         @endslot
         @slot('small')
-            Editando o orçamento: #{{$quote->id}}
+            Cadastro de orçamento
         @endslot
         @slot('link')
-            Detalhes do orçamento
+            Novo orçamento
         @endslot
     @endcomponent
 
@@ -21,7 +21,8 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        @include('admin.quote.partials.menu')
+                        <a href="{{route('quotes')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat">Listagem de Orçamentos</a>
+                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');">Salvar e avançar</a>
                     </div>
 
                     <div class="box-body">
@@ -35,19 +36,16 @@
                                 <div class="nav-tabs-custom">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
-                                        <li role="presentation" class="active"><a href="#quote" aria-controls="quote" role="tab" data-toggle="tab">Detalhes do Orçamento</a></li>
-                                        <li role="presentation"><a href="#quote-item" aria-controls="quote-item" role="tab" data-toggle="tab">Itens do Orçamento</a></li>
+                                        <li role="presentation" class="active"><a href="#singletabs" aria-controls="singletabs" role="tab" data-toggle="tab">Novo Orçamento</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('quote-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$quote->id}}">
+                                        <div role="tabpanel" class="tab-pane active" id="singletabs">
+                                            <form action="{{route('quote-store')}}" method="post" class="panels" id="formsubmit">
                                                 @include('admin.quote.partials.form')
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="quote-item">@include('admin.quote.partials.formitem')</div>
                                     </div>
                                 </div>
                             </div>
@@ -63,13 +61,14 @@
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
+    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
             $('.editor').summernote({
                 lang: 'pt-BR',
-                height: 100,
-                minHeight: 100,
+                height: 70,
+                minHeight: 70,
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                     ['fontsize', ['fontsize']],
@@ -78,8 +77,6 @@
                 ]
             });
 
-            //money
-            masMoney();
             maskZipCode();
         });
     </script>

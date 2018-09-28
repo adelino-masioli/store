@@ -78,7 +78,7 @@ body{
 
 
 
-.table > tbody > tr > td {
+.table > tbody > tr > td, .table > tfoot > tr > th {
     vertical-align: middle;
 }
 
@@ -105,6 +105,39 @@ body{
     right: 15px;
     bottom: 10px;
     color: #666666;
+}
+
+
+.payment-box-content{
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.payment-box-content p{
+    margin: 0px;
+}
+.payment-box .form-control{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.total-pay{
+    color: #039525 !important;
+    font-size: 30px;
+    font-weight: 600;
+}
+.total-pay-diff{
+    color: #054395 !important;
+    font-size: 30px;
+    font-weight: 600;
+}
+.total-to-pay{
+    color: #ff0000!important;
+    font-size: 30px;
+    font-weight: 600;
 }
 
 /*preload*/

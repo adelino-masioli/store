@@ -151,4 +151,17 @@ class Messages
 
         return $messages;
     }
+
+
+    public  static function msgQuote()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o NOME DO CLIENTE',
+            'name.string'               => 'Favor informar o NOME DO CLIENTE como texto',
+            'name.min'                  => 'Favor informar o NOME DO CLIENTE com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o NOME DO CLIENTE com máximo 100 caracteres'
+        ];
+
+        return $messages;
+    }
 }

@@ -14,9 +14,9 @@ trait DataTableTrait
     {
         $profile = Auth::user()->type_id;
         if($profile == 1){
-            $result = $model->select($columns)->where('status_id', '!=', 3);
+            $result = $model->select($columns)->where('status_id', '!=', 10);
         }else{
-            $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('status_id', '!=', 3);
+            $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('status_id', '!=', 10);
         }
         return $result;
     }

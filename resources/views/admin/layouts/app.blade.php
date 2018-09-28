@@ -92,6 +92,8 @@
 
     <script src="{{asset('plugins/bootstrap-filestyle-2.1.0/bootstrap-filestyle.min.js')}}"></script>
 
+    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
+
     <script src="{{asset('js/scripts.js')}}"></script>
 
 @stack('scripts')
