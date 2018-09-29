@@ -4,7 +4,7 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Dashboard
+        Usuários
     @endslot
     @slot('small')
         Listagem de Usuários

@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Document');
     }
+
+    public function complement() {
+        return $this->hasOne('App\Models\UserComplement', 'user_id');
+    }
 }

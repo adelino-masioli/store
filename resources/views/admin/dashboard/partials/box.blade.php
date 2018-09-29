@@ -18,12 +18,12 @@
             <span class="info-box-icon bg-red"><i class="fa fa-dollar"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Orçamentos</span>
-                <span class="info-box-number">{{$quotes->count()}}</span>
+                <span class="info-box-text">Pedidos</span>
+                <span class="info-box-number">{{$orders->count()}}</span>
             </div>
             <!-- /.info-box-content -->
 
-            <a href="{{route('quotes')}}" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{route('orders')}}" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         <!-- /.info-box -->
     </div>

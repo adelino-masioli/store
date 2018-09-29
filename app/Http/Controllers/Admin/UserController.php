@@ -11,13 +11,13 @@ use App\Services\CreateAddress;
 use App\Services\InputFields;
 use App\Services\Messages;
 use App\Services\UploadImage;
+use App\Traits\DataTableTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
-use App\Traits\DataTableTrait;
-use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -32,6 +32,21 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.user.home');
+    }
+
+    //search
+    public function search(Request $request)
+    {
+        if($request->name){
+            $res = User::with('complement')->where('name', 'like', '%'.$request->name.'%')->where('id', '!=', adminId())->first();
+        }else {
+            $res = User::with('complement')->where('id', $request->id)->where('id', '!=', adminId())->first();
+        }
+        if($res){
+            return $res;
+        }else{
+            return json_encode(false);
+        }
     }
 
 

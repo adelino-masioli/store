@@ -32,24 +32,36 @@ class OrderController extends Controller
     public function getDatatable(Request $request)
     {
         $model = new \App\Models\Order;
-        $columns = ['id',  'name', 'email', 'phone', 'about', 'status_id'];
-        $result  = $this->dataTable($model, $columns);
+        $columns = ['id',  'name', 'email', 'total', 'created_at',  'user_id',  'status_id'];
+        $result  = $this->dataTable($model, $columns, true);
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
                 return $data->status->status;
             })
+            ->addColumn('user', function ($data) {
+                return $data->user->name;
+            })
+            ->addColumn('created_at', function ($data) {
+                return date_br($data->created_at);
+            })
+            ->addColumn('total', function ($data) {
+                return money_br($data->total);
+            })
             ->addColumn('action', function ($data) {
-                if($data->status_id == 3){
-                    return '<a onclick="localStorage.clear();" href="'.route('order-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-dollar"></i></a>
-                        <a href="'.route('order-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                if($data->status_id > 7){
+                    return '<a onclick="localStorage.clear();" href="'.route('order-show', [base64_encode($data->id)]).'"  title="Visualizar" class="btn bg-green btn-xs"><i class="fa fa-eye"></i></a>
+                        <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
                 }else{
-                    return '<a onclick="localStorage.clear();" href="'.route('order-show', [$data->id]).'"  title="Visualizar" class="btn bg-green btn-xs"><i class="fa fa-eye"></i></a>
-                        <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
+                    return '<a onclick="localStorage.clear();" href="'.route('order-edit', [base64_encode($data->id)]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="'.route('order-destroy', [base64_encode($data->id)]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
                 }
 
+            })
+            ->setRowClass(function ($data) {
+                return switchCorlor($data->status_id);
             })
             ->toJson();
     }
@@ -67,7 +79,7 @@ class OrderController extends Controller
         try{
             $messages = Messages::msgOrder();
             $validator = Validator::make($request->all(), [
-                'name'             => 'required|string|min:5|max:100',
+                'name'             => 'required|string|min:3|max:100',
             ], $messages);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -84,9 +96,16 @@ class OrderController extends Controller
 
 
     //edit
-    public static function edit($id)
+    public static function edit($id_order)
     {
+        $id = base64_decode($id_order);
+
         $order = Order::findOrfail($id);
+        if($order->status_id > 7){
+            session()->flash('error', 'Este pedido já não pode mais ser editado!');
+            return redirect(route('orders'));
+        }
+
         $status = Status::where('flag', 'reader')->get();
         $items = OrderItem::where('order_id', $id)->get();
         return view('admin.order.edit', compact('order','status', 'items'));
@@ -119,11 +138,12 @@ class OrderController extends Controller
 
 
     //show
-    public static function show($id)
+    public static function show($id_order)
     {
+        $id = base64_decode($id_order);
         $order = Order::findOrfail($id);
-        $status = Status::where('flag', 'reader')->get();
-        $items = OrderItem::where('quote_id', $id)->get();
+        $status = Status::where('flag', 'order')->get();
+        $items = OrderItem::where('order_id', $id)->get();
         return view('admin.order.show', compact('order', 'status', 'items'));
     }
 
@@ -160,8 +180,10 @@ class OrderController extends Controller
     }
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($id_order)
     {
+        $id = base64_decode($id_order);
+
         $res = Order::findOrfail($id);
         if($res){
             $data['status_id'] = 10;
@@ -172,14 +194,54 @@ class OrderController extends Controller
     }
 
 
-    //next payment
-    public static function nextPayment($id)
+    //next confirm
+    public static function nextConfirm($id_order)
     {
+        $id = base64_decode($id_order);
+
         $count = OrderItem::where('order_id', $id)->count();
         if($count > 0){
-            return redirect(route('order-payment', [$id]));
+            return redirect(route('order-confirm', [$id_order]));
         }else{
-            session()->flash('error', 'Favor adicionar itens ao orçamento!');
+            session()->flash('error', 'Favor adicionar itens ao pedido!');
+            return redirect()->back();
+        }
+    }
+
+
+    //payment
+    public static function orderConfirm($id_order)
+    {
+        $id = base64_decode($id_order);
+
+        $order = Order::findOrfail($id);
+        if($order->status_id > 7){
+            session()->flash('error', 'Este pedido já não pode mais ser editado!');
+            return redirect(route('orders'));
+        }
+
+        $status = Status::where('flag', 'reader')->get();
+        $items = OrderItem::where('order_id', $id_order)->get();
+        $payment = true;
+        return view('admin.order.edit', compact('order', 'status',  'items',  'payment'));
+    }
+
+    //next finish
+    public static function nextFinish($id_order)
+    {
+        $id = base64_decode($id_order);
+
+        $count = OrderItem::where('order_id', $id)->count();
+        if($count > 0){
+            $res = Order::findOrfail($id);
+            if($res){
+                $data['status_id'] = statusOrder('financial');
+                $res->update($data);
+            }
+            session()->flash('success', 'Pedido finalizado com sucesso. Já está no financeiro.');
+            return redirect(route('orders'));
+        }else{
+            session()->flash('error', 'Favor adicionar itens ao pedido!');
             return redirect()->back();
         }
     }

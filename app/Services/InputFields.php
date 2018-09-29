@@ -203,7 +203,8 @@ class InputFields
 
 
     public static function inputFieldsOrder($request){
-        $status = $request['status_id'] ? $request['status_id'] : 3;
+        $status = $request['status_id'] ? $request['status_id'] : 7;
+        $customer_id = $request['customer_id'] ? $request['customer_id'] : null;
         $configuration_id = Auth::user()->configuration_id;
 
         $fields = [
@@ -221,7 +222,9 @@ class InputFields
             'state'            => $request['state'],
             'city'             => $request['city'],
             'status_id'        => $status,
-            'configuration_id' => $configuration_id
+            'configuration_id' => $configuration_id,
+            'user_id'          => Auth::user()->id,
+            'customer_id'      => $customer_id,
         ];
 
         return $fields;

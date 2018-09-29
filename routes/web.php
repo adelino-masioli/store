@@ -46,6 +46,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::post('/user/update', 'UserController@update')->name('user-update');
     Route::post('/user/avatar', 'UserController@updateAvatar')->name('user-avatar');
     Route::get('/user/avatar-destroy/{id}', 'UserController@destroyAvatar')->name('user-avatar-destroy');
+    Route::post('/user/search', 'UserController@search')->name('user-search');
 
     //product
     Route::get('/products', 'ProductController@index')->name('products');
@@ -96,7 +97,9 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::post('/order/update', 'OrderController@update')->name('order-update');
     Route::post('/order/update-status', 'OrderController@updateStatus')->name('order-update-status');
     Route::post('/order/discount/store', 'OrderController@discount')->name('order-discount-store');
-    Route::get('/order/next/payment/{id}', 'OrderController@nextPayment')->name('order-next-payment');
+    Route::get('/order/next/confirm/{id}', 'OrderController@nextConfirm')->name('order-next-confirm');
+    Route::get('/order/confirm/{id}', 'OrderController@orderConfirm')->name('order-confirm');
+    Route::get('/order/next/finish/{id}', 'OrderController@nextFinish')->name('order-next-finish');
 
     //order item
     Route::post('/order-item/search', 'OrderItemController@search')->name('order-item-search');

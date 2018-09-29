@@ -195,3 +195,52 @@ function quoteOrigin($i)
             break;
     }
 }
+//get user admin id
+function adminId(){
+    return 1;
+}
+//status order
+function statusOrder($status){
+    switch ($status) {
+        case 'proccess':
+            return  7;
+            break;
+        case "financial":
+            return  8;
+            break;
+        case "production":
+            return  9;
+            break;
+        case "finished":
+            return  10;
+            break;
+        case "expedition":
+            return  11;
+            break;
+        case "delivered":
+            return  12;
+            break;
+        case "canceled":
+            return  13;
+            break;
+    }
+}
+//switch colr
+function switchCorlor($color){
+    switch ($color) {
+        case 7:
+            return  'bg-gray disabled color-palette';
+            break;
+        case 8:
+            return  'alert-info';
+            break;
+        case 10:
+            return  'alert-success';
+            break;
+        case 13:
+            return  'alert-danger';
+            break;
+        default:
+            return '';
+    }
+}

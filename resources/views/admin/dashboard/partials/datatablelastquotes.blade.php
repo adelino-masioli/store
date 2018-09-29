@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <div class="box" style="min-height: 200px;max-height: 200px;overflow:hidden;">
         <div class="box-header with-border">
-            <h3 class="box-title">Últimos orçamentos solicitados</h3>
+            <h3 class="box-title">Últimos pedidos lançados</h3>
         </div>
 
         <div class="box-body">
@@ -17,12 +17,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($quotes->take(3) as $quote)
+                        @foreach($orders->take(3) as $order)
                             <tr>
-                                <td class="col-md-1 text-center"><a href="{{route('quote-edit', [$quote->id])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a></td>
-                                <td class="col-md-7">{{$quote->name}}</td>
-                                <td class="col-md-2 text-center">{{$quote->phone}}</td>
-                                <td class="hidden-xs col-md-2 text-center">{{$quote->status->status}}</td>
+                                <td class="col-md-1 text-center">
+                                    @if($order->status_id > 7)
+                                        <a href="{{route('order-show', [$order->id])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a>
+                                    @else
+                                        <a href="{{route('order-edit', [$order->id])}}" class="btn btn-flat btn-xs bg-aqua"><i class="fa fa-pencil"></i></a>
+                                    @endif
+                                </td>
+                                <td class="col-md-7">{{$order->name}}</td>
+                                <td class="col-md-2 text-center">{{$order->phone}}</td>
+                                <td class="hidden-xs col-md-2 text-center">{{$order->status->status}}</td>
                             </tr>
                         @endforeach
                         </tbody>

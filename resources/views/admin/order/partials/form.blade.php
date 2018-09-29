@@ -1,9 +1,22 @@
     {{ csrf_field() }}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="id">Código</label>
+                <input type="number" class="form-control" id="customer_id" name="customer_id" placeholder="Código" value="@if(isset($order)){{$order->customer_id}}@else{{old('customer_id')}}@endif" onblur="formSearchUser();" onclick="clearClientForm();">
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="name">Nome do cliente<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do cliente" value="@if(isset($order)){{$order->name}}@else{{old('name')}}@endif" required autofocus>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="user_name" name="name" placeholder="Nome do cliente" value="@if(isset($order)){{$order->name}}@else{{old('name')}}@endif" required autofocus>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn bg-aqua" onclick="formSearchUser();" onclick="clearClientForm();"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn bg-red"  onclick="clearClientForm();"><i class="fa fa-close"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -84,3 +97,50 @@
         @endif
     </div>
 @endif
+
+
+    @push('scripts')
+        <script>
+            function formSearchUser(){
+                var vUrlUser = '{{route('user-search')}}';
+                var vDataUser = {
+                    _token:$('input[name=_token]').val(),
+                    id:$('#customer_id').val(),
+                    name:$('#user_name').val()
+                };
+
+                if($('#customer_id').val() > 0 || $('#user_name').val().length > 0) {
+                    $.post(
+                        vUrlUser,
+                        vDataUser,
+                        function (response) {
+                            if (response === 'false') {
+                                toast('Importante', 'Nenhum cadastro encontrado', 'top-right', '#ff0000')
+                            } else {
+                                $('#customer_id').val(response.id);
+                                $('#user_name').val(response.name);
+                                $('#email').val(response.email);
+                                $('#zipcode').val(response.email);
+                                $('#address').val(response.email);
+                                $('#district').val(response.email);
+                                $('#number').val(response.email);
+                                $('#state').val(response.email);
+                                $('#city').val(response.email);
+                            }
+                        }
+                    );
+                }
+            }
+            function clearClientForm(){
+                $('#customer_id').val('');
+                $('#user_name').val('');
+                $('#email').val('');
+                $('#zipcode').val('');
+                $('#address').val('');
+                $('#district').val('');
+                $('#number').val('');
+                $('#state').val('');
+                $('#city').val('');
+            }
+        </script>
+    @endpush

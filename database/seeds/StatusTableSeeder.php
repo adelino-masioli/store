@@ -66,5 +66,9 @@ class StatusTableSeeder extends Seeder
             'status'  => 'Entregue',
             'flag'    => 'order',
         ]);
+        DB::table('status')->insert([
+            'status'  => 'Cancelado',
+            'flag'    => 'order',
+        ]);
     }
 }

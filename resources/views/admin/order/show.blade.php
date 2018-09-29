@@ -9,7 +9,7 @@
             Pedido
         @endslot
         @slot('small')
-            Visualizando o pedido: #{{$order->id}}
+            Visualizando o pedido: #COD{{$order->id}}
         @endslot
         @slot('link')
             Detalhes do pedido
@@ -42,7 +42,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('quote-update-status')}}" method="post" class="panels" id="formsubmit">
+                                            <form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
                                                 <input type="hidden" name="id" value="{{$order->id}}">
                                                 @include('admin.order.partials.show')
                                             </form>
@@ -62,8 +62,6 @@
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
-    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('.editor').summernote({

@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 trait DataTableTrait
 {
-    public function dataTable($model=null, $columns=[])
+    public function dataTable($model=null, $columns=[], $nostatus=null)
     {
-        $profile = Auth::user()->type_id;
-        if($profile == 1){
-            $result = $model->select($columns)->where('status_id', '!=', 10);
-        }else{
+        if($nostatus==null){
             $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('status_id', '!=', 10);
+        }else{
+            $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id);
         }
         return $result;
     }

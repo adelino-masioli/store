@@ -37,7 +37,9 @@ class Order extends Model
         'state',
         'city',
         'status_id',
-        'configuration_id'
+        'configuration_id',
+        'user_id',
+        'customer_id',
     ];
 
     public function status() {
@@ -45,5 +47,11 @@ class Order extends Model
     }
     public function configuration() {
         return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+    public function customer() {
+        return $this->belongsTo('App\User', 'customer_id');
     }
 }

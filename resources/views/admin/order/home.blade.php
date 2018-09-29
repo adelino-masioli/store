@@ -32,11 +32,12 @@
                             <table class="table table-bordered table-condensed table-hover table-striped" id="orders-table" style="width: 100%;">
                                 <thead>
                                 <tr>
-                                    <th class="hidden-xs col-md-1 text-center">ID</th>
+                                    <th class="hidden-xs col-md-1 text-center">CÓDIGO</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">NOME DO CLIENTE</th>
-                                    <th class="col-md-2 text-center">EMAIL</th>
-                                    <th class="col-md-1 text-center">TELEFONE</th>
+                                    <th class="col-md-4 text-center">NOME DO CLIENTE</th>
+                                    <th class="col-md-2 text-center">USUÁRIO</th>
+                                    <th class="col-md-1 text-center">TOTAL</th>
+                                    <th class="col-md-2 text-center">DATA</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -65,8 +66,9 @@
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'phone', name: 'phone'},
+                {data: 'user', name: 'user'},
+                {data: 'total', name: 'total', className: 'text-right'},
+                {data: 'created_at', name: 'created_at', className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

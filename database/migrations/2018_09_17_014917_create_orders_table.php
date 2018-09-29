@@ -19,6 +19,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedInteger('configuration_id')->nullable();
             $table->foreign('configuration_id')->references('id')->on('configurations');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('customer_id')->nullable();
+            $table->foreign('customer_id')->references('id')->on('users');
             $table->string('origin');
             $table->integer('type');
             $table->string('name');
