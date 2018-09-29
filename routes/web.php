@@ -7,7 +7,7 @@ Route::get('/produtos/{category}', 'ProductController@index');
 Route::get('/produto/{product}', 'ProductController@show');
 
 Route::post('/enviar-newsletter', 'SiteController@postNewsletter')->name('post-newsletter');
-Route::post('/enviar-orcamento', 'SiteController@postQuote')->name('post-quote');
+Route::post('/enviar-orcamento', 'SiteController@postQuote')->name('post-order');
 Route::post('/enviar-contato', 'SiteController@postContact')->name('post-contact');
 Route::post('/busca', 'SiteController@result');
 
@@ -56,6 +56,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/product/destroy/{id}', 'ProductController@destroy')->name('product-destroy');
     Route::post('/product/update', 'ProductController@update')->name('product-update');
     Route::post('/product/category', 'ProductController@productCategory')->name('product-category');
+    Route::post('/product/subcategory', 'ProductController@producSubCategory')->name('product-subcategory');
     Route::post('/product/image/store', 'ProductImageController@store')->name('product-image-store');
     Route::get('/product/image/destroy/{id}', 'ProductImageController@destroy')->name('product-image-destroy');
 
@@ -84,29 +85,29 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/contact/destroy/{id}', 'ContactController@destroy')->name('contact-destroy');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
 
-    //quote
-    Route::get('/quotes', 'QuoteController@index')->name('quotes');
-    Route::get('/datatable-quotes', 'QuoteController@getDatatable')->name('datatable-quotes');
-    Route::get('/quote/create', 'QuoteController@create')->name('quote-create');
-    Route::post('/quote/store', 'QuoteController@store')->name('quote-store');
-    Route::get('/quote/edit/{id}', 'QuoteController@edit')->name('quote-edit');
-    Route::get('/quote/show/{id}', 'QuoteController@show')->name('quote-show');
-    Route::get('/quote/destroy/{id}', 'QuoteController@destroy')->name('quote-destroy');
-    Route::post('/quote/update', 'QuoteController@update')->name('quote-update');
-    Route::post('/quote/update-status', 'QuoteController@updateStatus')->name('quote-update-status');
-    Route::post('/quote/discount/store', 'QuoteController@discount')->name('quote-discount-store');
-    Route::get('/quote/next/payment/{id}', 'QuoteController@nextPayment')->name('quote-next-payment');
+    //order
+    Route::get('/orders', 'OrderController@index')->name('orders');
+    Route::get('/datatable-orders', 'OrderController@getDatatable')->name('datatable-orders');
+    Route::get('/order/create', 'OrderController@create')->name('order-create');
+    Route::post('/order/store', 'OrderController@store')->name('order-store');
+    Route::get('/order/edit/{id}', 'OrderController@edit')->name('order-edit');
+    Route::get('/order/show/{id}', 'OrderController@show')->name('order-show');
+    Route::get('/order/destroy/{id}', 'OrderController@destroy')->name('order-destroy');
+    Route::post('/order/update', 'OrderController@update')->name('order-update');
+    Route::post('/order/update-status', 'OrderController@updateStatus')->name('order-update-status');
+    Route::post('/order/discount/store', 'OrderController@discount')->name('order-discount-store');
+    Route::get('/order/next/payment/{id}', 'OrderController@nextPayment')->name('order-next-payment');
 
-    //quote item
-    Route::post('/quote-item/search', 'QuoteItemController@search')->name('quote-item-search');
-    Route::post('/quote-item/store', 'QuoteItemController@store')->name('quote-item-store');
-    Route::post('/quote-item/destroy', 'QuoteItemController@destroy')->name('quote-item-destroy');
-    Route::get('/quote-item/get/{id}', 'QuoteItemController@get')->name('quote-item-get');
+    //order item
+    Route::post('/order-item/search', 'OrderItemController@search')->name('order-item-search');
+    Route::post('/order-item/store', 'OrderItemController@store')->name('order-item-store');
+    Route::post('/order-item/destroy', 'OrderItemController@destroy')->name('order-item-destroy');
+    Route::get('/order-item/get/{id}', 'OrderItemController@get')->name('order-item-get');
 
-    //quote payment
-    Route::get('/quote-payment/{id}', 'QuotePaymentController@payment')->name('quote-payment');
-    Route::get('/quote-next-payment-confirm/{id}', 'QuotePaymentController@paymentConfirm')->name('quote-next-payment-confirm');
-    Route::post('/quote-payment/store', 'QuotePaymentController@store')->name('quote-payment-store');
+    //order payment
+    Route::get('/order-payment/{id}', 'OrderPaymentController@payment')->name('order-payment');
+    Route::get('/order-next-payment-confirm/{id}', 'OrderPaymentController@paymentConfirm')->name('order-next-payment-confirm');
+    Route::post('/order-payment/store', 'OrderPaymentController@store')->name('order-payment-store');
 
 
 

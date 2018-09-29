@@ -36,7 +36,7 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Produto</a></li>
-                                        <li role="presentation"><a href="#category" aria-controls="category" role="tab" data-toggle="tab">Categorias</a></li>
+                                        <li role="presentation"><a href="#category" aria-controls="category" role="tab" data-toggle="tab">Categoria e Subcategoria</a></li>
                                         <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab">Imagens</a></li>
                                     </ul>
 
@@ -65,7 +65,6 @@
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
-    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -84,30 +83,5 @@
 
         //money
         masMoney();
-
-        //select category
-        function selectCategory(id) {
-            let token = $('input[name=_token]').val()
-            let caetetory_selected = '#category_'+id;
-            if($(caetetory_selected + ' .cat_name').hasClass('active-selected-category')){
-                $(caetetory_selected + ' .cat_name').removeClass('active-selected-category');
-                $(caetetory_selected + ' .cat_status').removeClass('selected-category');
-                $(caetetory_selected + ' .cat_status').text('Não');
-            }else{
-                $(caetetory_selected + ' .cat_name').addClass('active-selected-category');
-                $(caetetory_selected + ' .cat_status').addClass('selected-category');
-                $(caetetory_selected + ' .cat_status').text('Sim');
-            }
-
-            var vUrl = '{{route('product-category')}}';
-            var vData = { product_id:'{{$product->id}}', category_id:id, _token:token};
-            $.post(
-                vUrl,
-                vData,
-                function(response,status){
-                    toast('Importante', 'Salvo com sucesso!', 'top-right', '#2594ff')
-                }
-            );
-        }
     </script>
 @endpush

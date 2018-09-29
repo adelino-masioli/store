@@ -182,3 +182,16 @@ function bgColor($i)
             break;
     }
 }
+
+// origin
+function quoteOrigin($i)
+{
+    switch ($i) {
+        case 1:
+            return  "Sistema";
+            break;
+        case 2:
+            return  "Site";
+            break;
+    }
+}

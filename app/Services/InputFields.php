@@ -202,22 +202,18 @@ class InputFields
     }
 
 
-    public static function inputFieldsQuote($request){
+    public static function inputFieldsOrder($request){
         $status = $request['status_id'] ? $request['status_id'] : 3;
-        $profile = Auth::user()->type_id;
-        if($profile > 1){
-            $configuration_id = Auth::user()->configuration_id;
-        }else{
-            $configuration_id = $request['configuration_id'];
-        }
+        $configuration_id = Auth::user()->configuration_id;
 
         $fields = [
+            'origin'           => quoteOrigin(1),
+            'type'             => 1,
             'name'             => $request['name'],
             'email'            => $request['email'],
             'phone'            => $request['phone'],
             'about'            => $request['about'],
             'description'      => $request['description'],
-            'total'            => $request['total'],
             'zipcode'          => $request['zipcode'],
             'address'          => $request['address'],
             'district'         => $request['district'],

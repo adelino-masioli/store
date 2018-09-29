@@ -4,7 +4,7 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Dashboard
+        Contato
     @endslot
     @slot('small')
         Listagem de Contatos

@@ -1,2 +1,2 @@
-<a href="{{route('contacts')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat">Listagem de Contatos</a>
-<a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');">Atualizar Status do contato</a>
+<a href="{{route('contacts')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Contatos</a>
+<a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Atualizar Status do contato</a>

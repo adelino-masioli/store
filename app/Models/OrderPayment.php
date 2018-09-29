@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class QuotePayment extends Model
+class OrderPayment extends Model
 {
     use Notifiable;
     /**
@@ -19,26 +19,26 @@ class QuotePayment extends Model
      *
      * @var array
      */
-    protected $table = 'quote_payments';
+    protected $table = 'order_payments';
     protected $fillable = [
         'price',
-        'quote_id',
+        'order_id',
         'payment_id'
     ];
 
-    public function quote() {
-        return $this->belongsTo('App\Models\Quote', 'quote_id');
+    public function order() {
+        return $this->belongsTo('App\Models\Order', 'order_id');
     }
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');
     }
-    public static function getPaymentValue($quote_id, $payment_id)
+    public static function getPaymentValue($order_id, $payment_id)
     {
-        $price =  QuotePayment::where('quote_id', $quote_id)->where('payment_id', $payment_id);
+        $price =  OrderPayment::where('order_id', $order_id)->where('payment_id', $payment_id);
         if($price->count() > 0){
             return money_br($price->first()->price);
         }else{
-            return '0.00';
+            return '';
         }
     }
 }

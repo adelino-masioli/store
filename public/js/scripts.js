@@ -17,9 +17,13 @@ function toast(heading, text, position, color){
         loaderBg: color
     })
 }
-
+$('.select2').select2();
 //selected tabs
 $(document).ready(function(){
+    setTimeout(function(){
+      $('.hidden-timeout').fadeOut();
+    },2500)
+
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));
     });

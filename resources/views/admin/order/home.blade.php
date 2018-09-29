@@ -4,13 +4,13 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Dashboard
+        Pedidos
     @endslot
     @slot('small')
-        Listagem de Orçamentos
+        Listagem de Pedidos
     @endslot
     @slot('link')
-        Orçamentos
+        Pedidos
     @endslot
 @endcomponent
 
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('quote-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo orçamento</a>
+                    <a href="{{route('order-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo pedido</a>
                 </div>
 
                 <div class="box-body">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="quotes-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="orders-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
@@ -57,10 +57,10 @@
 @endsection
 @push('scripts')
     <script>
-        $('#quotes-table').DataTable({
+        $('#orders-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-quotes')}}',
+            ajax: '{{route('datatable-orders')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},

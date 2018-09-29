@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SiteController;
 use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use App\Models\Status;
+use App\Models\SubCategory;
 use App\Services\InputFields;
 use App\Services\Messages;
 use App\Traits\DataTableTrait;
@@ -101,7 +103,9 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         $product_categories = ProductCategory::where('product_id', $id)->get()->pluck('category_id')->toArray();
+        $product_subcategories = ProductCategory::where('product_id', $id)->get()->pluck('subcategory_id')->toArray();
         $categories = Category::orderBy('name', 'asc')->get();
+        $subcategories = SubCategory::orderBy('name', 'asc')->get();
         $product_images = ProductImage::where('product_id', $id)->get();
 
         $status = Status::where('flag', 'default')->get();
@@ -112,7 +116,7 @@ class ProductController extends Controller
             $configurations = Configuration::get();
         }
 
-        return view('admin.product.edit', compact('product', 'categories', 'product_categories', 'product_images', 'status', 'configurations'));
+        return view('admin.product.edit', compact('product', 'categories', 'subcategories', 'product_categories', 'product_subcategories', 'product_images', 'status', 'configurations'));
     }
 
 
@@ -178,7 +182,27 @@ class ProductController extends Controller
             }
             return 1;
         }catch(\Exception $e){
-            session()->flash('error_quote', 'Erro ao cadastrar-se!');
+            session()->flash('error_quote', 'Erro ao salvar!');
+            return redirect()->back();
+        }
+    }
+
+    //product subcategory
+    public static function producSubCategory(Request $request)
+    {
+        try{
+            $product_subcategory = ProductCategory::where('product_id', $request['product_id'])->where('subcategory_id', $request['subcategory_id']);
+            if($product_subcategory->count() == 0) {
+                ProductCategory::create([
+                    'product_id' => $request['product_id'],
+                    'subcategory_id' => $request['subcategory_id'],
+                ]);
+            }else{
+                $product_subcategory->first()->delete();
+            }
+            return 1;
+        }catch(\Exception $e){
+            session()->flash('error_quote', 'Erro ao salvar!');
             return redirect()->back();
         }
     }

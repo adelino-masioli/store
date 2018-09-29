@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Orçamento
+            Pedido
         @endslot
         @slot('small')
-            Cadastro de orçamento
+            Cadastro de pedidos
         @endslot
         @slot('link')
-            Novo orçamento
+            Novo pedidos
         @endslot
     @endcomponent
 
@@ -21,8 +21,8 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="{{route('quotes')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat">Listagem de Orçamentos</a>
-                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');">Salvar e avançar</a>
+                        <a href="{{route('orders')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos</a>
+                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Salvar e avançar</a>
                     </div>
 
                     <div class="box-body">
@@ -42,8 +42,8 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="singletabs">
-                                            <form action="{{route('quote-store')}}" method="post" class="panels" id="formsubmit">
-                                                @include('admin.quote.partials.form')
+                                            <form action="{{route('order-store')}}" method="post" class="panels" id="formsubmit">
+                                                @include('admin.order.partials.form')
                                             </form>
                                         </div>
                                     </div>
@@ -61,8 +61,6 @@
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
-    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('.editor').summernote({

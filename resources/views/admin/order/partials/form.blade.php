@@ -1,0 +1,86 @@
+    {{ csrf_field() }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="name">Nome do cliente<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do cliente" value="@if(isset($order)){{$order->name}}@else{{old('name')}}@endif" required autofocus>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="email">E-mail do cliente</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail do cliente" value="@if(isset($order)){{$order->email}}@else{{old('email')}}@endif">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="zipcode">CEP</label>
+                <input type="text" class="form-control zipcode" id="zipcode" name="zipcode" placeholder="CEP" value="@if(isset($order)){{$order->zipcode}}@else{{old('zipcode')}}@endif">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="address">Endereço</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Endereço" value="@if(isset($order)){{$order->address}}@else{{old('address')}}@endif">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="district">Bairro</label>
+                <input type="text" class="form-control" id="district" name="district" placeholder="Bairro" value="@if(isset($order)){{$order->district}}@else{{old('district')}}@endif">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="number">Número</label>
+                <input type="text" class="form-control" id="number" name="number" placeholder="Número" value="@if(isset($order)){{$order->number}}@else{{old('number')}}@endif">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="state">Estado</label>
+                <input type="text" class="form-control" id="state" name="state" placeholder="Estado" maxlength="2" value="@if(isset($order)){{$order->state}}@else{{old('state')}}@endif">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="city">Cidade</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Cidade" value="@if(isset($order)){{$order->city}}@else{{old('city')}}@endif">
+            </div>
+        </div>
+    </div>
+
+
+
+@if(isset($order))
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea class="form-control editor" id="description" name="description" placeholder="Descrição">@if(isset($order)){{$order->description}}@else{{old('description')}}@endif</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @if(isset($status))
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="status_id">Status</label>
+                    <select class="form-control select2" id="status_id" name="status_id" style="width: 100%;">
+                        @foreach($status as $status)
+                            <option @if(isset($order)) @if($order->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
+    </div>
+@endif

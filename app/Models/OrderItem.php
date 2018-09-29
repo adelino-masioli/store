@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class QuoteIten extends Model
+class OrderItem extends Model
 {
     use Notifiable;
     /**
@@ -19,13 +19,13 @@ class QuoteIten extends Model
      *
      * @var array
      */
-    protected $table = 'quote_itens';
+    protected $table = 'order_items';
     protected $fillable = [
         'product_name',
         'qty',
         'price',
         'subtotal',
-        'quote_id',
+        'order_id',
         'product_id'
     ];
 
@@ -34,5 +34,8 @@ class QuoteIten extends Model
     }
     public function configuration() {
         return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
+    public function order() {
+        return $this->belongsTo('App\Models\Order', 'order_id');
     }
 }

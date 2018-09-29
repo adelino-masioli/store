@@ -3,11 +3,11 @@
     <div class="mailbox-read-info">
         <div class="row">
             <div class="col-md-9">
-                <h3><strong>Detalhes:</strong> @if(isset($quote)){{$quote->about}}@endif</h3>
-                <h5><strong>Nome do cliente:</strong> @if(isset($quote)){{$quote->name}}@endif</h5>
-                <h5><strong>E-mail de contato:</strong> @if(isset($quote)){{$quote->email}}@endif</h5>
-                <h5><strong>Telefone:</strong> @if(isset($quote)){{$quote->phone}}@endif</h5>
-                <h5>@if(isset($quote)){{format_date($quote->created_at)}}@endif</h5>
+                <h3><strong>Detalhes:</strong> @if(isset($order)){{$order->about}}@endif</h3>
+                <h5><strong>Nome do cliente:</strong> @if(isset($order)){{$order->name}}@endif</h5>
+                <h5><strong>E-mail de contato:</strong> @if(isset($order)){{$order->email}}@endif</h5>
+                <h5><strong>Telefone:</strong> @if(isset($order)){{$order->phone}}@endif</h5>
+                <h5>@if(isset($order)){{format_date($order->created_at)}}@endif</h5>
             </div>
 
             @if(isset($status))
@@ -16,7 +16,7 @@
                         <label for="status_id">Status</label>
                         <select class="form-control select2" id="status_id" name="status_id">
                             @foreach($status as $status)
-                                <option @if(isset($quote)) @if($quote->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                                <option @if(isset($order)) @if($order->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="mailbox-read-message">
-        @if(isset($quote)){!! $quote->description !!}@endif
+        @if(isset($order)){!! $order->description !!}@endif
     </div>
 </div>
 
@@ -41,13 +41,13 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($quteitens as $quteiten)
+        @foreach($items as $item)
             <tr>
-                <td class="col-md-1 text-center">{{$quteiten->id}}</td>
-                <td class="col-md-8 text-left">{{$quteiten->product_name}}</td>
-                <td class="col-md-1 text-right">{{money_br($quteiten->price)}}</td>
-                <td class="col-md-1 text-center">{{$quteiten->qty}}</td>
-                <td class="col-md-1 text-right">{{money_br($quteiten->subtotal)}}</td>
+                <td class="col-md-1 text-center">{{$item->id}}</td>
+                <td class="col-md-8 text-left">{{$item->product_name}}</td>
+                <td class="col-md-1 text-right">{{money_br($item->price)}}</td>
+                <td class="col-md-1 text-center">{{$item->qty}}</td>
+                <td class="col-md-1 text-right">{{money_br($item->subtotal)}}</td>
             </tr>
         @endforeach
         </tbody>
@@ -58,14 +58,14 @@
             <th class="col-md-8 text-right">DESCONTO</th>
             <th class="col-md-1 text-center"></th>
             <th class="col-md-1 text-center"></th>
-            <th class="col-md-1 text-right">{{money_br($quote->discount)}}</th>
+            <th class="col-md-1 text-right">{{money_br($order->discount)}}</th>
         </tr>
         <tr>
             <th class="col-md-1 text-right"></th>
             <th class="col-md-8 text-center"></th>
             <th class="col-md-1 text-center"></th>
             <th class="col-md-1 text-center">TOTAL R$:</th>
-            <th class="col-md-1 text-right">{{money_br($quote->total - $quote->discount)}}</th>
+            <th class="col-md-1 text-right">{{money_br($order->total - $order->discount)}}</th>
         </tr>
         </tfoot>
     </table>

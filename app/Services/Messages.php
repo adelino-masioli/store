@@ -153,7 +153,7 @@ class Messages
     }
 
 
-    public  static function msgQuote()
+    public  static function msgOrder()
     {
         $messages = [
             'name.required'             => 'Favor informar o NOME DO CLIENTE',

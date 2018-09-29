@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuotePaymentsTable extends Migration
+class CreateOrderPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateQuotePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quote_payments', function (Blueprint $table) {
+        Schema::create('order_payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('quote_id')->nullable();
-            $table->foreign('quote_id')->references('id')->on('quotes');
+            $table->unsignedInteger('order_id')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->unsignedInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->decimal('price', 10,2)->nullable();
@@ -31,6 +31,6 @@ class CreateQuotePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quote_payments');
+        Schema::dropIfExists('order_payments');
     }
 }

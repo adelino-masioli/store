@@ -3,19 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\OrderIten;
 use App\Models\Product;
-use App\Models\Quote;
-use App\Models\QuoteIten;
-use App\Models\Status;
-use App\Services\InputFields;
-use App\Services\Messages;
 use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Validator;
 
-class QuoteItemController extends Controller
+class OrderItemController extends Controller
 {
     use DataTableTrait;
 
@@ -43,7 +38,7 @@ class QuoteItemController extends Controller
     public static function store(Request $request)
     {
         try{
-            $item = QuoteIten::where('product_id', $request->product_id)->where('quote_id', $request->quote_id);
+            $item = OrderItem::where('product_id', $request->product_id)->where('order_id', $request->order_id);
 
             $qty = $request->product_qty > 0 ? $request->product_qty : 1;
 
@@ -52,12 +47,12 @@ class QuoteItemController extends Controller
                 'qty' => $qty,
                 'price' => $request->product_price,
                 'subtotal' => $qty * $request->product_price,
-                'quote_id' => $request->quote_id,
+                'order_id' => $request->order_id,
                 'product_id' => $request->product_id
             ];
 
             if($item->count() == 0) {
-                QuoteIten::create($array);
+                OrderItem::create($array);
             }else{
                 $qty_up            = $item->first()->qty + $qty;
                 $array['qty']      = $qty_up;
@@ -65,11 +60,11 @@ class QuoteItemController extends Controller
                 $item->first()->update($array);
             }
 
-            //update quote total
-            $quote = Quote::findOrFail($request->quote_id);
-            $itemtotal = QuoteIten::where('quote_id', $quote->id)->sum('subtotal');
+            //update order total
+            $order = Order::findOrFail($request->order_id);
+            $itemtotal = OrderItem::where('order_id', $order->id)->sum('subtotal');
             $totalquote['total'] = $itemtotal;
-            $quote->update($totalquote);
+            $order->update($totalquote);
 
              return json_encode(true);
         }catch(\Exception $e){
@@ -81,34 +76,34 @@ class QuoteItemController extends Controller
     //get
     public function get($id)
     {
-        $quote = Quote::findOrfail($id);
-        $quteitens = QuoteIten::where('quote_id', $id)->get();
-        return view('admin.quote.partials.tableitens', compact('quteitens', 'quote'));
+        $order = Order::findOrfail($id);
+        $items = OrderItem::where('order_id', $id)->get();
+        return view('admin.order.partials.tableitens', compact('items', 'order'));
     }
 
 
     //destroy
     public static function destroy(Request $request)
     {
-        $quote_id = $request->quote_id;
-        $count = QuoteIten::where('quote_id', $quote_id)->count();
-        $quote = Quote::findOrFail($quote_id);
+        $order_id = $request->order_id;
+        $count = OrderItem::where('order_id', $order_id)->count();
+        $order = Order::findOrFail($order_id);
 
         $item_id  = $request->item;
-        $quoteitem = QuoteIten::findOrfail($item_id);
+        $orderitem = OrderItem::findOrfail($item_id);
 
 
         if($count > 1){
-            $totalquote['total'] = $quote->total - $quoteitem->subtotal;
-            $quote->update($totalquote);
+            $totalquote['total'] = $order->total - $orderitem->subtotal;
+            $order->update($totalquote);
         }else{
             $totalquote['total'] = 0;
             $totalquote['discount'] = 0;
-            $quote->update($totalquote);
+            $order->update($totalquote);
         }
 
-        if($quoteitem){
-            $quoteitem->delete();
+        if($orderitem){
+            $orderitem->delete();
         }
 
         $msg = ['status' => 1, 'count' => $count];

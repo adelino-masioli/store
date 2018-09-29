@@ -1,6 +1,6 @@
-<input type="hidden" name="quote_id" id="quote_id" value="{{$quote->id}}">
+<input type="hidden" name="order_id" id="order_id" value="{{$order->id}}">
 
-@include('admin.quote.partials.payments')
+@include('admin.order.partials.payments')
 
 
 
@@ -17,13 +17,13 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($quteitens as $quteiten)
+            @foreach($items as $item)
                 <tr>
-                    <td class="col-md-1 text-center">{{$quteiten->id}}</td>
-                    <td class="col-md-8 text-left">{{$quteiten->product_name}}</td>
-                    <td class="col-md-1 text-right">{{money_br($quteiten->price)}}</td>
-                    <td class="col-md-1 text-center">{{$quteiten->qty}}</td>
-                    <td class="col-md-1 text-right">{{money_br($quteiten->subtotal)}}</td>
+                    <td class="col-md-1 text-center">{{$item->id}}</td>
+                    <td class="col-md-8 text-left">{{$item->product_name}}</td>
+                    <td class="col-md-1 text-right">{{money_br($item->price)}}</td>
+                    <td class="col-md-1 text-center">{{$item->qty}}</td>
+                    <td class="col-md-1 text-right">{{money_br($item->subtotal)}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -34,14 +34,14 @@
                 <th class="col-md-8 text-right">DESCONTO</th>
                 <th class="col-md-1 text-center"></th>
                 <th class="col-md-1 text-center"></th>
-                <th class="col-md-1 text-right">{{money_br($quote->discount)}}</th>
+                <th class="col-md-1 text-right">{{money_br($order->discount)}}</th>
             </tr>
             <tr>
                 <th class="col-md-1 text-right"></th>
                 <th class="col-md-8 text-center"></th>
                 <th class="col-md-1 text-center"></th>
                 <th class="col-md-1 text-center">TOTAL R$:</th>
-                <th class="col-md-1 text-right">{{money_br($quote->total - $quote->discount)}}</th>
+                <th class="col-md-1 text-right">{{money_br($order->total - $order->discount)}}</th>
             </tr>
             </tfoot>
         </table>

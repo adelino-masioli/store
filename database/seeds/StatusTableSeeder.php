@@ -41,5 +41,30 @@ class StatusTableSeeder extends Seeder
             'status'  => 'Baixado',
             'flag'    => 'document',
         ]);
+
+        DB::table('status')->insert([
+            'status'  => 'Processando',
+            'flag'    => 'order',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Financeiro',
+            'flag'    => 'order',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Produção',
+            'flag'    => 'order',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Finalizado',
+            'flag'    => 'order',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Expedição',
+            'flag'    => 'order',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Entregue',
+            'flag'    => 'order',
+        ]);
     }
 }

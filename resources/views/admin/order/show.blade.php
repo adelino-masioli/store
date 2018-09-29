@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Orçamento
+            Pedido
         @endslot
         @slot('small')
-            Editando o orçamento: #{{$quote->id}}
+            Visualizando o pedido: #{{$order->id}}
         @endslot
         @slot('link')
-            Detalhes do orçamento
+            Detalhes do pedido
         @endslot
     @endcomponent
 
@@ -21,7 +21,8 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        @include('admin.quote.partials.menu')
+                        <a href="{{route('orders')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos</a>
+                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Atualizar o status desse pedido</a>
                     </div>
 
                     <div class="box-body">
@@ -36,18 +37,16 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#quote" aria-controls="quote" role="tab" data-toggle="tab">Detalhes do Orçamento</a></li>
-                                        <li role="presentation"><a href="#quote-item" aria-controls="quote-item" role="tab" data-toggle="tab">Itens do Orçamento</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('quote-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$quote->id}}">
-                                                @include('admin.quote.partials.form')
+                                            <form action="{{route('quote-update-status')}}" method="post" class="panels" id="formsubmit">
+                                                <input type="hidden" name="id" value="{{$order->id}}">
+                                                @include('admin.order.partials.show')
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="quote-item">@include('admin.quote.partials.formitem')</div>
                                     </div>
                                 </div>
                             </div>
@@ -63,6 +62,7 @@
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
+    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -80,7 +80,6 @@
 
             //money
             masMoney();
-            maskZipCode();
         });
     </script>
 @endpush

@@ -2,13 +2,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Orçamento
+            Pedido
         @endslot
         @slot('small')
-            Editando o orçamento: #{{$quote->id}}
+            Editando o pedido: #{{$order->id}}
         @endslot
         @slot('link')
-            Detalhes do orçamento
+            Editando do pedido
         @endslot
     @endcomponent
 
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        @include('admin.quote.partials.menu')
+                        @include('admin.order.partials.menu')
                     </div>
 
                     <div class="box-body">
@@ -32,15 +32,15 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#singletab" aria-controls="singletab" role="tab" data-toggle="tab">Pagamento</a></li>
-                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-to-pay">R$ {{money_br($quote->total - $quote->discount)}}</a></li>
-                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-pay-diff">R$ {{money_br(($quote->total - $quote->discount) - $quote_pay)}}</a></li>
-                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-pay">R$ {{money_br($quote_pay)}}</a></li>
+                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-to-pay">R$ {{money_br($order->total - $order->discount)}}</a></li>
+                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-pay-diff">R$ {{money_br(($order->total - $order->discount) - $order_pay)}}</a></li>
+                                        <li role="presentation" class="pull-right"><a href="javascript:void(0);" class="disabled total-pay">R$ {{money_br($order_pay)}}</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="singletab">
-                                            @include('admin.quote.partials.formpayment')
+                                            @include('admin.order.partials.formpayment')
                                         </div>
                                     </div>
                                 </div>
@@ -63,11 +63,11 @@
 
         function selectPayment(id) {
             if($('#payment_'+id).val().length > 0) {
-                var vUrlpayment = '{{route('quote-payment-store')}}';
+                var vUrlpayment = '{{route('order-payment-store')}}';
                 var vDatapayment = {
                     _token: $('input[name=_token]').val(),
                     payment_id: id,
-                    quote_id: $('#quote_id').val(),
+                    order_id: $('#order_id').val(),
                     price: $('#payment_' + id).val(),
                 };
                 $.post(
@@ -78,10 +78,10 @@
                             toast('Importante', response.response, 'top-right', '#2dff2e')
 
                             $('.total-pay').html('');
-                            $('.total-pay').html(response.quote_pay);
+                            $('.total-pay').html(response.order_pay);
 
                             $('.total-pay-diff').html('');
-                            $('.total-pay-diff').html(response.quote_pay_diff);
+                            $('.total-pay-diff').html(response.order_pay_diff);
                         } else {
                             toast('Importante', response.response, 'top-right', '#ff0000')
                         }
