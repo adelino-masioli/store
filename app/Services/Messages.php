@@ -130,7 +130,7 @@ class Messages
             'type_id.required'          => 'Favor informar o TIPO DO ARQUIVO',
             'description.required'      => 'Favor informar a DESCRIÇÃO',
             'file.required'             => 'Favor selecionar o ARQUIVO',
-            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+            'file.required'             => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
         ];
 
         return $messages;
@@ -152,7 +152,6 @@ class Messages
         return $messages;
     }
 
-
     public  static function msgOrder()
     {
         $messages = [
@@ -164,4 +163,34 @@ class Messages
 
         return $messages;
     }
+
+    public  static function msgPage()
+    {
+        $messages = [
+            'title.required'  => 'Favor informar o TÍTULO DA PÁGINA',
+            'title.string'    => 'Favor informar o TÍTULO DA PÁGINA como texto',
+            'title.min'       => 'Favor informar o TÍTULO DA PÁGINA com mínimo 5 caracteres',
+            'title.max'       => 'Favor informar o TÍTULO DA PÁGINA com máximo 50 caracteres',
+            'banner.mimes'    => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+        ];
+
+        return $messages;
+    }
+
+
+    public  static function msgMidia()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o TÍTULO DA MÍDIA',
+            'name.string'               => 'Favor informar o TÍTULO DA MÍDIA como texto',
+            'name.min'                  => 'Favor informar o TÍTULO DA MÍDIA com mínimo 5 caracteres',
+            'name.max'                  => 'Favor informar o TÍTULO DA MÍDIA com máximo 50 caracteres',
+            'description.required'      => 'Favor informar a DESCRIÇÃO',
+            'file.required'             => 'Favor selecionar o ARQUIVO',
+            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+        ];
+
+        return $messages;
+    }
+
 }

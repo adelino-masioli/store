@@ -113,6 +113,8 @@
                         <ul class="treeview-menu">
                             <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o"></i> Cadastro</a></li>
                             <li><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
+                            <li><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
+                            <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
                         </ul>
                     </li>
             @endif

@@ -57,17 +57,26 @@ class DocumentController extends Controller
             ->addColumn('updated_at', function ($data) {
                 return format_date($data->updated_at);;
             })
-            ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('document-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('document-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
-                        ';
-            })
             ->addColumn('file', function ($data) {
                 if($data->file) {
-                    return '<a href="' . route('document-download', $data->file) . '"  title="Baixar" class="btn bg-green btn-xs"><i class="fa fa-download"></i></a>';
+                    return '<a href="' . route('document-download', base64_encode($data->file)) . '"  title="Baixar" class="btn bg-green btn-xs"><i class="fa fa-download"></i></a>';
                 }else{
                     return '<a href="javascript:void(0);"  title="Baixar" class="btn bg-green btn-xs disabled"><i class="fa fa-close"></i></a>';
                 }
+            })
+            ->addColumn('action', function ($data) {
+                if($data->status_id == canceledRegister()) {
+                    return '<a onclick="localStorage.clear();" href="' . route('document-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                         <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
+                        ';
+                }else{
+                    return '<a onclick="localStorage.clear();" href="' . route('document-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('document-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                        ';
+                }
+            })
+            ->setRowClass(function ($data) {
+                return switchColor($data->status_id);
             })
             ->rawColumns(['action', 'file'])
             ->toJson();
@@ -138,8 +147,9 @@ class DocumentController extends Controller
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($document_id)
     {
+        $id = base64_decode($document_id);
         $document = Document::findOrfail($id);
         $status = Status::where('flag', 'default')->get();
         $users = User::where('id', '!=', Auth::user()->id)
@@ -219,8 +229,9 @@ class DocumentController extends Controller
 
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($document_id)
     {
+        $id = base64_decode($document_id);
         $file = Document::findOrfail($id);
         destroyFile('documents', $file->file, null);
 
@@ -232,8 +243,9 @@ class DocumentController extends Controller
     }
 
     //destroy file
-    public static function destroyFile($id)
+    public static function destroyFile($document_id)
     {
+        $id = base64_decode($document_id);
         $file = Document::findOrfail($id);
         destroyFile('documents', $file->file, null);
 
@@ -244,8 +256,9 @@ class DocumentController extends Controller
         return redirect()->back();
     }
 
-    public static function download($file)
+    public static function download($file_download)
     {
+        $file = base64_decode($file_download);
         $download = defineDownloadPath('documents').'/'.$file;
         return response()->download($download, $file);
     }

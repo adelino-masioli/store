@@ -27,34 +27,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        @if(isset($status))
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="status_id">Status</label>
-                <select class="form-control select2" id="status_id" name="status_id" style="width: 100%;">
-                    @foreach($status as $status)
-                        <option @if(isset($user)) @if($user->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        @endif
-
-        @if(isset($types))
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="type_id">Perfil do Usuário</label>
-                    <select class="form-control select2" id="type_id" name="type_id" style="width: 100%;">
-                        @foreach($types as $type)
-                            <option @if(isset($user)) @if($user->type_id == $type->id) selected @endif @endif value="{{$type->id}}">{{$type->type}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
-    </div>
-
 
     @if(isset($user)) {{--complements--}}
     <div class="box">
@@ -62,14 +34,6 @@
             <strong>Complementos do usuário</strong>
         </div>
         <div class="box-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="company">Nome da empresa</label>
-                        <input type="text" class="form-control" id="company" name="company" placeholder="Nome da empresa" value="@if(isset($user_complemento)){{$user_complemento->company}}@else{{old('company')}}@endif">
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">

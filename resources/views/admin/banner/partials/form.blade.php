@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="name">Arquivo do banner[JPG,JPEG,PNG - Tamanho: 1920px(Larg)]<span class="text-danger">*</span></label>
                 @if(isset($banner) && $banner->file != '')
-                    <p style="position: relative;top:5px;"><a href="{{route('banner-destroy-file', $banner->id)}}"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i> Deseja excluir este banner?</a></p>
+                    <p style="position: relative;top:5px;"><a href="{{route('banner-destroy-file', base64_encode($banner->id))}}"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i> Deseja excluir este banner?</a></p>
                 @else
                     <input type='file' id="image" name="file"  class="filestyle" data-btnClass="btn-default"  data-text="Selecionar arquivo"/>
                 @endif
@@ -36,20 +36,6 @@
                     <select class="form-control select2" id="status_id" name="status_id">
                         @foreach($status as $status)
                             <option @if(isset($banner)) @if($banner->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
-
-
-        @if(isset($configurations) && $configurations != '')
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="configuration_id">Empresa</label>
-                    <select class="form-control select2" id="configuration_id" name="configuration_id">
-                        @foreach($configurations as $configuration)
-                            <option @if(isset($banner)) @if($banner->configuration_id == $configuration->id) selected @endif @endif value="{{$configuration->id}}">{{$configuration->name}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -4,13 +4,13 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Banners
+        Páginas
     @endslot
     @slot('small')
-        Listagem de Banners
+        Listagem de Páginas
     @endslot
     @slot('link')
-        Banners
+        Páginas
     @endslot
 @endcomponent
 
@@ -20,7 +20,6 @@
             <div class="box">
                 <div class="box-header with-border">
                     <a href="{{route('banner-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo Banner</a>
-                    <a href="{{route('pages')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus-circle"></i> Páginas</a>
                 </div>
 
                 <div class="box-body">
@@ -30,16 +29,14 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="banners-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="pages-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">TÍTULO DO BANNER</th>
-                                    <th class="col-md-1 text-center">BAIXAR</th>
-                                    <th class="col-md-1 text-center">EXTENSÃO</th>
-                                    <th class="col-md-1 text-center">CRIADO</th>
-                                    <th class="col-md-1 text-center">MODIFICADO</th>
+                                    <th class="col-md-6 text-center">TÍTULO DA PÁGINA</th>
+                                    <th class="col-md-1 text-center">TEMPLATE</th>
+                                    <th class="col-md-2 text-center">MOSTRAR FORMULÁRIO?</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -60,18 +57,16 @@
 @endsection
 @push('scripts')
     <script>
-        $('#banners-table').DataTable({
+        $('#pages-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-banners')}}',
+            ajax: '{{route('datatable-pages')}}',
             columns: [
                 {data: 'id', name: 'id', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
-                {data: 'name', name: 'name'},
-                {data: 'file', name: 'file', orderable: false, searchable: false, className: 'text-center'},
-                {data: 'extension', name: 'extension', className: 'text-center text-uppercase'},
-                {data: 'created_at', name: 'created_at'},
-                {data: 'updated_at', name: 'updated_at'},
+                {data: 'title', name: 'title'},
+                {data: 'type', name: 'type', orderable: false, searchable: false},
+                {data: 'show_form', name: 'show_form', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

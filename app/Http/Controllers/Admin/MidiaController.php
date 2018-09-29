@@ -3,21 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Models\Configuration;
 use App\Models\DocumentType;
+use App\Models\Midia;
 use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
 use App\Services\UploadImage;
 use App\Traits\DataTableTrait;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class BannerController extends Controller
+class MidiaController extends Controller
 {
     use DataTableTrait;
 
@@ -29,13 +26,20 @@ class BannerController extends Controller
     //index
     public function index()
     {
-        return view('admin.banner.home');
+        return view('admin.midia.home');
+    }
+
+    //modal
+    public function modal()
+    {
+        $midias = Midia::select('id', 'file')->where('status_id', 1)->get();
+        return $midias;
     }
 
     //get
     public function getDatatable(Request $request)
     {
-        $model = new \App\Models\Banner;
+        $model = new \App\Models\Midia;
         $columns = ['id',  'name',  'file', 'extension',  'created_at', 'updated_at', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
@@ -51,19 +55,19 @@ class BannerController extends Controller
             })
             ->addColumn('file', function ($data) {
                 if($data->file) {
-                    return '<a href="' . route('banner-download', base64_encode($data->file)) . '"  title="Baixar" class="btn bg-green btn-xs"><i class="fa fa-download"></i></a>';
+                    return '<a href="' . route('midia-download', base64_encode($data->file)) . '"  title="Baixar" class="btn bg-green btn-xs"><i class="fa fa-download"></i></a>';
                 }else{
                     return '<a href="javascript:void(0);"  title="Baixar" class="btn bg-green btn-xs disabled"><i class="fa fa-close"></i></a>';
                 }
             })
             ->addColumn('action', function ($data) {
                 if($data->status_id == canceledRegister()) {
-                    return '<a onclick="localStorage.clear();" href="' . route('banner-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                    return '<a onclick="localStorage.clear();" href="' . route('midia-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
                          <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
                 }else{
-                    return '<a onclick="localStorage.clear();" href="' . route('banner-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="' . route('banner-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                    return '<a onclick="localStorage.clear();" href="' . route('midia-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('midia-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
                 }
             })
@@ -78,7 +82,7 @@ class BannerController extends Controller
     public function create()
     {
         $status = Status::where('flag', 'default')->get();
-        return view('admin.banner.create', compact('status'));
+        return view('admin.midia.create', compact('status'));
     }
 
 
@@ -87,7 +91,7 @@ class BannerController extends Controller
     {
         try{
             if($request->hasFile('file')) {
-                $messages = Messages::msgBanner();
+                $messages = Messages::msgMidia();
                 $validator = Validator::make($request->all(), [
                     'name'             => 'required|string|min:5|max:50',
                     'description'      => 'required',
@@ -103,13 +107,13 @@ class BannerController extends Controller
                 $file = $image;
                 $extension = $image->getClientOriginalExtension();
                 $fileName = time() . random_int(100, 999) .'.' . $extension;
-                $path = defineUploadPath('banners', null);
+                $path = defineUploadPath('midias', null);
                 $size =  convertFileSize($image->getSize());
-                
-                Banner::create(InputFields::inputFieldsBanner($request, $extension, $size,  $fileName));
+
+                Midia::create(InputFields::inputFieldsMidia($request, $extension, $size,  $fileName));
 
                 //upload file
-                UploadImage::uploadImage(1920, 100, $file, $fileName, $path);
+                UploadImage::uploadImage(null, 100, $file, $fileName, $path);
 
 
                 session()->flash('success', 'Salvo com sucesso!');
@@ -125,17 +129,13 @@ class BannerController extends Controller
     }
 
     //edit
-    public static function edit($banner_id)
+    public static function edit($midia_id)
     {
-        $id = base64_decode($banner_id);
-        $banner = Banner::findOrfail($id);
+        $id = base64_decode($midia_id);
+        $midia = Midia::findOrfail($id);
         $status = Status::where('flag', 'default')->get();
-        $users = User::where('id', '!=', Auth::user()->id)
-            ->where('configuration_id', '!=', '')
-            ->where('configuration_id', Auth::user()->configuration_id)
-            ->get();
         $doc_types = DocumentType::get();
-        return view('admin.banner.edit', compact('banner', 'status', 'users', 'doc_types'));
+        return view('admin.midia.edit', compact('midia', 'status', 'doc_types'));
     }
 
 
@@ -144,9 +144,9 @@ class BannerController extends Controller
     {
         try{
             if($request->hasFile('file')) {
-                $banner = Banner::findOrFail($request->id);
+                $banner = Midia::findOrFail($request->id);
 
-                $messages = Messages::msgBanner();
+                $messages = Messages::msgMidia();
                 $validator = Validator::make($request->all(), [
                     'name'             => 'required|string|min:5|max:50',
                     'description'      => 'required',
@@ -162,18 +162,18 @@ class BannerController extends Controller
                 $file = $image;
                 $extension = $image->getClientOriginalExtension();
                 $fileName = time() . random_int(100, 999) .'.' . $extension;
-                $path = defineUploadPath('banners', null);
+                $path = defineUploadPath('midias', null);
                 $size =  convertFileSize($image->getSize());
 
-                $data = InputFields::inputFieldsBanner($request, $extension, $size,  $fileName);
+                $data = InputFields::inputFieldsMidia($request, $extension, $size,  $fileName);
                 $banner->update($data);
 
-                UploadImage::uploadImage(1920, 100, $file, $fileName, $path);
+                UploadImage::uploadImage(null, 100, $file, $fileName, $path);
 
                 session()->flash('success', 'Salvo com sucesso!');
                 return redirect()->back();
             }else{
-                $banner = Banner::findOrFail($request->id);
+                $banner = Midia::findOrFail($request->id);
 
                 $messages = Messages::msgBanner();
                 $validator = Validator::make($request->all(), [
@@ -200,12 +200,12 @@ class BannerController extends Controller
 
 
     //destroy
-    public static function destroy($banner_id)
+    public static function destroy($midia_id)
     {
-        $id = base64_decode($banner_id);
-        $file = Banner::findOrfail($id);
+        $id = base64_decode($midia_id);
+        $file = Midia::findOrfail($id);
         //destroy file
-        destroyFile('banners', $file->file, 'thumb');
+        destroyFile('midias', $file->file, 'thumb');
 
         if($file){
             $file->delete();
@@ -215,12 +215,12 @@ class BannerController extends Controller
     }
 
     //destroy file
-    public static function destroyFile($banner_id)
+    public static function destroyFile($midia_id)
     {
-        $id = base64_decode($banner_id);
-        $file = Banner::findOrfail($id);
+        $id = base64_decode($midia_id);
+        $file = Midia::findOrfail($id);
 
-        destroyFile('banners', $file->file, 'thumb');
+        destroyFile('midias', $file->file, 'thumb');
 
         if($file){
             $file->update(['file' => '']);
@@ -232,7 +232,7 @@ class BannerController extends Controller
     public static function download($download_file)
     {
         $file = base64_decode($download_file);
-        $download = defineDownloadPath('banners').'/'.$file;
+        $download = defineDownloadPath('midias').'/'.$file;
         return response()->download($download, $file);
     }
 }

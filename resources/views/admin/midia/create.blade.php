@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Meu usuário
+            Mídia
         @endslot
         @slot('small')
-            {{$user->name}}
+            Cadastro de mídia
         @endslot
         @slot('link')
-            Edição de perfil de usuário
+            Nova mídia
         @endslot
     @endcomponent
 
@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Salvar alterações</a>
+                        @include('admin.midia.partials.menu')
                     </div>
 
                     <div class="box-body">
@@ -35,19 +35,16 @@
                                 <div class="nav-tabs-custom">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
-                                        <li role="presentation" class="active"><a href="#singletab" aria-controls="singletab" role="tab" data-toggle="tab">Meu usuário</a></li>
-                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab"  onclick="formSubmit('#formsubmit');">Avatar</a></li>
+                                        <li role="presentation" class="active"><a href="#singletabs" aria-controls="singletabs" role="tab" data-toggle="tab">Mídia</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="singletab">
-                                            <form action="{{route('user-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$user->id}}">
-                                                @include('admin.user.partials.formme')
+                                        <div role="tabpanel" class="tab-pane active" id="singletabs">
+                                            <form action="{{route('midia-store')}}" method="post" class="panels" id="formsubmit"  enctype="multipart/form-data">
+                                                @include('admin.midia.partials.form')
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="images">@include('admin.user.partials.image')</div>
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +75,7 @@
                     ['para', ['paragraph']]
                 ]
             });
-
-            maskZipCode();
         });
+
     </script>
 @endpush

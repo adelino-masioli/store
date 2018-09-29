@@ -69,8 +69,9 @@ class ProductImageController extends Controller
     }
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($image_id)
     {
+        $id = base64_decode($image_id);
         $image = ProductImage::findOrfail($id);
         if(File::exists(public_path().'/catalog/'.config('app.template').'/thumb/'.$image->image)){
             File::delete(public_path().'/catalog/'.config('app.template').'/thumb/'.$image->image);

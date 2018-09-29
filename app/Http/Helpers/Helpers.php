@@ -225,8 +225,8 @@ function statusOrder($status){
             break;
     }
 }
-//switch colr
-function switchCorlor($color){
+//switch color
+function switchColor($color){
     switch ($color) {
         case 7:
             return  'bg-gray disabled color-palette';
@@ -242,5 +242,27 @@ function switchCorlor($color){
             break;
         default:
             return '';
+    }
+}
+function canceledRegister(){
+    return 13;
+}
+//switch page
+function switchPage($page){
+    switch ($page) {
+        case 'product':
+            return  'Produto';
+            break;
+        case 'contact':
+            return  'Contato';
+            break;
+        case 'about':
+            return  'Sobre';
+            break;
+        case 'content':
+            return  'Conteúdo';
+            break;
+        default:
+            return 'Login';
     }
 }

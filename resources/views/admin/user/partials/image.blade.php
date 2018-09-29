@@ -29,7 +29,7 @@
             @endif
         </div>
         <div class="col-md-12 text-center">
-            <a href="{{route('user-avatar-destroy', [$user->id])}}" class="btn btn-xs btn-flat bg-red"><i class="fa fa-trash"></i> Excluir</a>
+            <a href="{{route('user-avatar-destroy', [base64_encode($user->id)])}}" class="btn btn-xs btn-flat bg-red"><i class="fa fa-trash"></i> Excluir</a>
         </div>
     </div>
 @endif

@@ -58,7 +58,7 @@
                             @endif
                         </td>
                         <td class="col-md-2 text-center">{{$product_image->name == 0 ? 'NÃO' : 'SIM'}}</td>
-                        <td class="col-md-1 text-center"><a href="{{route('product-image-destroy', [$product_image->id])}}" class="btn btn-xs bg-red"><i class="fa fa-trash"></i></a></td>
+                        <td class="col-md-1 text-center"><a href="{{route('product-image-destroy', [base64_encode($product_image->id)])}}" class="btn btn-xs bg-red"><i class="fa fa-trash"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>

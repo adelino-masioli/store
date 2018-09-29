@@ -4,13 +4,13 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Banners
+        Mídias
     @endslot
     @slot('small')
-        Listagem de Banners
+        Listagem de Mídias
     @endslot
     @slot('link')
-        Banners
+        Mídias
     @endslot
 @endcomponent
 
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('banner-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo Banner</a>
+                    <a href="{{route('midia-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Nova Mídia</a>
                     <a href="{{route('pages')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus-circle"></i> Páginas</a>
                 </div>
 
@@ -30,12 +30,12 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="banners-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="midias-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">TÍTULO DO BANNER</th>
+                                    <th class="col-md-3 text-center">TÍTULO DA MÍDIA</th>
                                     <th class="col-md-1 text-center">BAIXAR</th>
                                     <th class="col-md-1 text-center">EXTENSÃO</th>
                                     <th class="col-md-1 text-center">CRIADO</th>
@@ -60,10 +60,10 @@
 @endsection
 @push('scripts')
     <script>
-        $('#banners-table').DataTable({
+        $('#midias-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-banners')}}',
+            ajax: '{{route('datatable-midias')}}',
             columns: [
                 {data: 'id', name: 'id', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},

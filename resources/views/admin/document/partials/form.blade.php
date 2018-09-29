@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label for="name">Arquivo[JPG,JPEG,PNG,PDF,DOC,DOCX]<span class="text-danger">*</span></label>
                 @if(isset($document) && $document->file != '')
-                    <p style="position: relative;top:5px;"><a href="{{route('document-destroy-file', $document->id)}}"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i> Deseja excluir este documento?</a></p>
+                    <p style="position: relative;top:5px;"><a href="{{route('document-destroy-file', base64_encode($document->id))}}"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i> Deseja excluir este documento?</a></p>
                 @else
                     <input type='file' id="image" name="file"  class="filestyle" data-btnClass="btn-default"  data-text="Selecionar arquivo"/>
                 @endif

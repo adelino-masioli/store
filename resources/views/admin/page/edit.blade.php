@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Meu usuário
+            Página
         @endslot
         @slot('small')
-            {{$user->name}}
+            Editando a página: {{$page->name}}
         @endslot
         @slot('link')
-            Edição de perfil de usuário
+            Edição de página
         @endslot
     @endcomponent
 
@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Salvar alterações</a>
+                        @include('admin.page.partials.menu')
                     </div>
 
                     <div class="box-body">
@@ -35,19 +35,18 @@
                                 <div class="nav-tabs-custom">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
-                                        <li role="presentation" class="active"><a href="#singletab" aria-controls="singletab" role="tab" data-toggle="tab">Meu usuário</a></li>
-                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab"  onclick="formSubmit('#formsubmit');">Avatar</a></li>
+                                        <li role="presentation" class="active"><a href="#singletabs" aria-controls="singletabs" role="tab" data-toggle="tab">Página</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="singletab">
-                                            <form action="{{route('user-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$user->id}}">
-                                                @include('admin.user.partials.formme')
+                                        <div role="tabpanel" class="tab-pane active" id="singletabs">
+                                            <form action="{{route('page-update')}}" method="post" class="panels" id="formsubmit" enctype="multipart/form-data">
+                                                <input type="hidden" name="type" value="{{$page->type}}">
+                                                <input type="hidden" name="id" value="{{$page->id}}">
+                                                @include('admin.page.partials.form')
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="images">@include('admin.user.partials.image')</div>
                                     </div>
                                 </div>
                             </div>
@@ -58,28 +57,25 @@
         </div>
     </section>
 
+    @include('admin.midia.modal')
 
 @endsection
 @push('scripts')
     <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
-    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('.editor').summernote({
                 lang: 'pt-BR',
-                height: 70,
-                minHeight: 70,
+                height: 200,
+                minHeight: 200,
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
-                    ['para', ['paragraph']]
-                ]
+                    ['para', ['paragraph', 'codeview', 'fullscreen']],
+                ],
             });
-
-            maskZipCode();
         });
     </script>
 @endpush

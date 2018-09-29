@@ -116,3 +116,7 @@ function formSubmit(form){
 function masMoney(){
     $('.money').mask('#.##0,00', {reverse: true});
 }
+
+function addImage(image) {
+    $('.editor').summernote('insertImage',image);
+}

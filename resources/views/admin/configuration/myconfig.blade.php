@@ -9,7 +9,7 @@
             Configuração
         @endslot
         @slot('small')
-            Minhas configuraçãos: {{$configuration->name}}
+            Minhas configuraçãos: {{$my_config->name}}
         @endslot
         @slot('link')
             Minhas configuraçãos
@@ -43,7 +43,7 @@
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="category">
                                             <form action="{{route('configuration-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$configuration->id}}">
+                                                <input type="hidden" name="id" value="{{$my_config->id}}">
                                                 @include('admin.configuration.partials.form')
                                             </form>
                                         </div>

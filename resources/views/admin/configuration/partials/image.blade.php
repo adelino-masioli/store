@@ -1,7 +1,7 @@
-@if($configuration->brand == '')
+@if($my_config->brand == '')
     <form action="{{route('configuration-brand')}}" method="post" class="panels" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="hidden" name="id" value="{{$configuration->id}}">
+        <input type="hidden" name="id" value="{{$my_config->id}}">
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -21,15 +21,15 @@
         </div>
     </form>
 @endif
-@if($configuration && $configuration->brand != '')
+@if($my_config && $my_config->brand != '')
     <div class="row">
         <div class="col-md-12 text-center">
-            @if(defineUploadPath('brands', null).'/'.$configuration->brand)
-                <img src="{{url('/').defineUploadPath('brands', null).'/thumb/'.$configuration->brand}}" alt="{{$configuration->name}}">
+            @if(defineUploadPath('brands', null).'/'.$my_config->brand)
+                <img src="{{url('/').defineUploadPath('brands', null).'/thumb/'.$my_config->brand}}" alt="{{$my_config->name}}">
             @endif
         </div>
         <div class="col-md-12 text-center">
-            <a href="{{route('configuration-brand-destroy', [$configuration->id])}}" class="btn btn-xs btn-flat bg-red"><i class="fa fa-trash"></i> Excluir</a>
+            <a href="{{route('configuration-brand-destroy', [base64_encode($my_config->id)])}}" class="btn btn-xs btn-flat bg-red"><i class="fa fa-trash"></i> Excluir</a>
         </div>
     </div>
 @endif

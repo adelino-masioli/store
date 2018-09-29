@@ -21,12 +21,15 @@ class UploadImage
         }
 
         //bigimage
-        $image = Image::make($file)
-            ->resize($size, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })
-            ->encode('jpg');
-
+        if($size!=null) {
+            $image = Image::make($file)
+                ->resize($size, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->encode('jpg');
+        }else{
+            $image = Image::make($file);
+        }
         $image->save($fullPath, 100);
 
         //thumb

@@ -6,13 +6,13 @@
 @section('content')
     @component('admin.components.contentheader')
         @slot('title')
-            Configuração
+            Mídia
         @endslot
         @slot('small')
-            Minhas configuraçãos: {{$configuration->name}}
+            Editando a mídia: {{$midia->name}}
         @endslot
         @slot('link')
-            Minhas configuraçãos
+            Edição de mídia
         @endslot
     @endcomponent
 
@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Salvar minhas configurações</a>
+                        @include('admin.midia.partials.menu')
                     </div>
 
                     <div class="box-body">
@@ -35,15 +35,15 @@
                                 <div class="nav-tabs-custom">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
-                                        <li role="presentation" class="active"><a href="#category" aria-controls="category" role="tab" data-toggle="tab">Configuração</a></li>
+                                        <li role="presentation" class="active"><a href="#singletabs" aria-controls="singletabs" role="tab" data-toggle="tab">Mídia</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="category">
-                                            <form action="{{route('configuration-update')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$configuration->id}}">
-                                                @include('admin.configuration.partials.form')
+                                        <div role="tabpanel" class="tab-pane active" id="singletabs">
+                                            <form action="{{route('midia-update')}}" method="post" class="panels" id="formsubmit" enctype="multipart/form-data">
+                                                <input type="hidden" name="id" value="{{$midia->id}}">
+                                                @include('admin.midia.partials.form')
                                             </form>
                                         </div>
                                     </div>
@@ -76,8 +76,7 @@
                     ['para', ['paragraph']]
                 ]
             });
-
-            maskZipCode();
         });
+
     </script>
 @endpush

@@ -129,7 +129,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/document/download/{file}', 'DocumentController@download')->name('document-download');
     Route::get('/document/destroy/file/{id}', 'DocumentController@destroyFile')->name('document-destroy-file');
 
-    //banne
+    //banner
     Route::get('/banners', 'BannerController@index')->name('banners');
     Route::get('/datatable-banners', 'BannerController@getDatatable')->name('datatable-banners');
     Route::get('/banner/create', 'BannerController@create')->name('banner-create');
@@ -139,4 +139,25 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::post('/banner/update', 'BannerController@update')->name('banner-update');
     Route::get('/banner/download/{file}', 'BannerController@download')->name('banner-download');
     Route::get('/banner/destroy/file/{id}', 'BannerController@destroyFile')->name('banner-destroy-file');
+
+    //page
+    Route::get('/pages', 'PageController@index')->name('pages');
+    Route::get('/datatable-pages', 'PageController@getDatatable')->name('datatable-pages');
+    Route::get('/page/edit/{id}', 'PageController@edit')->name('page-edit');
+    Route::post('/page/update', 'PageController@update')->name('page-update');
+    Route::get('/page/destroy/{id}', 'PageController@destroy')->name('page-destroy');
+    Route::get('/page/destroy/file/{id}', 'PageController@destroyFile')->name('page-destroy-file');
+
+
+    //midia
+    Route::get('/midias', 'MidiaController@index')->name('midias');
+    Route::get('/datatable-midias', 'MidiaController@getDatatable')->name('datatable-midias');
+    Route::get('/midia/create', 'MidiaController@create')->name('midia-create');
+    Route::post('/midia/store', 'MidiaController@store')->name('midia-store');
+    Route::get('/midia/edit/{id}', 'MidiaController@edit')->name('midia-edit');
+    Route::get('/midia/destroy/{id}', 'MidiaController@destroy')->name('midia-destroy');
+    Route::post('/midia/update', 'MidiaController@update')->name('midia-update');
+    Route::get('/midia/download/{file}', 'MidiaController@download')->name('midia-download');
+    Route::get('/midia/destroy/file/{id}', 'MidiaController@destroyFile')->name('midia-destroy-file');
+    Route::post('/midia/modal', 'MidiaController@modal')->name('midia-modal');
 });

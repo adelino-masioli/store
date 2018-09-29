@@ -44,9 +44,18 @@ class CategoryController extends Controller
                 return $data->configuration_id ? $data->configuration->name : 'Sem proprietário';
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('category-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('category-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                if($data->status_id == canceledRegister()) {
+                    return '<a onclick="localStorage.clear();" href="' . route('category-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                         <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
+                }else{
+                    return '<a onclick="localStorage.clear();" href="' . route('category-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('category-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                        ';
+                }
+            })
+            ->setRowClass(function ($data) {
+                return switchColor($data->status_id);
             })
             ->toJson();
     }
@@ -89,8 +98,10 @@ class CategoryController extends Controller
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($category_id)
     {
+        $id = base64_decode($category_id);
+
         $category = Category::findOrfail($id);
         $status = Status::where('flag', 'default')->get();
         $profile = Auth::user()->type_id;
@@ -132,11 +143,12 @@ class CategoryController extends Controller
 
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($category_id)
     {
+        $id = base64_decode($category_id);
         $product = Category::findOrfail($id);
         if($product){
-            $data['status_id'] = 3;
+            $data['status_id'] = canceledRegister();
             $product->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');

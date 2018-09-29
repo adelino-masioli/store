@@ -77,9 +77,18 @@ class UserController extends Controller
                 return $data->configuration_id ? $data->configuration->name : 'Super Usuário';
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('user-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('user-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                if($data->status_id == canceledRegister()) {
+                    return '<a onclick="localStorage.clear();" href="' . route('user-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                         <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
+                }else{
+                    return '<a onclick="localStorage.clear();" href="' . route('user-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('user-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                        ';
+                }
+            })
+            ->setRowClass(function ($data) {
+                return switchColor($data->status_id);
             })
             ->toJson();
     }
@@ -125,23 +134,17 @@ class UserController extends Controller
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($user_id)
     {
+        $id = base64_decode($user_id);
         $user = User::findOrfail($id);
 
         $status = Status::where('flag', 'default')->get();
         $types = UserType::where('id', '>', 1)->get();
 
-        $profile = Auth::user()->type_id;
-        if($profile > 1){
-            $configurations = '';
-        }else{
-            $configurations = Configuration::get();
-        }
-
         $user_complemento = UserComplement::where('user_id', $id)->first();
 
-        return view('admin.user.edit', compact('user', 'status', 'types', 'configurations', 'user_complemento'));
+        return view('admin.user.edit', compact('user', 'status', 'types',  'user_complemento'));
     }
 
 
@@ -227,11 +230,12 @@ class UserController extends Controller
 
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($user_id)
     {
+        $id = base64_decode($user_id);
         $result = User::findOrfail($id);
         if($result){
-            $data['status_id'] = 3;
+            $data['status_id'] = canceledRegister();
             $result->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
@@ -239,8 +243,9 @@ class UserController extends Controller
     }
 
     //destroy
-    public static function destroyAvatar($id)
+    public static function destroyAvatar($avatar_id)
     {
+        $id = base64_decode($avatar_id);
         $file = User::findOrfail($id);
         destroyFile('avatar', $file->avatar, 'thumb');
 

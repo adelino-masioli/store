@@ -61,7 +61,7 @@ class OrderController extends Controller
 
             })
             ->setRowClass(function ($data) {
-                return switchCorlor($data->status_id);
+                return switchColor($data->status_id);
             })
             ->toJson();
     }
@@ -87,7 +87,7 @@ class OrderController extends Controller
             }
             $res = Order::create(InputFields::inputFieldsOrder($request));
 
-            return redirect(route('order-edit', [$res->id]));
+            return redirect(route('order-edit', [base64_encode($res->id)]));
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();
@@ -129,7 +129,7 @@ class OrderController extends Controller
             $res->update(InputFields::inputFieldsOrder($request));
 
             session()->flash('success', 'Salvo com sucesso!');
-            return redirect(route('order-edit', [$res->id]));
+            return redirect(route('order-edit', [base64_encode($res->id)]));
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();

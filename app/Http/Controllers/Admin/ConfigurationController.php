@@ -9,6 +9,7 @@ use App\Services\InputFields;
 use App\Services\Messages;
 use App\Services\UploadImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\File;
@@ -29,22 +30,32 @@ class ConfigurationController extends Controller
     //myConfig
     public function myConfig()
     {
-        return view('admin.configuration.myconfig');
+        $my_config = Configuration::findOrFail(Auth::user()->configuration_id);
+        return view('admin.configuration.myconfig', compact('my_config'));
     }
 
     //get
     public function getDatatable(Request $request)
     {
-        $model = Configuration::select(['id',  'name', 'contact', 'email', 'phone', 'status_id'])->where('status_id', '!=', 3);
+        $model = Configuration::select(['id',  'name', 'contact', 'email', 'phone', 'status_id']);
 
         return DataTables::eloquent($model)
             ->addColumn('status', function ($data) {
                 return $data->status->status;
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('configuration-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('configuration-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                if($data->status_id == canceledRegister()) {
+                    return '<a onclick="localStorage.clear();" href="' . route('configuration-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                         <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
+                }else{
+                    return '<a onclick="localStorage.clear();" href="' . route('configuration-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('configuration-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                        ';
+                }
+            })
+            ->setRowClass(function ($data) {
+                return switchColor($data->status_id);
             })
             ->toJson();
     }
@@ -91,8 +102,9 @@ class ConfigurationController extends Controller
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($config_id)
     {
+        $id = base64_decode($config_id);
         $configuration = Configuration::findOrfail($id);
         $status = Status::where('flag', 'default')->get();
         return view('admin.configuration.edit', compact('configuration','status'));
@@ -175,11 +187,12 @@ class ConfigurationController extends Controller
     }
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($config_id)
     {
+        $id = base64_decode($config_id);
         $result = Configuration::findOrfail($id);
         if($result){
-            $data['status_id'] = 3;
+            $data['status_id'] = canceledRegister();
             $result->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');
@@ -188,8 +201,9 @@ class ConfigurationController extends Controller
 
 
     //destroy brand
-    public static function destroyBrand($id)
+    public static function destroyBrand($config_id)
     {
+        $id = base64_decode($config_id);
         $file = Configuration::findOrfail($id);
 
         destroyFile('brands', $file->brand, 'thumb');

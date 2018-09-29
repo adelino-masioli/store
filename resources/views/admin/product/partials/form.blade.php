@@ -72,19 +72,4 @@
                 </div>
             @endif
         @endif
-
-
-
-        @if(isset($configurations) && $configurations != '')
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label for="configuration_id">Empresa</label>
-                    <select class="form-control select2" id="configuration_id" name="configuration_id">
-                        @foreach($configurations as $configuration)
-                            <option @if(isset($product)) @if($product->configuration_id == $configuration->id) selected @endif @endif value="{{$configuration->id}}">{{$configuration->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
     </div>

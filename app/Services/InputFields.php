@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class InputFields
 {
     public static function inputFieldsConfiguration($request){
+
         $fields = [
             'name'      => $request['name'],
             'contact'   => $request['contact'],
@@ -33,30 +34,35 @@ class InputFields
         return $fields;
     }
 
-    public static function inputFieldsUser($request){
-        $profile = Auth::user()->type_id;
-        if($profile > 1){
-            $configuration_id = Auth::user()->configuration_id;
-        }else{
+    public static function inputFieldsUser($request)
+    {
+        if($request['configuration_id']){
             $configuration_id = $request['configuration_id'];
+        }else{
+            $configuration_id = Auth::user()->configuration_id;
         }
+
         if($request['password']) {
             $fields = [
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => bcrypt($request['password']),
+                'name'             => $request['name'],
+                'email'            => $request['email'],
+                'password'         => bcrypt($request['password']),
                 'configuration_id' => $configuration_id,
-                'type_id' => $request['type_id'],
-                'status_id' => $request['status_id']
+                'type_id'          => $request['type_id'],
+                'status_id'        => $request['status_id']
             ];
         }else{
             $fields = [
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'configuration_id' => $configuration_id,
-                'type_id' => $request['type_id'],
-                'status_id' => $request['status_id']
+                'name'             => $request['name'],
+                'email'            => $request['email'],
+                'configuration_id' => $configuration_id
             ];
+            if($request['type_id']){
+                $fields['type_id'] = $request['type_id'];
+            }
+            if($request['status_id']){
+                $fields['status_id'] = $request['status_id'];
+            }
         }
 
         return $fields;
@@ -226,6 +232,66 @@ class InputFields
             'user_id'          => Auth::user()->id,
             'customer_id'      => $customer_id,
         ];
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsPage($request,  $fileName){
+        $status = $request['status_id'] ? $request['status_id'] : 2;
+
+        if($fileName == null) {
+            $fields = [
+                'title'            => $request['title'],
+                'text'             => $request['text'],
+                'type'             => $request['type'],
+                'show_form'        => $request['show_form'],
+                'configuration_id' => Auth::user()->configuration_id,
+                'status_id'        => $status
+            ];
+        }else{
+            $fields = [
+                'title'            => $request['title'],
+                'text'             => $request['text'],
+                'banner'           => $fileName,
+                'type'             => $request['type'],
+                'show_form'        => $request['show_form'],
+                'configuration_id' => Auth::user()->configuration_id,
+                'status_id'        => $status
+            ];
+        }
+
+        return $fields;
+    }
+
+
+    public static function inputFieldsMidia($request, $extension, $size, $fileName){
+        $status = $request['status_id'] ? $request['status_id'] : 2;
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }else{
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'file' => $fileName,
+                'extension' => $extension,
+                'size' => $size,
+                'configuration_id' => $configuration_id,
+                'status_id' => $status
+            ];
+        }
 
         return $fields;
     }

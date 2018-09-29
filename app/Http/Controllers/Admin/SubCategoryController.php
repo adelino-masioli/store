@@ -45,9 +45,18 @@ class SubCategoryController extends Controller
                 return $data->category_id ?  $data->category->name : '--';
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('subcategory-edit', [$data->id]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="'.route('subcategory-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                if($data->status_id == canceledRegister()) {
+                    return '<a onclick="localStorage.clear();" href="' . route('subcategory-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                         <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
+                }else{
+                    return '<a onclick="localStorage.clear();" href="' . route('subcategory-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('subcategory-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                        ';
+                }
+            })
+            ->setRowClass(function ($data) {
+                return switchColor($data->status_id);
             })
             ->toJson();
     }
@@ -91,8 +100,9 @@ class SubCategoryController extends Controller
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($subcategory_id)
     {
+        $id = base64_decode($subcategory_id);
         $subcategory = SubCategory::findOrfail($id);
         $categories = Category::where('configuration_id', Auth::user()->configuration_id)->get();
         $status = Status::where('flag', 'default')->get();
@@ -136,11 +146,12 @@ class SubCategoryController extends Controller
 
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($subcategory_id)
     {
+        $id = base64_decode($subcategory_id);
         $result = SubCategory::findOrfail($id);
         if($result){
-            $data['status_id'] = 3;
+            $data['status_id'] = canceledRegister();
             $result->update($data);
         }
         session()->flash('success', 'Excluído com sucesso!');

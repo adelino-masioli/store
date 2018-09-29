@@ -76,7 +76,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="description">Descrição</label>
+                <label for="description">Descrição[aqui você pode colocar observações sobre o pedido]</label>
                 <textarea class="form-control editor" id="description" name="description" placeholder="Descrição">@if(isset($order)){{$order->description}}@else{{old('description')}}@endif</textarea>
             </div>
         </div>
@@ -120,12 +120,12 @@
                                 $('#customer_id').val(response.id);
                                 $('#user_name').val(response.name);
                                 $('#email').val(response.email);
-                                $('#zipcode').val(response.email);
-                                $('#address').val(response.email);
-                                $('#district').val(response.email);
-                                $('#number').val(response.email);
-                                $('#state').val(response.email);
-                                $('#city').val(response.email);
+                                $('#zipcode').val(response.complement.zipcode);
+                                $('#address').val(response.complement.address);
+                                $('#district').val(response.complement.district);
+                                $('#number').val(response.complement.number);
+                                $('#state').val(response.complement.state);
+                                $('#city').val(response.complement.city);
                             }
                         }
                     );
