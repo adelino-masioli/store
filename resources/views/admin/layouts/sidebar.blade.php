@@ -57,14 +57,18 @@
                     <a href="#">
                         <i class="fa fa-dollar"></i> <span>Pedidos</span>
                         <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('orders')}}"><i class="fa fa-circle-o"></i> Pedidos</a></li>
                         <li><a href="{{route('order-create')}}"><i class="fa fa-circle-o"></i> Novo Pedido</a></li>
                     </ul>
                 </li>
+            @endif
+
+            @if(Auth::user()->type_id == 4)
+                    <li><a href="{{route('orders-financial')}}"><i class="fa fa-dollar"></i> <span>Pedidos</span></a></li>
             @endif
 
 
@@ -78,7 +82,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('contacts')}}"><i class="fa fa-circle-o"></i> Contatos</a></li>
-                        <li><a href="{{route('orders')}}"><i class="fa fa-circle-o"></i> Orçamentos</a></li>
+                        <li><a href="{{route('quotes')}}"><i class="fa fa-circle-o"></i> Orçamentos</a></li>
                         <li><a href="{{route('newsletters')}}"><i class="fa fa-circle-o"></i> Newsletters</a></li>
                     </ul>
                 </li>

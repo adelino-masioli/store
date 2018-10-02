@@ -18,10 +18,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box">
-                <div class="box-header with-border">
-                    <a href="{{route('order-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo pedido</a>
-                </div>
-
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -29,7 +25,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="orders-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="datatable-orders-financial-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">CÓDIGO</th>
@@ -59,10 +55,10 @@
 @endsection
 @push('scripts')
     <script>
-        $('#orders-table').DataTable({
+        $('#datatable-orders-financial-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-orders')}}',
+            ajax: '{{route('datatable-orders-financial')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},

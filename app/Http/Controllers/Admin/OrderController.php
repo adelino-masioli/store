@@ -10,6 +10,7 @@ use App\Services\InputFields;
 use App\Services\Messages;
 use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -32,8 +33,8 @@ class OrderController extends Controller
     public function getDatatable(Request $request)
     {
         $model = new \App\Models\Order;
-        $columns = ['id',  'name', 'email', 'total', 'created_at',  'user_id',  'status_id'];
-        $result  = $this->dataTable($model, $columns, true);
+        $columns = ['id',  'name', 'email', 'origin',  'total', 'created_at',  'user_id',  'status_id'];
+        $result  = $this->dataTableOrder($model, $columns, true, 1);
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
@@ -65,6 +66,38 @@ class OrderController extends Controller
             })
             ->toJson();
     }
+
+    //quote
+    public function indexQuote()
+    {
+        return view('admin.order.home-quote');
+    }
+    //datatable quote
+    public function getDatatableQuope(Request $request)
+    {
+        $model = new \App\Models\Order;
+        $columns = ['id',  'name', 'email', 'total', 'created_at',  'status_id'];
+        $result  = $this->dataTableOrder($model, $columns, true, 2);
+
+        return DataTables::eloquent($result)
+            ->addColumn('status', function ($data) {
+                return $data->status->status;
+            })
+            ->addColumn('created_at', function ($data) {
+                return date_br($data->created_at);
+            })
+            ->addColumn('total', function ($data) {
+                return money_br($data->total);
+            })
+            ->addColumn('action', function ($data) {
+                return '<a onclick="localStorage.clear();" href="'.route('quote-show', [base64_encode($data->id)]).'"  title="Visualizar" class="btn bg-green btn-xs"><i class="fa fa-eye"></i> Visualizar</a>';
+            })
+            ->setRowClass(function ($data) {
+                return bgColor($data->status_id);
+            })
+            ->toJson();
+    }
+
 
     //create
     public function create()
@@ -106,7 +139,7 @@ class OrderController extends Controller
             return redirect(route('orders'));
         }
 
-        $status = Status::where('flag', 'reader')->get();
+        $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
         return view('admin.order.edit', compact('order','status', 'items'));
     }
@@ -128,8 +161,13 @@ class OrderController extends Controller
             }
             $res->update(InputFields::inputFieldsOrder($request));
 
-            session()->flash('success', 'Salvo com sucesso!');
-            return redirect(route('order-edit', [base64_encode($res->id)]));
+            if($request['type'] == 2){
+                session()->flash('success', 'Salvo com sucesso!');
+                return redirect()->back();
+            }else{
+                session()->flash('success', 'Salvo com sucesso!');
+                return redirect(route('order-edit', [base64_encode($res->id)]));
+            }
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();
@@ -145,6 +183,15 @@ class OrderController extends Controller
         $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
         return view('admin.order.show', compact('order', 'status', 'items'));
+    }
+    //quote show
+    public static function quoteShow($id_order)
+    {
+        $id = base64_decode($id_order);
+        $quote = Order::findOrfail($id);
+        $status = Status::where('flag', 'order')->get();
+        $items = OrderItem::where('order_id', $id)->get();
+        return view('admin.order.quote-show', compact('quote', 'status', 'items'));
     }
 
 
@@ -244,5 +291,36 @@ class OrderController extends Controller
             session()->flash('error', 'Favor adicionar itens ao pedido!');
             return redirect()->back();
         }
+    }
+
+
+    //quote cancel
+    public static function quoteCancel($id_order)
+    {
+        $id = base64_decode($id_order);
+
+        $res = Order::findOrfail($id);
+        if($res){
+            $data['status_id'] = 13;
+            $res->update($data);
+        }
+        session()->flash('success', 'Cancelado com sucesso!');
+        return redirect(route('quotes'));
+    }
+
+    //quote convert
+    public static function quoteConvert($id_order)
+    {
+        $id = base64_decode($id_order);
+
+        $res = Order::findOrfail($id);
+        if($res){
+            $data['type'] = 1;
+            $data['user_id'] = Auth::user()->id;
+            $data['status_id'] = 7;
+            $res->update($data);
+        }
+        session()->flash('success', 'Salvo com sucesso!');
+        return redirect(route('order-edit', [base64_encode($res->id)]));
     }
 }

@@ -180,6 +180,29 @@ function bgColor($i)
         case 6:
             return  "bg-gray";
             break;
+        case 7:
+            return  'bg-gray disabled color-palette';
+            break;
+        case 8:
+            return  'alert-info';
+            break;
+        case 9:
+            return  "bg-blue";
+            break;
+        case 10:
+            return  'alert-success';
+            break;
+        case 11:
+            return  'bg-black';
+            break;
+        case 12:
+            return  'bg-green';
+            break;
+        case 13:
+            return  "bg-red";
+            break;
+        default:
+            return '';
     }
 }
 

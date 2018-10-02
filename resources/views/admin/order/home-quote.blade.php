@@ -4,13 +4,13 @@
 
 @component('admin.components.contentheader')
     @slot('title')
-        Pedidos
+        Orçamentos
     @endslot
     @slot('small')
-        Listagem de Pedidos
+        Listagem de Orçamentos
     @endslot
     @slot('link')
-        Pedidos
+        Orçamentos
     @endslot
 @endcomponent
 
@@ -29,14 +29,12 @@
                         </div>
 
                         <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="orders-table" style="width: 100%;">
+                            <table class="table table-bordered table-condensed table-hover table-striped" id="quotes-table" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">CÓDIGO</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-3 text-center">NOME DO CLIENTE</th>
-                                    <th class="col-md-2 text-center">USUÁRIO</th>
-                                    <th class="col-md-1 text-center">ORIGEM</th>
+                                    <th class="col-md-6 text-center">NOME DO CONTATO</th>
                                     <th class="col-md-1 text-center">TOTAL</th>
                                     <th class="col-md-2 text-center">DATA</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
@@ -59,16 +57,14 @@
 @endsection
 @push('scripts')
     <script>
-        $('#orders-table').DataTable({
+        $('#quotes-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{route('datatable-orders')}}',
+            ajax: '{{route('datatable-quotes')}}',
             columns: [
                 {data: 'id', name: 'id', className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
-                {data: 'user', name: 'user'},
-                {data: 'origin', name: 'origin'},
                 {data: 'total', name: 'total', className: 'text-right'},
                 {data: 'created_at', name: 'created_at', className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},

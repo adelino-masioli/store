@@ -235,25 +235,38 @@ class InputFields
         $customer_id = $request['customer_id'] ? $request['customer_id'] : null;
         $configuration_id = Auth::user()->configuration_id;
 
-        $fields = [
-            'origin'           => quoteOrigin(1),
-            'type'             => 1,
-            'name'             => $request['name'],
-            'email'            => $request['email'],
-            'phone'            => $request['phone'],
-            'about'            => $request['about'],
-            'description'      => $request['description'],
-            'zipcode'          => $request['zipcode'],
-            'address'          => $request['address'],
-            'district'         => $request['district'],
-            'number'           => $request['number'],
-            'state'            => $request['state'],
-            'city'             => $request['city'],
-            'status_id'        => $status,
-            'configuration_id' => $configuration_id,
-            'user_id'          => Auth::user()->id,
-            'customer_id'      => $customer_id,
-        ];
+        if($request['type'] == 2) {
+            $fields = [
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'about' => $request['about'],
+                'description' => $request['description'],
+                'configuration_id' => $configuration_id,
+                'user_id' => Auth::user()->id,
+                'customer_id' => $customer_id,
+            ];
+        }else {
+            $fields = [
+                'origin' => quoteOrigin(1),
+                'type' => 1,
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'about' => $request['about'],
+                'description' => $request['description'],
+                'zipcode' => $request['zipcode'],
+                'address' => $request['address'],
+                'district' => $request['district'],
+                'number' => $request['number'],
+                'state' => $request['state'],
+                'city' => $request['city'],
+                'status_id' => $status,
+                'configuration_id' => $configuration_id,
+                'user_id' => Auth::user()->id,
+                'customer_id' => $customer_id,
+            ];
+        }
 
         return $fields;
     }

@@ -182,6 +182,8 @@ class SiteController extends Controller
                 'product_id'   => $product_id,
             ]);
 
+            $order->update(['total'=>$product->price]);
+
             session()->flash('success_quote', 'Enviado com sucesso!');
             return redirect()->back();
         }catch(\Exception $e){

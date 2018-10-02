@@ -19,4 +19,14 @@ trait DataTableTrait
         }
         return $result;
     }
+
+    public function dataTableOrder($model=null, $columns=[], $nostatus=null, $type=null)
+    {
+        if($nostatus==null){
+            $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', $type)->where('status_id', '!=', 10);
+        }else{
+            $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', $type);
+        }
+        return $result;
+    }
 }

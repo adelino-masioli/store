@@ -25,6 +25,10 @@ class UserTypesTableSeeder extends Seeder
         ]);
 
         DB::table('user_types')->insert([
+            'type'  => 'Financeiro'
+        ]);
+
+        DB::table('user_types')->insert([
             'type'  => 'Usuário'
         ]);
     }

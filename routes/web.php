@@ -103,6 +103,19 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/order/confirm/{id}', 'OrderController@orderConfirm')->name('order-confirm');
     Route::get('/order/next/finish/{id}', 'OrderController@nextFinish')->name('order-next-finish');
 
+    //financial
+    Route::get('/orders-financial', 'FinancialController@index')->name('orders-financial');
+    Route::get('/datatable-orders-financial', 'FinancialController@getDatatable')->name('datatable-orders-financial');
+    Route::get('/order/financial/show/{id}', 'FinancialController@show')->name('order-financial-show');
+
+    //quote
+    Route::get('/quotes', 'OrderController@indexQuote')->name('quotes');
+    Route::get('/datatable-quotes', 'OrderController@getDatatableQuope')->name('datatable-quotes');
+    Route::get('/quote/show/{id}', 'OrderController@quoteShow')->name('quote-show');
+    Route::post('/quote/update', 'OrderController@update')->name('quote-update');
+    Route::get('/quote/cancel/{id}', 'OrderController@quoteCancel')->name('quote-cancel');
+    Route::get('/quote/convert/{id}', 'OrderController@quoteConvert')->name('quote-convert');
+
     //order item
     Route::post('/order-item/search', 'OrderItemController@search')->name('order-item-search');
     Route::post('/order-item/store', 'OrderItemController@store')->name('order-item-store');
@@ -113,7 +126,6 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::get('/order-payment/{id}', 'OrderPaymentController@payment')->name('order-payment');
     Route::get('/order-next-payment-confirm/{id}', 'OrderPaymentController@paymentConfirm')->name('order-next-payment-confirm');
     Route::post('/order-payment/store', 'OrderPaymentController@store')->name('order-payment-store');
-
 
 
     //newsletter

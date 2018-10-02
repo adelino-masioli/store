@@ -20,8 +20,10 @@ class OrderPaymentController extends Controller
     }
 
     //payment
-    public static function payment($id)
+    public static function payment($order_id)
     {
+        $id = base64_decode($order_id);
+
         $order = Order::findOrfail($id);
         $status = Status::where('flag', 'reader')->get();
         $profile = Auth::user()->type_id;
@@ -36,7 +38,8 @@ class OrderPaymentController extends Controller
 
         $order_pay = OrderPayment::where('order_id', $id)->sum('price');
 
-        return view('admin.order.payment', compact('order', 'status', 'configurations', 'items', 'payments', 'payment', 'order_pay'));
+
+        return view('admin.financial.payment', compact('order', 'status', 'configurations', 'items', 'payments', 'payment', 'order_pay'));
     }
 
 
@@ -91,17 +94,22 @@ class OrderPaymentController extends Controller
         }
     }
 
-    public function paymentConfirm($id)
+    public function paymentConfirm($order_id)
     {
+        $id = base64_decode($order_id);
+
         $order_payment_all = OrderPayment::where('order_id', $id)->sum('price');
         $order = Order::findOrFail($id);
 
         if($order_payment_all < ($order->total - $order->discount)){
-
             session()->flash('error', 'Favor revisar os valores do pagamento!');
             return redirect()->back();
         }else{
-            return redirect(route('quotes'));
+            if($order){
+                $data['status_id'] = 9;
+                $order->update($data);
+            }
+            return redirect(route('orders-financial'));
         }
     }
 
