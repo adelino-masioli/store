@@ -20,6 +20,8 @@ class CreatePagesTable extends Migration
             $table->unsignedInteger('configuration_id')->nullable();
             $table->foreign('configuration_id')->references('id')->on('configurations');
             $table->string('title');
+            $table->text('googlemaps')->nullable();
+            $table->text('summary', 1024)->nullable();
             $table->text('text')->nullable();
             $table->string('banner')->nullable();
             $table->string('type')->nullable();

@@ -107,6 +107,7 @@ class Messages
             'email.max'         => 'Favor informar o EMAIL DA EMPRESA com máximo 50 caracteres',
             'email.unique'      => 'Este EMAIL DA EMPRESA já está em uso',
             'phone.required'    => 'Favor informar o TELEFONE',
+            'summary.max'       => 'Favor informar o RESUMO SOBRE A EMRPESA com máximo 250 caracteres',
             'about.required'    => 'Favor informar o SOBRE A EMRPESA',
             'zipcode.required'  => 'Favor informar o CEP',
             'address.required'  => 'Favor informar o ENDEREÇO',
@@ -170,8 +171,9 @@ class Messages
             'title.required'  => 'Favor informar o TÍTULO DA PÁGINA',
             'title.string'    => 'Favor informar o TÍTULO DA PÁGINA como texto',
             'title.min'       => 'Favor informar o TÍTULO DA PÁGINA com mínimo 5 caracteres',
-            'title.max'       => 'Favor informar o TÍTULO DA PÁGINA com máximo 50 caracteres',
+            'title.max'       => 'Favor informar o TÍTULO DA PÁGINA com máximo 20 caracteres',
             'banner.mimes'    => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+            'summary.max'     => 'Favor informar o RESUMO DO CONTEÚDO PÁGINA com máximo 300 caracteres'
         ];
 
         return $messages;

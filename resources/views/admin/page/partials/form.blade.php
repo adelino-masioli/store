@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-7">
             <div class="form-group">
-                <label for="name">Título da página<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Título da página" value="@if(isset($page)){{$page->title}}@else{{old('title')}}@endif" required>
+                <label for="name">Título da página [Máx.: 20 caracteres]<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" maxlength="20" id="title" name="title" placeholder="Título da página" value="@if(isset($page)){{$page->title}}@else{{old('title')}}@endif" required>
             </div>
         </div>
 
@@ -15,6 +15,26 @@
                 @else
                     <input type='file' id="image" name="banner"  class="filestyle" data-btnClass="btn-default"  data-text="Selecionar arquivo"/>
                 @endif
+            </div>
+        </div>
+    </div>
+
+    @if($page->type == 'contact')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="googlemaps">Cole aqui o EMBED do Google Maps [<a href="https://www.google.com.br/maps" target="_blank" class="text-info"><i class="fa fa-map-marker"></i> Abrir Google Maps</a>]</label>
+                <textarea class="form-control" id="googlemaps"  name="googlemaps" placeholder="Cole aqui o EMBED do Google Maps" required>@if(isset($page)){{$page->googlemaps}}@else{{old('googlemaps')}}@endif</textarea>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="summary">Resumo do conteúdo da página[máximo 300 caracteres]</label>
+                <textarea class="form-control" id="summary" maxlength="300" name="summary" placeholder="Resumo do conteúdo da página" required>@if(isset($page)){{$page->summary}}@else{{old('summary')}}@endif</textarea>
             </div>
         </div>
     </div>

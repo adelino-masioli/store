@@ -12,11 +12,16 @@ class ConfigurationsTableSeeder extends Seeder
     public function run()
     {
         DB::table('configurations')->insert([
-            'name'       => 'Empresa Teste',
-            'contact'    => 'Contato Teste',
-            'email'      => 'empresa@teste.com.br',
-            'phone'      => '0000000000',
-            'status_id'  => 1,
+            'theme'        => 'acqua',
+            'url'          => 'http://localhost:8000',
+            'url_security' => 'https://localhost:8000',
+            'name'         => 'Empresa Teste',
+            'nickname'     => 'empresa-teste',
+            'contact'      => 'Contato Teste',
+            'email'        => 'empresa@teste.com.br',
+            'phone'        => '0000000000',
+            'theme_id'     => 1,
+            'status_id'    => 1
         ]);
     }
 }

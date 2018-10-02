@@ -78,7 +78,8 @@ class PageController extends Controller
 
                 $messages = Messages::msgPage();
                 $validator = Validator::make($request->all(), [
-                    'title'            => 'required|string|min:5|max:50|unique:pages,title,'.$request['id'],
+                    'title'            => 'required|string|min:5|max:20|unique:pages,title,'.$request['id'],
+                    'summary'          => 'max:300',
                     'banner'           => 'mimes:jpeg,jpg,png',
                 ], $messages);
                 if ($validator->fails()) {

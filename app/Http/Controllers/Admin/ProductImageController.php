@@ -42,7 +42,7 @@ class ProductImageController extends Controller
                 $file = $image;
                 $extension = $image->getClientOriginalExtension();
                 $fileName = time() . random_int(100, 999) .'.' . $extension;
-                $path = 'catalog/'.config('app.template').'/';
+                $path = defineUploadPath('catalog', null);
 
                 ProductImage::create([
                     'product_id' => $request['product_id'],
@@ -73,12 +73,8 @@ class ProductImageController extends Controller
     {
         $id = base64_decode($image_id);
         $image = ProductImage::findOrfail($id);
-        if(File::exists(public_path().'/catalog/'.config('app.template').'/thumb/'.$image->image)){
-            File::delete(public_path().'/catalog/'.config('app.template').'/thumb/'.$image->image);
-        }
-        if(File::exists(public_path().'/catalog/'.config('app.template').'/'.$image->image)){
-            File::delete(public_path().'/catalog/'.config('app.template').'/'.$image->image);
-        }
+        destroyFile('catalog', $image->image, 'thumb');
+
         if($image){
             $image->delete();
         }

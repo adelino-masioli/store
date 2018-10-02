@@ -13,6 +13,7 @@ class PagesTableSeeder extends Seeder
     {
         DB::table('pages')->insert([
             'title'             => 'Produtos',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
             'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
             'banner'            => '',
             'type'              => 'product',
@@ -22,6 +23,7 @@ class PagesTableSeeder extends Seeder
         ]);
         DB::table('pages')->insert([
             'title'             => 'Contato',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
             'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
             'banner'            => '',
             'type'              => 'contact',
@@ -31,6 +33,7 @@ class PagesTableSeeder extends Seeder
         ]);
         DB::table('pages')->insert([
             'title'             => 'Sobre',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
             'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
             'banner'            => '',
             'type'              => 'about',
@@ -40,6 +43,7 @@ class PagesTableSeeder extends Seeder
         ]);
         DB::table('pages')->insert([
             'title'             => 'Conteúdo',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
             'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
             'banner'            => '',
             'type'              => 'content',
@@ -48,10 +52,11 @@ class PagesTableSeeder extends Seeder
             'configuration_id'  => 1
         ]);
         DB::table('pages')->insert([
-            'title'             => 'Login',
+            'title'             => 'Serviço',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
             'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
             'banner'            => '',
-            'type'              => 'login',
+            'type'              => 'service',
             'show_form'         => 0,
             'status_id'         => 1,
             'configuration_id'  => 1

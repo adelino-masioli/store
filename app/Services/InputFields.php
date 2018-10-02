@@ -15,21 +15,43 @@ class InputFields
 {
     public static function inputFieldsConfiguration($request){
 
-        $fields = [
-            'name'      => $request['name'],
-            'contact'   => $request['contact'],
-            'email'     => $request['email'],
-            'phone'     => $request['phone'],
-            'whatsapp'  => $request['whatsapp'],
-            'about'     => $request['about'],
-            'zipcode'   => $request['zipcode'],
-            'address'   => $request['address'],
-            'district'  => $request['district'],
-            'number'    => $request['number'],
-            'state'     => $request['state'],
-            'city'      => $request['city'],
-            'status_id' => $request['status_id']
-        ];
+        if( $request['id']) {
+            $fields = [
+                'url' => $request['url'],
+                'url_security' => $request['url_security'],
+                'name' => $request['name'],
+                'contact' => $request['contact'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'whatsapp' => $request['whatsapp'],
+                'about' => $request['about'],
+                'zipcode' => $request['zipcode'],
+                'address' => $request['address'],
+                'district' => $request['district'],
+                'number' => $request['number'],
+                'state' => $request['state'],
+                'city' => $request['city']
+            ];
+        }else{
+            $fields = [
+                'url' => $request['url'],
+                'url_security' => $request['url_security'],
+                'name' => $request['name'],
+                'nickname' => str_slug($request['name'], '-'),
+                'contact' => $request['contact'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'whatsapp' => $request['whatsapp'],
+                'about' => $request['about'],
+                'zipcode' => $request['zipcode'],
+                'address' => $request['address'],
+                'district' => $request['district'],
+                'number' => $request['number'],
+                'state' => $request['state'],
+                'city' => $request['city'],
+                'status_id' => $request['status_id']
+            ];
+        }
 
         return $fields;
     }
@@ -243,6 +265,8 @@ class InputFields
         if($fileName == null) {
             $fields = [
                 'title'            => $request['title'],
+                'googlemaps'       => $request['googlemaps'],
+                'summary'          => $request['summary'],
                 'text'             => $request['text'],
                 'type'             => $request['type'],
                 'show_form'        => $request['show_form'],
@@ -252,6 +276,8 @@ class InputFields
         }else{
             $fields = [
                 'title'            => $request['title'],
+                'googlemaps'       => $request['googlemaps'],
+                'summary'          => $request['summary'],
                 'text'             => $request['text'],
                 'banner'           => $fileName,
                 'type'             => $request['type'],

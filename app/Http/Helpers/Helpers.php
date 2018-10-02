@@ -131,19 +131,19 @@ function convertFileSize($size){
 function defineUploadPath($path=null, $thumb=null)
 {
     if($thumb!=null){
-        return '/downloads/'.$path.'/'.config('app.template').'/thumb/';
+        return '/downloads/'.$path.'/'.setBaseUrlMidias().'/thumb/';
     }else{
-        return '/downloads/'.$path.'/'.config('app.template').'/';
+        return '/downloads/'.$path.'/'.setBaseUrlMidias().'/';
     }
 }
 function defineDownloadPath($path=null)
 {
-    return public_path().'/downloads/'.$path.'/'.config('app.template');
+    return public_path().'/downloads/'.$path.'/'.setBaseUrlMidias();
 }
 
 function destroyFile($path=null, $file=null, $thumb=null)
 {
-    $fullpath = public_path().'/downloads/'.$path.'/'.config('app.template');
+    $fullpath = public_path().'/downloads/'.$path.'/'.setBaseUrlMidias();
     if($thumb=='thumb'){
         if(File::exists($fullpath.'/thumb/'.$file)){
             File::delete($fullpath.'/thumb/'.$file);
@@ -265,4 +265,16 @@ function switchPage($page){
         default:
             return 'Login';
     }
+}
+
+function setBaseUrlMidias()
+{
+    $config_site = \App\Services\ConfigurationSite::getConfiguration();
+    return $config_site->nickname;
+}
+
+//path midias
+function pathMidia($type)
+{
+    return url('/').'/downloads/'.$type.'/'.setBaseUrlMidias();
 }

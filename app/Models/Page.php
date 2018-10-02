@@ -22,6 +22,8 @@ class Page extends Model
     protected $table = 'pages';
     protected $fillable = [
         'title',
+        'googlemaps',
+        'summary',
         'text',
         'banner',
         'type',

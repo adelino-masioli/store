@@ -21,11 +21,16 @@ class Configuration extends Model
      */
     protected $table = 'configurations';
     protected $fillable = [
+        'theme',
+        'url',
+        'url_security',
         'name',
+        'nickname',
         'contact',
         'email',
         'phone',
         'whatsapp',
+        'summary',
         'about',
         'zipcode',
         'address',
@@ -35,9 +40,14 @@ class Configuration extends Model
         'city',
         'brand',
         'status_id',
+        'theme_id',
     ];
 
     public function status() {
         return $this->belongsTo('App\Models\Status', 'status_id');
+    }
+
+    public function theme() {
+        return $this->belongsTo('App\Models\Theme', 'theme_id');
     }
 }

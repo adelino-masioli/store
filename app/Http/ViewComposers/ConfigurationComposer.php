@@ -5,21 +5,14 @@
  * Date: 9/16/2018
  * Time: 23:13
  */
-
 namespace App\Http\ViewComposers;
-
-
+use App\Services\ConfigurationSite;
 use Illuminate\View\View;
-use App\Models\Configuration;
-
-
 class ConfigurationComposer
 {
-
     public function compose(View $view)
     {
-        $configuration = Configuration::take(1)->first();
+        $configuration = ConfigurationSite::getConfiguration();
         $view->with('configuration', $configuration);
     }
-
 }

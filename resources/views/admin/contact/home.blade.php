@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('quotes')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Orçamentos</a>
+                    <a href="{{route('orders')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Orçamentos</a>
                 </div>
 
                 <div class="box-body">

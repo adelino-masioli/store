@@ -9,7 +9,7 @@
             Página
         @endslot
         @slot('small')
-            Editando a página: {{$page->name}}
+            Editando a página: {{$page->title}}
         @endslot
         @slot('link')
             Edição de página

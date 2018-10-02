@@ -8,7 +8,7 @@
 
 namespace App\Providers;
 
-use App\Models\Configuration;
+use App\Services\ConfigurationSite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,11 +19,11 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer(
-            'configuration', 'App\Http\ViewComposers\ConfigurationComposer'
+            'config_site', 'App\Http\ViewComposers\ConfigurationComposer'
         );
 
         View::composer('*', function ($view) {
-            $view->with('configuration', Configuration::take(1)->first());
+            $view->with('config_site', ConfigurationSite::getConfiguration());
         });
 
     }

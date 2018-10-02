@@ -124,6 +124,7 @@ class ConfigurationController extends Controller
                 'contact'       => 'required',
                 'email'         => 'required|string|email|min:5|max:150|unique:configurations,email,'.$request['id'],
                 'phone'         => 'required',
+                'summary'       => 'max:250',
                 'about'         => 'required',
                 'zipcode'       => 'required',
                 'address'       => 'required',
@@ -172,7 +173,7 @@ class ConfigurationController extends Controller
                 $result->update($data);
 
                 //upload image
-                UploadImage::uploadImage(300, 100,  $file, $fileName, $path);
+                UploadImage::uploadImage(300, 150,  $file, $fileName, $path);
 
                 session()->flash('success', 'Salvo com sucesso!');
                 return redirect()->back();
