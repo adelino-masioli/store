@@ -24,6 +24,6 @@ class CheckRole
         if(in_array(Auth::user()->type_id, $roles)) {
             return $next($request);
         }
-        return redirect('admin/401');
+        return redirect('error/401');
     }
 }

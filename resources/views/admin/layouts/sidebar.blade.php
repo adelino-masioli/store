@@ -86,6 +86,8 @@
                         <li><a href="{{route('newsletters')}}"><i class="fa fa-circle-o"></i> Newsletters</a></li>
                     </ul>
                 </li>
+
+                    <li><a href="{{route('supports')}}"><i class="fa fa-envelope-o"></i> <span>Suporte</span></a></li>
             @endif
 
 
@@ -121,6 +123,24 @@
                             <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
                         </ul>
                     </li>
+            @endif
+
+
+            {{--customer--}}
+            @if(Auth::user()->type_id == 5)
+                    <li><a href="{{route('customer-dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-file-text-o"></i> <span>Documentos</span>
+                            <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('customer-documents', ['approval'])}}"><i class="fa fa-circle-o"></i>Aprovação</a></li>
+                            <li><a href="{{route('customer-documents', ['several'])}}"><i class="fa fa-circle-o"></i>Diversos</a></li>
+                            <li><a href="{{route('customer-documents', ['financial'])}}"><i class="fa fa-circle-o"></i>Financeiros</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{route('customer-supports')}}"><i class="fa fa-envelope-o"></i> <span>Suporte</span></a></li>
             @endif
         </ul>
     </section>

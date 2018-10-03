@@ -225,6 +225,24 @@ function adminId(){
 //status order
 function statusOrder($status){
     switch ($status) {
+        case 'active':
+            return  1;
+            break;
+        case 'inactive':
+            return  2;
+            break;
+        case 'open':
+            return  3;
+            break;
+        case 'closed':
+            return  4;
+            break;
+        case 'not-download':
+            return  5;
+            break;
+        case 'download':
+            return  6;
+            break;
         case 'proccess':
             return  7;
             break;

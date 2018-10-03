@@ -195,4 +195,29 @@ class Messages
         return $messages;
     }
 
+    public  static function msgSupport()
+    {
+        $messages = [
+            'title.required'        => 'Favor informar o ASSUNTO DO SUPORTE',
+            'title.string'          => 'Favor informar o ASSUNTO DO SUPORTE como texto',
+            'title.min'             => 'Favor informar o ASSUNTO DO SUPORTE com mínimo 5 caracteres',
+            'title.max'             => 'Favor informar o ASSUNTO DO SUPORTE com máximo 100 caracteres',
+            'description.required'  => 'Favor informar a DESCRIÇÃO',
+            'file.required'         => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+        ];
+
+        return $messages;
+    }
+
+    public  static function msgSupportAnswer()
+    {
+        $messages = [
+            'description.required'  => 'Favor informar a DESCRIÇÃO',
+            'file.required'         => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+        ];
+
+        return $messages;
+    }
+
+
 }

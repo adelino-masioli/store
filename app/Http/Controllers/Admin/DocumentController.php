@@ -132,7 +132,7 @@ class DocumentController extends Controller
                 //upload file
                 UploadImage::uploadFile($file, $fileName, $path);
 
-                DocumentUser::create(['user_id'=>Auth::user()->id,'document_id'=>$document->id]);
+                DocumentUser::create(['user_id'=>$request['user_id'],'document_id'=>$document->id]);
 
                 session()->flash('success', 'Salvo com sucesso!');
                 return redirect()->back();

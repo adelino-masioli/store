@@ -4,6 +4,9 @@ require_once('routes/site.php');
 
 
 Auth::routes();
+Route::get('register', function (){
+    return redirect('/login');
+});
 //Route::get('/register', function (){
 //   return bcrypt("123456");
 //});
@@ -18,10 +21,16 @@ require_once('routes/document.php');
 require_once('routes/banner.php');
 require_once('routes/page.php');
 require_once('routes/midia.php');
+require_once('routes/support.php');
 
-//admin products
+
+//401
+Route::get('/error/401', function (){
+    return view('admin.error.401');
+});
+//admin
 Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('/register', 'DashboardController@index');
+    //dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     //newsletter
@@ -32,9 +41,9 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'roles'      => permission_level_three()
     ]);
     Route::get('/datatable-newsletters', 'NewsletterController@getDatatable')->name('datatable-newsletters');
-
-    //401
-    Route::get('/401', function (){
-        return view('admin.error.401');
-    });
 });
+
+//customers
+require_once('routes/customer/dashboard.php');
+require_once('routes/customer/document.php');
+require_once('routes/customer/support.php');

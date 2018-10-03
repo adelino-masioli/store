@@ -1,0 +1,1 @@
+<a href="{{ URL::previous() }}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-angle-left"></i> Voltar</a>

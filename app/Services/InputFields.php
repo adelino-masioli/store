@@ -335,4 +335,62 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsSupport($request, $extension, $size, $fileName){
+        $profile = Auth::user()->type_id;
+        if($profile > 1){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = $request['configuration_id'];
+        }
+
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name'             => $request['name'],
+                'title'            => $request['title'],
+                'description'      => $request['description'],
+                'status_id'        => statusOrder('open'),
+                'configuration_id' => $configuration_id,
+                'user_id'          => $request['user_id'],
+            ];
+        }else{
+            $fields = [
+                'name'             => $request['name'],
+                'title'            => $request['title'],
+                'description'      => $request['description'],
+                'file'             => $fileName,
+                'extension'        => $extension,
+                'size'             => $size,
+                'status_id'        => statusOrder('open'),
+                'configuration_id' => $configuration_id,
+                'user_id'          => $request['user_id'],
+            ];
+        }
+
+        return $fields;
+    }
+
+    public static function inputFieldsSupportAnswer($request, $extension, $size, $fileName)
+    {
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name'             => $request['name'],
+                'description'      => $request['description'],
+                'support_id'       => $request['support_id'],
+                'user_id'          => $request['id'],
+            ];
+        }else{
+            $fields = [
+                'name'             => $request['name'],
+                'description'      => $request['description'],
+                'file'             => $fileName,
+                'extension'        => $extension,
+                'size'             => $size,
+                'support_id'       => $request['support_id'],
+                'user_id'          => $request['id'],
+            ];
+        }
+
+        return $fields;
+    }
+
 }
