@@ -36,7 +36,7 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs" role="tablist" id="tabs">
                                         <li role="presentation" class="active"><a href="#singletab" aria-controls="singletab" role="tab" data-toggle="tab">Meu usuário</a></li>
-                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab"  onclick="formSubmit('#formsubmit');">Avatar</a></li>
+                                        <li role="presentation"><a href="#images" aria-controls="images" role="tab" data-toggle="tab" >Avatar</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->

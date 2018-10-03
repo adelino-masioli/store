@@ -301,3 +301,29 @@ function pathMidia($type)
 {
     return url('/').'/downloads/'.$type.'/'.setBaseUrlMidias();
 }
+
+/*roles*/
+function permission_level_one()
+{
+    return [1];
+}
+function permission_level_two()
+{
+    return [1, 2];
+}
+function permission_level_three()
+{
+    return [1, 2, 3];
+}
+function permission_level_four()
+{
+    return [1, 2, 3, 4];
+}
+function permission_level_five()
+{
+    return [1, 2, 3, 4, 5];
+}
+function permission_level_finance()
+{
+    return [1, 2, 4];
+}

@@ -18,7 +18,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/admin/dashboard');
+            if(Auth::user()->type_id == 4){
+                return redirect('/admin/orders-financial');
+            }else if(Auth::user()->type_id == 5){
+                return redirect('/dashboard');
+            }else{
+                return redirect('/admin/dashboard');
+            }
         }
 
         return $next($request);

@@ -2,7 +2,7 @@
 
 @section('content')
 
-        <div class="login-logo"> <b>Gestor</b>GED</a> </div>
+        <div class="login-logo"> man<strong>aže</strong>r </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">Informe se email e senha válidos</p>

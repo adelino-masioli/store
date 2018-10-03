@@ -62,7 +62,6 @@
     <!-- iCheck  -->
     <script src="{{asset('Backend/plugins/iCheck/icheck.min.js')}}"></script>
 
-    <script src="{{asset('js/scripts.js')}}"></script>
 
     <script>
         $(document).ready(function () {
@@ -71,6 +70,14 @@
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' /* optional */
             });
+
+            var Body = $('body');
+            Body.addClass('preloader-site');
+        });
+
+        $(window).on('load', function() {
+            $('.preloader-wrapper').fadeOut();
+            $('body').removeClass('preloader-site');
         });
     </script>
 
