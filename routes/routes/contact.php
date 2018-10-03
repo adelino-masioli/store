@@ -5,14 +5,14 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses' => 'ContactController@index',
         'as' => 'contacts',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
     ]);
     Route::get('/datatable-contacts', 'ContactController@getDatatable')->name('datatable-contacts');
     Route::get('contacts', [
         'uses' => 'ContactController@index',
         'as' => 'contacts',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
     ]);
     Route::get('contact/edit/{id}', [
         'uses' => 'ContactController@edit',

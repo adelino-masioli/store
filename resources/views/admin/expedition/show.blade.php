@@ -21,7 +21,10 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <a href="{{route('orders-financial')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos</a>
+                        <a href="{{route('orders-expedition')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos Para Expedição</a>
+                        @if($order->status_id <= statusOrder("expedition"))
+                            <a href="{{route('orders-expedition-confirm', [base64_encode($order->id)])}}" onclick="localStorage.clear();" class="btn btn-sm bg-yellow margin-r-5 btn-flat"><i class="fa fa-list"></i> Entregar Pedido</a>
+                        @endif
                         <a href="{{route('order-print', [base64_encode($order->id)])}}" onclick="localStorage.clear();" target="_blank" class="btn btn-sm bg-gray margin-r-5 btn-flat"><i class="fa fa-print"></i> Imprimir</a>
                     </div>
 
@@ -42,10 +45,8 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
                                                 <input type="hidden" name="id" value="{{$order->id}}">
-                                                @include('admin.financial.partials.show')
-                                            </form>
+                                                @include('admin.expedition.partials.show')
                                         </div>
                                     </div>
                                 </div>

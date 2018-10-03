@@ -323,4 +323,15 @@ class OrderController extends Controller
         session()->flash('success', 'Salvo com sucesso!');
         return redirect(route('order-edit', [base64_encode($res->id)]));
     }
+
+
+    //print
+    public static function print($id_order)
+    {
+        $id = base64_decode($id_order);
+        $order = Order::findOrfail($id);
+        $status = Status::where('flag', 'order')->get();
+        $items = OrderItem::where('order_id', $id)->get();
+        return view('admin.order.print', compact('order', 'status', 'items'));
+    }
 }

@@ -21,7 +21,11 @@ class UserTypesTableSeeder extends Seeder
         ]);
 
         DB::table('user_types')->insert([
-            'type'  => 'Moderador'
+            'type'  => 'Gerente'
+        ]);
+
+        DB::table('user_types')->insert([
+            'type'  => 'Usuários'
         ]);
 
         DB::table('user_types')->insert([
@@ -29,7 +33,15 @@ class UserTypesTableSeeder extends Seeder
         ]);
 
         DB::table('user_types')->insert([
-            'type'  => 'Usuário/Cliente'
+            'type'  => 'Produção'
+        ]);
+
+        DB::table('user_types')->insert([
+            'type'  => 'Expedição'
+        ]);
+
+        DB::table('user_types')->insert([
+            'type'  => 'Cliente'
         ]);
     }
 }

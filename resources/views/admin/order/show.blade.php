@@ -23,6 +23,7 @@
                     <div class="box-header with-border">
                         <a href="{{route('orders')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos</a>
                         <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Atualizar o status desse pedido</a>
+                        <a href="{{route('order-print', [base64_encode($order->id)])}}" onclick="localStorage.clear();" target="_blank" class="btn btn-sm bg-gray margin-r-5 btn-flat"><i class="fa fa-print"></i> Imprimir</a>
                     </div>
 
                     <div class="box-body">

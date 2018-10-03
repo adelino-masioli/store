@@ -190,7 +190,7 @@ function bgColor($i)
             return  "bg-blue";
             break;
         case 10:
-            return  'alert-success';
+            return  'bg-gray';
             break;
         case 11:
             return  'bg-black';
@@ -341,7 +341,19 @@ function permission_level_five()
 {
     return [1, 2, 3, 4, 5];
 }
+function permission_level_six()
+{
+    return [1, 2, 3, 4, 5, 6];
+}
+function permission_level_seven()
+{
+    return [1, 2, 3, 4, 5, 6, 7];
+}
+function permission_level_eight()
+{
+    return [1, 2, 3, 4, 5, 6, 7, 8];
+}
 function permission_level_finance()
 {
-    return [1, 2, 4];
+    return [1, 2, 3, 5];
 }

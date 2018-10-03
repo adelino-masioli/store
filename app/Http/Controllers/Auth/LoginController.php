@@ -41,10 +41,14 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
-        if(Auth::user()->type_id == 4){
+        if(Auth::user()->type_id == 5){
             return redirect('/admin/orders-financial');
-        }else if(Auth::user()->type_id == 5){
-            return redirect('/dashboard');
+        }else if(Auth::user()->type_id == 6){
+            return redirect('/admin/orders-production');
+        }else if(Auth::user()->type_id == 7){
+            return redirect('/admin/orders-expedition');
+        }else if(Auth::user()->type_id == 8){
+            return redirect('/customer/dashboard');
         }else{
             return redirect('/admin/dashboard');
         }

@@ -38,7 +38,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses'       =>'NewsletterController@index',
         'as'         =>'newsletters',
         'middleware' => 'roles',
-        'roles'      => permission_level_three()
+        'roles'      => permission_level_four()
     ]);
     Route::get('/datatable-newsletters', 'NewsletterController@getDatatable')->name('datatable-newsletters');
 });
