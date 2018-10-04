@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-md-3 text-center wow fadeInDown">
             <i class="fa fa-globe"></i>
             <h3>SITE</h3>
-            <p>{{$config_site->site}}</p>
+            <p>{{$config_site->url}}</p>
         </div>
 
         <div class="col-xs-12 col-md-3 text-center wow fadeInDown">

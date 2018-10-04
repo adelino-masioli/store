@@ -63,7 +63,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="status_id">Status</label>
-                        <select class="form-control select2" id="status_id" name="status_id">
+                        <select class="form-control select2" id="status_id" name="status_id" style="width: 100%;">
                             @foreach($status as $status)
                                 <option @if(isset($product)) @if($product->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
                             @endforeach

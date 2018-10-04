@@ -133,11 +133,14 @@ textarea{
     height: auto;
     margin-top: -6px;
 }
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #f1f1f1;
-    color: #666666;
+.select2-container--default .select2-results__option--highlighted[aria-selected], .select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
+    background-color: #0073B7;
+    color: #ffffff;
 }
-
+.select2-container--classic.select2-container--open .select2-dropdown {
+    border-color: #0073B7!important;
+    color: #ffffff;
+}
 
 
 .table > tbody > tr > td, .table > tfoot > tr > th {

@@ -147,7 +147,7 @@ class InputFields
         $fields = [
             'sku'              => $request['sku'],
             'name'             => $request['name'],
-            'slug'             => str_slug($request['product_name'], '-'),
+            'slug'             => str_slug($request['name'], '-'),
             'description'      => $request['description'],
             'meta_title'       => $request['meta_title'],
             'meta_description' => $request['meta_description'],

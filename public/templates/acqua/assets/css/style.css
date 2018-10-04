@@ -860,7 +860,8 @@ figure.effect-bubba figcaption::after {
 }
 
 figure.effect-bubba .figcaption-content{
-    background: #ffffff;
+    background-image: url('../images/bg-transparent-white.png');
+    background-repeat: repeat;
     padding: 15px 10px;
     min-height: 160px;
     display: block;
@@ -1125,6 +1126,7 @@ figure.effect-bubba p {
 	letter-spacing: 0px;
 	text-transform: initial;
 	font-weight: 400;
+	line-height: 23px;
 }
 .page-service h2{
 	margin-bottom: 6px;

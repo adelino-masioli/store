@@ -51,13 +51,13 @@
                     <tr>
                         <td class="col-md-7">{{$product_image->name}}</td>
                         <td class="col-md-2 text-center">
-                            @if(File::exists( public_path().'/catalog/'.config('app.template').'/thumb/'.$product_image->image))
-                                <img width="40" src="{{url('/').'/catalog/'.config('app.template').'/thumb/'.$product_image->image}}" alt="{{$product_image->name}}">
+                            @if($product_image && $product_image->image != '')
+                                <img width="60" src="{{url('/').defineUploadPath('catalog', null).'/thumb/'.$product_image->image}}" alt="{{$product_image->name}}">
                             @else
                                 <span>Sem imagem</span>
                             @endif
                         </td>
-                        <td class="col-md-2 text-center">{{$product_image->name == 0 ? 'NÃO' : 'SIM'}}</td>
+                        <td class="col-md-2 text-center">{{$product_image->is_cover == 0 ? 'NÃO' : 'SIM'}}</td>
                         <td class="col-md-1 text-center"><a href="{{route('product-image-destroy', [base64_encode($product_image->id)])}}" class="btn btn-xs bg-red"><i class="fa fa-trash"></i></a></td>
                     </tr>
                     @endforeach

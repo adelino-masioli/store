@@ -16,7 +16,7 @@
 
             @if($page->summary)
             <div class="col-md-12 full-wxs">
-                <div class="grid wow zoomIn" style="padding-bottom:20px;padding-top:0px;">
+                <div class="grid wow zoomIn" style="padding-bottom:20px;padding-top:0px;text-align: initial;">
                     <h1><strong>{{$page->summary}}</strong></h1>
                 </div>
             </div>
@@ -25,7 +25,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 full-wxs">
-                <div class="grid wow zoomIn" style="padding-bottom:0px;">
+                <div class="grid wow zoomIn" style="padding-bottom:0px;text-align: initial;">
                     {!! $page->text !!}
                 </div>
             </div>

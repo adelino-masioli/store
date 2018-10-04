@@ -7,9 +7,9 @@
             <!-- title row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h2 class="page-header">
+                    <h2 class="page-header" style="margin-top: 0px;">
                         @if($config_site->brand)
-                            <img width="100" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="">
+                            <img width="100" src="{{url('/').defineUploadPath('brands', null).'/thumb/'.$config_site->brand}}" alt="{{$config_site->name}}">
                         @else
                             {{$config_site->name}}
                         @endif
@@ -26,8 +26,8 @@
                         <strong>{{$order->name}}</strong><br>
                         {{$order->address}}, {{$order->number}} - {{$order->district}}<br>
                         {{$order->city}} - {{$order->state}} - {{$order->zipcode}}<br>
-                        Telefone: {{$order->phone}}<br>
-                        Email: {{$order->email}}
+                        {{$order->phone}}<br>
+                        {{$order->email}}
                     </address>
                 </div>
                 <!-- /.col -->
@@ -41,8 +41,8 @@
                         @if($config_site->city){{$config_site->city}} - @endif
                         @if($config_site->state){{$config_site->state}} - @endif
                         @if($config_site->zipcode){{$config_site->zipcode}}<br>@endif
-                        Telefone: {{$config_site->phone}}<br>
-                        Email: {{$config_site->email}}
+                        @if($config_site->phone){{$config_site->phone}}<br>@endif
+                        @if($config_site->email){{$config_site->email}}@endif
                     </address>
                 </div>
                 <!-- /.col -->
