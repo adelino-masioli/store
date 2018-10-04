@@ -5,7 +5,7 @@
         <div class="login-logo"> man<strong>aže</strong>r </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Informe se email e senha válidos</p>
+            <p class="login-box-msg">Informe seu email e senha válidos</p>
 
             <form method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}

@@ -63,7 +63,7 @@ class OrderController extends Controller
 
             })
             ->setRowClass(function ($data) {
-                return switchColor($data->status_id);
+                return bgColor($data->status_id);
             })
             ->toJson();
     }

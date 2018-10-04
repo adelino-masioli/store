@@ -314,25 +314,7 @@ function statusOrder($status){
             break;
     }
 }
-//switch color
-function switchColor($color){
-    switch ($color) {
-        case 7:
-            return  'bg-gray disabled color-palette';
-            break;
-        case 8:
-            return  'alert-info';
-            break;
-        case 10:
-            return  'alert-success';
-            break;
-        case 13:
-            return  'alert-danger';
-            break;
-        default:
-            return '';
-    }
-}
+
 function canceledRegister(){
     return 13;
 }

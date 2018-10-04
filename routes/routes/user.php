@@ -5,7 +5,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses' => 'UserController@me',
         'as' => 'me',
         'middleware' => 'roles',
-        'roles' => permission_level_four()
+        'roles' => permission_level_seven()
     ]);
     Route::get('users', [
         'uses' => 'UserController@index',
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses' => 'UserController@destroyAvatar',
         'as' => 'user-avatar-destroy',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_seven()
     ]);
     Route::post('/user/store', 'UserController@store')->name('user-store');
     Route::post('/user/update', 'UserController@update')->name('user-update');

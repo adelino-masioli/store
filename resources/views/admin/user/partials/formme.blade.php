@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="name">Nome do usuário<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do produto" value="@if(isset($user)){{$user->name}}@else{{old('name')}}@endif" required autofocus>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do usuário" value="@if(isset($user)){{$user->name}}@else{{old('name')}}@endif" required autofocus>
             </div>
         </div>
 

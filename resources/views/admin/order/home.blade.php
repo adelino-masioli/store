@@ -22,6 +22,7 @@
                     <a href="{{route('order-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo pedido</a>
 
                     <a target="_blank" href="{{route('order-timeline')}}" class="btn btn-sm bg-green"><i class="fa fa-align-left"></i> Timeline dos pedidos</a>
+                    <a  href="javascript:void(0);" class="btn btn-sm bg-gray" onclick="funcionRefreshDatatable();"><i class="fa fa-refresh"></i></a>
                 </div>
 
                 <div class="box-body">
@@ -61,7 +62,7 @@
 @endsection
 @push('scripts')
     <script>
-        $('#orders-table').DataTable({
+        var table =  $('#orders-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: '{{route('datatable-orders')}}',

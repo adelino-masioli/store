@@ -20,6 +20,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <a href="{{route('order-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo pedido</a>
+                    <a  href="javascript:void(0);" class="btn btn-sm bg-gray" onclick="funcionRefreshDatatable();"><i class="fa fa-refresh"></i></a>
                 </div>
 
                 <div class="box-body">
@@ -57,7 +58,7 @@
 @endsection
 @push('scripts')
     <script>
-        $('#quotes-table').DataTable({
+        var table = $('#quotes-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: '{{route('datatable-quotes')}}',

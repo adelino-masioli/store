@@ -120,3 +120,8 @@ function masMoney(){
 function addImage(image) {
     $('.editor').summernote('insertImage',image);
 }
+
+//refresh datatable
+ function funcionRefreshDatatable(){
+     table.ajax.reload();
+ }
