@@ -98,6 +98,26 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'middleware' => 'roles',
         'roles' => permission_level_finance()
     ]);
+    //report
+    Route::get('order/financial/report', [
+        'uses' => 'FinancialController@report',
+        'as' => 'orders-financial-report',
+        'middleware' => 'roles',
+        'roles' => permission_level_finance()
+    ]);
+    Route::post('order/financial/report/filter', [
+        'uses' => 'FinancialController@filter',
+        'as' => 'order-financial-report-filter',
+        'middleware' => 'roles',
+        'roles' => permission_level_finance()
+    ]);
+    Route::get('order/financial/report/print', [
+        'uses' => 'FinancialController@print',
+        'as' => 'orders-financial-report-print',
+        'middleware' => 'roles',
+        'roles' => permission_level_finance()
+    ]);
+
 
     //production
     Route::get('orders-production', [

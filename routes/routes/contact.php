@@ -18,13 +18,13 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses' => 'ContactController@edit',
         'as' => 'contact-edit',
         'middleware' => 'roles',
-        'roles' => permission_level_two()
+        'roles' => permission_level_four()
     ]);
     Route::get('contact/destroy/{id}', [
         'uses' => 'ContactController@destroy',
         'as' => 'contact-destroy',
         'middleware' => 'roles',
-        'roles' => permission_level_two()
+        'roles' => permission_level_three()
     ]);
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
 });

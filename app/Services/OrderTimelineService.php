@@ -21,7 +21,7 @@ class OrderTimelineService
         $description = $request != null ? $request['description'] : '';
         $data = [
             'user_name'        => Auth::user()->name,
-            'customer_name'    => $order->customer->name,
+            'customer_name'    => $order->name,
             'description'      => $description,
             'order_id'         => $order->id,
             'user_id'          => Auth::user()->id,

@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderAnnotation;
 use App\Models\OrderItem;
+use App\Models\OrderPayment;
+use App\Models\Payment;
 use App\Models\Status;
-use App\Services\InputFields;
-use App\Services\Messages;
 use App\Traits\DataTableTrait;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class FinancialController extends Controller
@@ -70,6 +71,51 @@ class FinancialController extends Controller
         $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
         $annotations = OrderAnnotation::where('order_id', $id)->get();
-        return view('admin.financial.show', compact('order', 'status', 'items', 'annotations'));
+        $payments = Payment::orderBy('payment')->get();
+        return view('admin.financial.show', compact('order', 'status', 'items', 'annotations', 'payments'));
+    }
+
+    //report
+    public function report()
+    {
+        $users = User::where('configuration_id', Auth::user()->configuration_id)->where('id', '>', 1)->where('type_id', '<', 8)->orderBy('name')->get();
+        $status = Status::where('flag', 'order')->orderBy('id')->get();
+        return view('admin.financial.report', compact('users', 'status'));
+    }
+
+    //filter
+    public function filter(Request $request)
+    {
+        session()->forget('order_filters');
+
+        $res_orders = Order::where('configuration_id', Auth::user()->configuration_id);
+        if(trim($request['customer_name'])) {
+            $orders_list = $res_orders->where('name', 'LIKE', '%' . trim($request['customer_name']) . '%');
+        }
+        if(trim($request['user_id'])) {
+            $orders_list = $res_orders->where('user_id', trim($request['user_id']));
+        }
+        if(trim($request['status_id'])) {
+            $orders_list = $res_orders->where('status_id', trim($request['status_id']));
+        }
+        if(trim($request['date_begin']) && trim($request['date_end'])) {
+            $dateS = new Carbon($request['date_begin']);
+            $dateE = new Carbon($request['date_end']);
+            $orders_list = $res_orders->whereBetween('created_at', array($dateS, $dateE));
+        }
+
+        $orders = $orders_list->orderBy('id')->get();
+
+        //add to session
+        session()->put('order_filters', $orders);
+
+        return view('admin.financial.filter', compact( 'orders'));
+    }
+
+    //print
+    public function print()
+    {
+        $orders = session('order_filters');
+        return view('admin.financial.report-print', compact( 'orders'));
     }
 }

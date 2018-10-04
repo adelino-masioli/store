@@ -98,6 +98,21 @@
             </tr>
             </tfoot>
         </table>
+
+        <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th colspan="6" class="col-md-1 text-center">PAGAMENTO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach($payments as $payment)
+                        <td class="col-md-2 text-center {{bgColor($payment->id)}}">{{$payment->payment}} <br/> <strong style="font-size: 26px;">{{\App\Models\OrderPayment::getPaymentValue($order->id, $payment->id)}}</strong></td>
+                    @endforeach
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </form>

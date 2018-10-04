@@ -29,6 +29,7 @@ class OrderPayment extends Model
     public function order() {
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
+
     public function payment() {
         return $this->belongsTo('App\Models\Payment', 'payment_id');
     }
