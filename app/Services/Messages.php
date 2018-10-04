@@ -165,6 +165,15 @@ class Messages
         return $messages;
     }
 
+    public  static function msgOrderAnnotation()
+    {
+        $messages = [
+            'description.required'      => 'Favor informar a DESCRIÇÃO'
+        ];
+
+        return $messages;
+    }
+
     public  static function msgPage()
     {
         $messages = [

@@ -142,6 +142,28 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     ]);
 
 
+    //order annotation
+    Route::get('order-annotation/{id}', [
+        'uses'       =>'OrderAnnotationController@list',
+        'as'         =>'order-annotation',
+        'middleware' => 'roles',
+        'roles'      => permission_level_four()
+    ]);
+    Route::get('order-annotation-open/{id}', [
+        'uses'       =>'OrderAnnotationController@open',
+        'as'         =>'order-annotation-open',
+        'middleware' => 'roles',
+        'roles'      => permission_level_four()
+    ]);
+    Route::get('order-annotation-destroy/{id}', [
+        'uses'       =>'OrderAnnotationController@destroy',
+        'as'         =>'order-annotation-destroy',
+        'middleware' => 'roles',
+        'roles'      => permission_level_four()
+    ]);
+    Route::post('/order-annotation/store', 'OrderAnnotationController@store')->name('order-annotation-store');
+
+
 
     //print
     Route::get('order/print/{id}', [

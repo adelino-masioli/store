@@ -271,6 +271,19 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsOrderAnnotation($request){
+        $fields = [
+            'user_name'        => $request['user_name'],
+            'description'      => $request['description'],
+            'color'            => $request['color'],
+            'order_id'         => $request['order_id'],
+            'user_id'          => $request['user_id'],
+            'status_id'        => statusOrder('open')
+        ];
+
+        return $fields;
+    }
+
 
     public static function inputFieldsPage($request,  $fileName){
         $status = $request['status_id'] ? $request['status_id'] : 2;

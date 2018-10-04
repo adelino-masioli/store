@@ -1,3 +1,6 @@
+<form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
+    <input type="hidden" name="id" value="{{$order->id}}">
+
 {{ csrf_field() }}
 <div class="row">
     <div class="box box-info">
@@ -97,3 +100,4 @@
         </table>
     </div>
 </div>
+</form>

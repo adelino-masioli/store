@@ -138,6 +138,9 @@ class SupportController extends Controller
         $id = base64_decode($document_id);
         $support = Support::findOrfail($id);
         $support_answers = SupportAnswer::where('support_id', $id)->get();
+        if($support->click != 1) {
+            $support->update(['click' => 1]);
+        }
 
         return view('admin.support.show', compact('support', 'support_answers'));
     }

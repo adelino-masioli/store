@@ -43,10 +43,14 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$order->id}}">
-                                                @include('admin.order.partials.show')
-                                            </form>
+                                               <div class="row">
+                                                   <div class="col-md-9">
+                                                       @include('admin.order.partials.show')
+                                                   </div>
+                                                   <div class="col-md-3">
+                                                       @include('admin.order.partials.annotation')
+                                                   </div>
+                                               </div>
                                         </div>
                                     </div>
                                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderAnnotation;
 use App\Models\OrderItem;
 use App\Models\Status;
 use App\Services\InputFields;
@@ -68,6 +69,7 @@ class FinancialController extends Controller
         $order = Order::findOrfail($id);
         $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
-        return view('admin.financial.show', compact('order', 'status', 'items'));
+        $annotations = OrderAnnotation::where('order_id', $id)->get();
+        return view('admin.financial.show', compact('order', 'status', 'items', 'annotations'));
     }
 }
