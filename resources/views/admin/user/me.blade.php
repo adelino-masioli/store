@@ -184,7 +184,7 @@
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="submit" class="btn btn-danger">Salvar alterações</button>
                                     </div>
-                                </div>'
+                                </div>
                             </form>
                         </div>
                         <!-- /.tab-pane -->

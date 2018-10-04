@@ -24,6 +24,7 @@ class InputFields
                 'email' => $request['email'],
                 'phone' => $request['phone'],
                 'whatsapp' => $request['whatsapp'],
+                'summary' => $request['summary'],
                 'about' => $request['about'],
                 'zipcode' => $request['zipcode'],
                 'address' => $request['address'],
