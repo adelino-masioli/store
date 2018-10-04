@@ -35,7 +35,7 @@ class FinancialController extends Controller
     {
         $model = new \App\Models\Order;
         $columns = ['id',  'name', 'email', 'origin',  'total', 'created_at',  'user_id',  'status_id'];
-        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '>', 7)->where('status_id', '!=', 10);
+        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '>', 7)->where('status_id', '!=', statusOrder('canceled'))->orderBy('id', 'desc');
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
@@ -51,7 +51,7 @@ class FinancialController extends Controller
                 return money_br($data->total);
             })
             ->addColumn('action', function ($data) {
-                if($data->status_id > 7){
+                if($data->status_id > statusOrder('financial')){
                     return '<a onclick="localStorage.clear();" href="'.route('order-financial-show', [base64_encode($data->id)]).'"  title="Visualizar" class="btn bg-blue btn-xs"><i class="fa fa-eye"></i> Visualizar</a>';
                 }else{
                     return '<a onclick="localStorage.clear();" href="'.route('order-payment', [base64_encode($data->id)]).'"  title="Finalizar" class="btn bg-green btn-xs"><i class="fa fa-dollar"></i> Finalizar</a>';

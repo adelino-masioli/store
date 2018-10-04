@@ -13,7 +13,7 @@ class OrderTimeline extends Model
      *
      * @var array
      */
-    protected $table = 'order_timeline';
+    protected $table = 'order_timelines';
     protected $fillable = [
         'user_name',
         'customer_name',

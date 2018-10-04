@@ -18,6 +18,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box">
+                <div class="box-header with-border">
+                    <a target="_blank" href="{{route('order-timeline')}}" class="btn btn-sm bg-green"><i class="fa fa-align-left"></i> Timeline dos pedidos</a>
+                </div>
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">

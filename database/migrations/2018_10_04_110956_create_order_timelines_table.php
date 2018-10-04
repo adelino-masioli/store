@@ -27,7 +27,7 @@ class CreateOrderTimelinesTable extends Migration
             $table->foreign('status_id')->references('id')->on('status');
             $table->string('user_name')->nullable();
             $table->string('customer_name')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

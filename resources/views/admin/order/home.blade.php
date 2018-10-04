@@ -20,6 +20,8 @@
             <div class="box">
                 <div class="box-header with-border">
                     <a href="{{route('order-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo pedido</a>
+
+                    <a target="_blank" href="{{route('order-timeline')}}" class="btn btn-sm bg-green"><i class="fa fa-align-left"></i> Timeline dos pedidos</a>
                 </div>
 
                 <div class="box-body">

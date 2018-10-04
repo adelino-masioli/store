@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderAnnotation;
 use App\Models\OrderItem;
+use App\Models\OrderTimeline;
 use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
+use App\Services\OrderTimelineService;
 use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,10 +53,8 @@ class OrderController extends Controller
                 return money_br($data->total);
             })
             ->addColumn('action', function ($data) {
-                if($data->status_id > 7){
-                    return '<a onclick="localStorage.clear();" href="'.route('order-show', [base64_encode($data->id)]).'"  title="Visualizar" class="btn bg-green btn-xs"><i class="fa fa-eye"></i></a>
-                        <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
-                        ';
+                if($data->status_id > statusOrder('proccess')){
+                    return '<a onclick="localStorage.clear();" href="'.route('order-show', [base64_encode($data->id)]).'"  title="Visualizar" class="btn bg-green btn-xs"><i class="fa fa-eye"></i> Visualizar</a>';
                 }else{
                     return '<a onclick="localStorage.clear();" href="'.route('order-edit', [base64_encode($data->id)]).'"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
                         <a href="'.route('order-destroy', [base64_encode($data->id)]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
@@ -120,6 +120,8 @@ class OrderController extends Controller
                 exit();
             }
             $res = Order::create(InputFields::inputFieldsOrder($request));
+
+            OrderTimelineService::store($res, $request);
 
             return redirect(route('order-edit', [base64_encode($res->id)]));
         }catch(\Exception $e){
@@ -235,9 +237,10 @@ class OrderController extends Controller
 
         $res = Order::findOrfail($id);
         if($res){
-            $data['status_id'] = 10;
+            $data['status_id'] = statusOrder('canceled');
             $res->update($data);
         }
+        OrderTimelineService::destroy($id);
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();
     }
@@ -287,6 +290,9 @@ class OrderController extends Controller
                 $data['status_id'] = statusOrder('financial');
                 $res->update($data);
             }
+            //add timeline
+            OrderTimelineService::store($res, null);
+
             session()->flash('success', 'Pedido finalizado com sucesso. Já está no financeiro.');
             return redirect(route('orders'));
         }else{

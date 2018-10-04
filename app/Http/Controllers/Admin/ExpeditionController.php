@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
+use App\Services\OrderTimelineService;
 use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,7 @@ class ExpeditionController extends Controller
     {
         $model = new \App\Models\Order;
         $columns = ['id',  'name', 'email', 'origin',  'total', 'created_at',  'user_id',  'status_id'];
-        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '>', 9);
+        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '!=', statusOrder('canceled'))->where('status_id', '>', statusOrder('production'))->orderBy('id', 'desc');
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
@@ -76,6 +77,23 @@ class ExpeditionController extends Controller
         return view('admin.expedition.show', compact('order', 'status', 'items'));
     }
 
+
+    //conference
+    public static function conference($id_order)
+    {
+        $id = base64_decode($id_order);
+        $res = Order::findOrfail($id);
+        if($res){
+            $data['status_id'] = statusOrder('expedition');
+            $res->update($data);
+        }
+        //add timeline
+        OrderTimelineService::store($res, null);
+
+        session()->flash('success', 'Conferido com sucesso!');
+        return redirect()->back();
+    }
+
     //confirm
     public static function confirm($id_order)
     {
@@ -85,6 +103,8 @@ class ExpeditionController extends Controller
             $data['status_id'] = statusOrder('delivered');
             $res->update($data);
         }
+        //add timeline
+        OrderTimelineService::store($res, null);
         session()->flash('success', 'Entregue com sucesso!');
         return redirect()->back();
     }

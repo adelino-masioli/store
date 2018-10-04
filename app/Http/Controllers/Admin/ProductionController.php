@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderAnnotation;
 use App\Models\OrderItem;
 use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
+use App\Services\OrderTimelineService;
 use App\Traits\DataTableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,7 @@ class ProductionController extends Controller
     {
         $model = new \App\Models\Order;
         $columns = ['id',  'name', 'email', 'origin',  'total', 'created_at',  'user_id',  'status_id'];
-        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '>', 8);
+        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '>', 8)->orderBy('id', 'desc');
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
@@ -64,7 +66,8 @@ class ProductionController extends Controller
         $order = Order::findOrfail($id);
         $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
-        return view('admin.production.show', compact('order', 'status', 'items'));
+        $annotations = OrderAnnotation::where('order_id', $id)->get();
+        return view('admin.production.show', compact('order', 'status', 'items', 'annotations'));
     }
 
     //confirm
@@ -76,6 +79,8 @@ class ProductionController extends Controller
             $data['status_id'] = statusOrder('finished');
             $res->update($data);
         }
+        //add timeline
+        OrderTimelineService::store($res, null);
         session()->flash('success', 'Finalizado com sucesso!');
         return redirect()->back();
     }

@@ -134,6 +134,12 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'middleware' => 'roles',
         'roles' => permission_level_seven()
     ]);
+    Route::get('order/expedition/conference/{id}', [
+        'uses' => 'ExpeditionController@conference',
+        'as' => 'orders-expedition-conference',
+        'middleware' => 'roles',
+        'roles' => permission_level_seven()
+    ]);
     Route::get('order/expedition/confirm/{id}', [
         'uses' => 'ExpeditionController@confirm',
         'as' => 'orders-expedition-confirm',
@@ -147,22 +153,38 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'uses'       =>'OrderAnnotationController@list',
         'as'         =>'order-annotation',
         'middleware' => 'roles',
-        'roles'      => permission_level_four()
+        'roles'      => permission_level_seven()
     ]);
     Route::get('order-annotation-open/{id}', [
         'uses'       =>'OrderAnnotationController@open',
         'as'         =>'order-annotation-open',
         'middleware' => 'roles',
-        'roles'      => permission_level_four()
+        'roles'      => permission_level_seven()
     ]);
     Route::get('order-annotation-destroy/{id}', [
         'uses'       =>'OrderAnnotationController@destroy',
         'as'         =>'order-annotation-destroy',
         'middleware' => 'roles',
-        'roles'      => permission_level_four()
+        'roles'      => permission_level_seven()
     ]);
     Route::post('/order-annotation/store', 'OrderAnnotationController@store')->name('order-annotation-store');
 
+
+    //order timeline
+    Route::get('order-timeline', [
+        'uses'       =>'OrderTimelineController@all',
+        'as'         =>'order-timeline',
+        'middleware' => 'roles',
+        'roles'      => permission_level_seven()
+    ]);
+
+    //order timeline
+    Route::get('order-timeline-show/{order}', [
+        'uses'       =>'OrderTimelineController@show',
+        'as'         =>'order-timeline-show',
+        'middleware' => 'roles',
+        'roles'      => permission_level_seven()
+    ]);
 
 
     //print

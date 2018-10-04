@@ -259,3 +259,17 @@ body.preloader-site {
     transform: translate(-50%, -50%);
     width: 200px;
 }
+
+/*timeline*/
+.time-line-code{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 30px;
+    padding: 10px;
+    font-weight: 600;
+}
+.bg-finish, .bg-finish:hover, .bg-finish:active, .bg-finish.active, .bg-finish:focus{
+    background: #2dff2e!important;
+    color: #ffffff!important;
+}

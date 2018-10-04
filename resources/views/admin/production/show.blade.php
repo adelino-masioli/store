@@ -22,6 +22,11 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <a href="{{route('orders-production')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Pedidos Para Produção</a>
+
+                        @if($order->status_id != statusOrder('canceled'))
+                            <a target="_blank" href="{{route('order-timeline-show', [base64_encode($order->id)])}}" class="btn btn-sm bg-green"><i class="fa fa-align-left"></i> Timeline do pedido</a>
+                        @endif
+
                         @if($order->status_id <= statusOrder("production"))
                          <a href="{{route('orders-production-confirm', [base64_encode($order->id)])}}" onclick="localStorage.clear();" class="btn btn-sm bg-yellow margin-r-5 btn-flat"><i class="fa fa-list"></i> Finalizar Produção</a>
                         @endif
@@ -45,10 +50,14 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="quote">
-                                            <form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
-                                                <input type="hidden" name="id" value="{{$order->id}}">
-                                                @include('admin.production.partials.show')
-                                            </form>
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    @include('admin.production.partials.show')
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @include('admin.order.partials.annotation')
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -190,7 +190,7 @@ function bgColor($i)
             return  "bg-blue";
             break;
         case 10:
-            return  'bg-gray';
+            return  'bg-finish';
             break;
         case 11:
             return  'bg-black';
@@ -200,6 +200,54 @@ function bgColor($i)
             break;
         case 13:
             return  "bg-red";
+            break;
+        default:
+            return '';
+    }
+}
+
+//return iconOrder
+function iconOrder($i)
+{
+    switch ($i) {
+        case 1:
+            return  "fa fa-star-o";
+            break;
+        case 2:
+            return  "fa fa-star-half-o";
+            break;
+        case 3:
+            return  "fa fa-folder-open";
+            break;
+        case 4:
+            return  "fa fa-times-circle";
+            break;
+        case 5:
+            return  "fa fa-cloud-download";
+            break;
+        case 6:
+            return  "fa fa-download";
+            break;
+        case 7:
+            return  'fa fa-tasks';
+            break;
+        case 8:
+            return  'fa fa-dollar';
+            break;
+        case 9:
+            return  "fa fa-cogs";
+            break;
+        case 10:
+            return  'fa fa-check-square-o';
+            break;
+        case 11:
+            return  'fa fa-truck';
+            break;
+        case 12:
+            return  'fa fa-flag-checkered';
+            break;
+        case 13:
+            return  "fa fa-ban";
             break;
         default:
             return '';

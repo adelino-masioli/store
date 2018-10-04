@@ -1,3 +1,6 @@
+<form action="{{route('order-update-status')}}" method="post" class="panels" id="formsubmit">
+    <input type="hidden" name="id" value="{{$order->id}}">
+
 {{ csrf_field() }}
 <div class="row">
     <div class="box box-info">
@@ -5,14 +8,14 @@
         <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
             <thead>
             <tr>
-                <th class="col-md-1 text-center">CÓDIGO</th>
-                <th class="col-md-6 text-center">NOME DO CLIENTE</th>
-                <th class="col-md-5 text-center">E-MAIL DO CLIENTE</th>
+                <th class="col-md-1 text-left">CÓDIGO</th>
+                <th class="col-md-6 text-left">NOME DO CLIENTE</th>
+                <th class="col-md-5 text-left">E-MAIL DO CLIENTE</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="col-md-1 text-center">@if(isset($order))#COD{{$order->id}}@endif</td>
+                <td class="col-md-1 text-left">@if(isset($order))#COD{{$order->id}}@endif</td>
                 <td class="col-md-6 text-left">@if(isset($order)){!!$order->name ? $order->name : '<p class="text-center no-margin">--</p>'!!}@endif</td>
                 <td class="col-md-5 text-left">@if(isset($order)){!!$order->email ? $order->email : '<p class="text-center no-margin">--</p>'!!}@endif</td>
             </tr>
@@ -22,15 +25,15 @@
         <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
             <thead>
             <tr>
-                <th class="col-md-2 text-center">TELEFONE</th>
-                <th class="col-md-6 text-center">DETALHES</th>
-                <th class="col-md-2 text-center">DATA</th>
-                <th class="col-md-2 text-center">STATUS</th>
+                <th class="col-md-2 text-left">TELEFONE</th>
+                <th class="col-md-6 text-left">DETALHES</th>
+                <th class="col-md-2 text-left">DATA</th>
+                <th class="col-md-2 text-left">STATUS</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="col-md-2 text-center">@if(isset($order)){!!$order->phone ? $order->phone : '<p class="text-center no-margin">--</p>'!!} @endif</td>
+                <td class="col-md-2 text-left">@if(isset($order)){!!$order->phone ? $order->phone : '<p class="text-center no-margin">--</p>'!!} @endif</td>
                 <td class="col-md-6 text-left">@if(isset($order)){!!$order->about ? $order->about : '<p class="text-center no-margin">--</p>'!!}@endif</td>
                 <td class="col-md-2 text-left">@if(isset($order)){{format_date($order->created_at)}}@endif</td>
                 <td class="col-md-2 text-left {{bgColor($order->status_id)}}">{{$order->status->status}}</td>
@@ -41,7 +44,7 @@
         <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
             <thead>
             <tr>
-                <th class="col-md-12 text-center">OBESERVAÇÕES DO PEDIDO</th>
+                <th class="col-md-12 text-left">OBESERVAÇÕES DO PEDIDO</th>
             </tr>
             </thead>
             <tbody>
@@ -97,3 +100,4 @@
         </table>
     </div>
 </div>
+</form>

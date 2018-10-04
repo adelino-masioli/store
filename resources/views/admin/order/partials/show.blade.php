@@ -35,12 +35,12 @@
                     <td class="col-md-2 text-left">@if(isset($order)){!!$order->phone ? $order->phone : '<p class="text-center no-margin">--</p>'!!} @endif</td>
                     <td class="col-md-6 text-left">@if(isset($order)){!!$order->about ? $order->about : '<p class="text-center no-margin">--</p>'!!}@endif</td>
                     <td class="col-md-2 text-left">@if(isset($order)){{format_date($order->created_at)}}@endif</td>
-                    <td class="col-md-2 text-left">
-                        <select class="form-control select2" id="status_id" name="status_id">
-                            @foreach($status as $status)
-                                <option @if(isset($order)) @if($order->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
-                            @endforeach
-                        </select>
+                    <td class="col-md-2 text-left {{bgColor($order->status_id)}}">{{$order->status->status}}
+                        {{--<select class="form-control select2 hidden" id="status_id" name="status_id" disabled>--}}
+                            {{--@foreach($status as $status)--}}
+                                {{--<option @if(isset($order)) @if($order->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>--}}
+                            {{--@endforeach--}}
+                        {{--</select>--}}
                     </td>
                 </tr>
                 </tbody>

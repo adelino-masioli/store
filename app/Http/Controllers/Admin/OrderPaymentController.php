@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Status;
+use App\Services\OrderTimelineService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -109,6 +110,8 @@ class OrderPaymentController extends Controller
                 $data['status_id'] = 9;
                 $order->update($data);
             }
+            //add timeline
+            OrderTimelineService::store($order, null);
             return redirect(route('orders-financial'));
         }
     }

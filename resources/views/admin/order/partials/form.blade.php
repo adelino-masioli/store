@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row hidden">
         @if(isset($status))
             <div class="col-md-4">
                 <div class="form-group">
