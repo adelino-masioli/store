@@ -62,7 +62,6 @@ class OrderController extends Controller
                 }
 
             })
-            ->orderColumn('name', 'id $1')
             ->setRowClass(function ($data) {
                 return bgColor($data->status_id);
             })
