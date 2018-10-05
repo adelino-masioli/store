@@ -35,7 +35,7 @@ class ExpeditionController extends Controller
     {
         $model = new \App\Models\Order;
         $columns = ['id',  'name', 'email', 'origin',  'total', 'created_at',  'user_id',  'status_id'];
-        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '!=', statusOrder('canceled'))->where('status_id', '>', statusOrder('production'))->orderBy('id', 'desc');
+        $result  =  $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type', 1)->where('status_id', '!=', statusOrder('canceled'))->where('status_id', '>', statusOrder('production'));
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
