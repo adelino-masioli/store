@@ -73,6 +73,7 @@
                 {data: 'created_at', name: 'created_at', className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
+            order: [ [0, 'desc'] ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {
                         "sEmptyTable": "Nenhum registro encontrado",

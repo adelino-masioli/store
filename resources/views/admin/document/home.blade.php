@@ -66,7 +66,7 @@
             serverSide: true,
             ajax: '{{route('datatable-documents')}}',
             columns: [
-                {data: 'id', name: 'id', orderable: false, searchable: false, className: 'text-center'},
+                {data: 'id', name: 'id',  searchable: false, className: 'text-center'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
                 {data: 'user', name: 'user'},
@@ -77,6 +77,7 @@
                 {data: 'updated_at', name: 'updated_at'},
                 {data: 'status', name: 'status', className: 'text-center', orderable: false, searchable: false},
             ],
+            order: [ [0, 'desc'] ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],
             language: {
                         "sEmptyTable": "Nenhum registro encontrado",

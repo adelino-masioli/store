@@ -14,7 +14,7 @@ class ConfigurationSite
 {
     public static function getConfiguration()
     {
-        /*if(Auth::user() == null || Auth::user()->type_id != 1){
+        if(Auth::user() == null || Auth::user()->type_id != 1){
             $configuration_site = Configuration::where('url', url('/'))->orWhere('url_security', url()->current())->take(1)->first();
             if($configuration_site){
                 return $configuration_site;
@@ -23,13 +23,6 @@ class ConfigurationSite
             }
         }else{
             return Auth::user();
-        }*/
-
-        $configuration_site = Configuration::where('url', url('/'))->orWhere('url_security', url()->current())->take(1)->first();
-        if($configuration_site){
-            return $configuration_site;
-        }else {
-            return $configuration_site;
         }
     }
 }
