@@ -52,9 +52,6 @@ class PageController extends Controller
                     return '<a onclick="localStorage.clear();" href="' . route('page-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>';
                 }
             })
-            ->setRowClass(function ($data) {
-                return switchColor($data->status_id);
-            })
             ->rawColumns(['action', 'file'])
             ->toJson();
     }

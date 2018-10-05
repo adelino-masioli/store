@@ -55,7 +55,7 @@ class SupportController extends Controller
                 return '<a onclick="localStorage.clear();" href="' . route('support-show', [base64_encode($data->id)]) . '" title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-eye"></i> Visualizar</a>';
             })
             ->setRowClass(function ($data) {
-                return switchColor($data->status_id);
+                return bgColor($data->status_id);
             })
             ->rawColumns(['action', 'file'])
             ->toJson();

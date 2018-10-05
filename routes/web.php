@@ -22,6 +22,7 @@ require_once('routes/banner.php');
 require_once('routes/page.php');
 require_once('routes/midia.php');
 require_once('routes/support.php');
+require_once('routes/theme.php');
 
 
 //401

@@ -19,6 +19,11 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+            @if(Auth::user()->type_id === 1)
+                @include('admin.layouts.sidebar.superadmin')
+            @endif
+
+
             @if(Auth::user()->type_id === 2)
                 @include('admin.layouts.sidebar.admin')
             @endif

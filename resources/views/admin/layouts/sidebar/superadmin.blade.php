@@ -37,11 +37,11 @@
     <ul class="treeview-menu">
         <li><a href="{{route('orders')}}"><i class="fa fa-circle-o"></i> Pedidos</a></li>
         <li><a href="{{route('order-create')}}"><i class="fa fa-circle-o"></i> Novo Pedido</a></li>
-
         <li><a href="{{route('orders-financial')}}"><i class="fa fa-circle-o"></i> <span>Financeiro</span></a></li>
         <li><a href="{{route('orders-financial-report')}}"><i class="fa fa-circle-o"></i> <span>Relatórios</span></a></li>
         <li><a href="{{route('orders-production')}}"><i class="fa fa-circle-o"></i> <span>Produção</span></a></li>
         <li><a href="{{route('orders-expedition')}}"><i class="fa fa-circle-o"></i> <span>Expedição</span></a></li>
+
     </ul>
 </li>
 
@@ -85,7 +85,7 @@
                     </span>
     </a>
     <ul class="treeview-menu">
-        <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-blue"></i> Cadastro</a></li>
+        <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-red"></i> Cadastro</a></li>
         <li><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
         <li><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
         <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>

@@ -54,9 +54,6 @@ class CategoryController extends Controller
                         ';
                 }
             })
-            ->setRowClass(function ($data) {
-                return switchColor($data->status_id);
-            })
             ->toJson();
     }
 

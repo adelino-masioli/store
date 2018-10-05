@@ -1,16 +1,16 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Banner;
+use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Newsletter;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Page;
+use App\Models\Product;
+use App\Models\Quote;
 use App\Services\ConfigurationSite;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Newsletter;
-use App\Models\Quote;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -19,6 +19,11 @@ class SiteController extends Controller
     public static function index()
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(20)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
@@ -28,6 +33,11 @@ class SiteController extends Controller
     public static function about()
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'about')->where('status_id', 1)->first();
         return view('frontend.'.$config_site->theme.'.pages.about', compact('categories', 'config_site', 'page'));
@@ -35,6 +45,11 @@ class SiteController extends Controller
     public static function service()
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'service')->where('status_id', 1)->first();
         return view('frontend.'.$config_site->theme.'.pages.service', compact('categories', 'config_site', 'page'));
@@ -49,6 +64,11 @@ class SiteController extends Controller
     public static function product()
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(20)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
@@ -58,6 +78,11 @@ class SiteController extends Controller
     public static function show($product)
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $product = Product::where('slug', $product)->where('configuration_id', $config_site->id)->where('status_id', 1)->take(1)->first();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
@@ -68,6 +93,11 @@ class SiteController extends Controller
     public static function result(Request $request)
     {
         $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $products = Product::where('name', 'like', '%' . $request['search'] . '%')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();

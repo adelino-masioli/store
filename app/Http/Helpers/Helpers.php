@@ -341,7 +341,11 @@ function switchPage($page){
 function setBaseUrlMidias()
 {
     $config_site = \App\Services\ConfigurationSite::getConfiguration();
-    return $config_site->nickname;
+    if($config_site->nickname){
+        return $config_site->nickname;
+    }else{
+        return 'manazer-files';
+    }
 }
 
 //path midias

@@ -71,9 +71,6 @@ class MidiaController extends Controller
                         ';
                 }
             })
-            ->setRowClass(function ($data) {
-                return switchColor($data->status_id);
-            })
             ->rawColumns(['action', 'file'])
             ->toJson();
     }
