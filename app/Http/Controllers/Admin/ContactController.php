@@ -36,16 +36,17 @@ class ContactController extends Controller
                 return $data->status->status;
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('contact-edit', [$data->id]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-envelope-open-o"></i></a>
-                        <a href="'.route('contact-destroy', [$data->id]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                return '<a onclick="localStorage.clear();" href="'.route('contact-edit', [base64_encode($data->id)]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-envelope-open-o"></i></a>
+                        <a href="'.route('contact-destroy', [base64_encode($data->id)]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })
             ->toJson();
     }
 
     //edit
-    public static function edit($id)
+    public static function edit($contact_id)
     {
+        $id = base64_decode($contact_id);
         $contact = Contact::findOrfail($id);
         $status = Status::where('flag', 'reader')->get();
         return view('admin.contact.edit', compact('contact', 'status'));
@@ -73,8 +74,9 @@ class ContactController extends Controller
 
 
     //destroy
-    public static function destroy($id)
+    public static function destroy($contact_id)
     {
+        $id = base64_decode($contact_id);
         $contact = Contact::findOrfail($id);
         if($contact){
             $data['status_id'] = 3;

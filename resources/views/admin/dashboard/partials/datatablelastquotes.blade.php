@@ -20,10 +20,10 @@
                         @foreach($orders->take(3) as $order)
                             <tr>
                                 <td class="col-md-1 text-center">
-                                    @if($order->status_id > 7)
-                                        <a href="{{route('order-show', [$order->id])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a>
+                                    @if($order->status_id > statusOrder('proccess'))
+                                        <a href="{{route('order-show', [base64_encode($order->id)])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a>
                                     @else
-                                        <a href="{{route('order-edit', [$order->id])}}" class="btn btn-flat btn-xs bg-aqua"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{route('order-edit', [base64_encode($order->id)])}}" class="btn btn-flat btn-xs bg-aqua"><i class="fa fa-pencil"></i></a>
                                     @endif
                                 </td>
                                 <td class="col-md-7">{{$order->name}}</td>

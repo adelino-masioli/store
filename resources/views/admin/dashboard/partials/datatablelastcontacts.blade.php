@@ -19,7 +19,7 @@
                         <tbody>
                         @foreach($contacts->take(3) as $contact)
                             <tr>
-                                <td class="col-md-1 text-center"><a href="{{route('contact-edit', [$contact->id])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a></td>
+                                <td class="col-md-1 text-center"><a href="{{route('contact-edit', [base64_encode($contact->id)])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a></td>
                                 <td class="col-md-7">{{$contact->name}}</td>
                                 <td class="col-md-2 text-center">{{$contact->phone}}</td>
                                 <td class="hidden-xs col-md-2 text-center">{{$contact->status->status}}</td>
