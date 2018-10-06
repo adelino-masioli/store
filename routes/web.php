@@ -23,6 +23,7 @@ require_once('routes/page.php');
 require_once('routes/midia.php');
 require_once('routes/support.php');
 require_once('routes/theme.php');
+require_once('routes/customer.php');
 
 
 //401

@@ -2,14 +2,14 @@
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-file-text-o"></i> <span>Documentos</span>
+        <i class="fa fa-users"></i> <span>Clientes</span>
         <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
     </a>
     <ul class="treeview-menu">
-        <li><a href="{{route('documents')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-        <li><a href="{{route('document-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+        <li><a href="{{route('customers')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+        <li><a href="{{route('customer-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
     </ul>
 </li>
 
@@ -46,8 +46,20 @@
 </li>
 
 
-
 <li class="treeview">
+    <a href="#">
+        <i class="fa fa-file-text-o"></i> <span>Documentos</span>
+        <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{{route('documents')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
+        <li><a href="{{route('document-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
+    </ul>
+</li>
+
+<li class="treeview hidden">
     <a href="#">
         <i class="fa fa-keyboard-o"></i> <span>Formulários</span>
         <span class="pull-right-container">
@@ -66,19 +78,6 @@
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-users"></i> <span>Usuários</span>
-        <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-    </a>
-    <ul class="treeview-menu">
-        <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Listagem</a></li>
-        <li><a href="{{route('user-create')}}"><i class="fa fa-circle-o"></i> Cadastrar</a></li>
-    </ul>
-</li>
-
-<li class="treeview">
-    <a href="#">
         <i class="fa fa-circle-o text-red"></i> <span>Configurações</span>
         <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -86,9 +85,10 @@
     </a>
     <ul class="treeview-menu">
         <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-blue"></i> Cadastro</a></li>
-        <li><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
-        <li><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
-        <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
-        <li><a href="{{route('themes')}}"><i class="fa fa-circle-o"></i> Temas</a></li>
+        <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Usuários</a></li>
+        <li class="hidden"><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
+        <li class="hidden"><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
+        <li class="hidden"><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
+        <li class="hidden"><a href="{{route('themes')}}"><i class="fa fa-circle-o"></i> Temas</a></li>
     </ul>
 </li>

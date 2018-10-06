@@ -391,3 +391,32 @@ function permission_level_finance()
 {
     return [1, 2, 3, 5];
 }
+
+function userTupe($type){
+    switch ($type) {
+        case 'superadmin':
+            return  1;
+            break;
+        case 'admin':
+            return  2;
+            break;
+        case 'manager':
+            return  3;
+            break;
+        case 'user':
+            return  4;
+            break;
+        case 'financial':
+            return  5;
+            break;
+        case 'production':
+            return  6;
+            break;
+        case 'expedition':
+            return  7;
+            break;
+        case "customer":
+            return  8;
+            break;
+    }
+}

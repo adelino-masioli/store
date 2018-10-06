@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
     use DataTableTrait;
 
@@ -31,7 +31,7 @@ class UserController extends Controller
     //index
     public function index()
     {
-        return view('admin.user.home');
+        return view('admin.customer.home');
     }
 
     //search
@@ -56,34 +56,34 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $user = User::findOrfail($id);
 
-        return view('admin.user.me', compact('user'));
+        return view('admin.customer.me', compact('user'));
     }
 
     //get
     public function getDatatable(Request $request)
     {
         $model = new \App\User;
-        $columns = ['id',  'name', 'email', 'configuration_id', 'type_id',  'status_id'];
-        $result = $model->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type_id', '!=', userTupe('customer'))->where('status_id', '!=', statusOrder('canceled'));
+        $columns = ['id',  'name', 'email', 'status_id'];
+        $result = $model->with('complement')->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type_id', userTupe('customer'))->where('status_id', '!=', statusOrder('canceled'));
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
                 return $data->status->status;
             })
-            ->addColumn('type', function ($data) {
-                return $data->type->type;
+            ->addColumn('phone', function ($data) {
+                return $data->complement->phone;
             })
-            ->addColumn('configuration', function ($data) {
-                return $data->configuration_id ? $data->configuration->name : 'Super Usuário';
+            ->addColumn('cellphone', function ($data) {
+                return $data->complement->cellphone;
             })
             ->addColumn('action', function ($data) {
                 if($data->status_id == canceledRegister()) {
-                    return '<a onclick="localStorage.clear();" href="' . route('user-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                    return '<a onclick="localStorage.clear();" href="' . route('customer-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
                          <a href="javascript:void(0);"  title="Excluir" class="btn bg-red btn-xs disabled"><i class="fa fa-trash"></i></a>
                         ';
                 }else{
-                    return '<a onclick="localStorage.clear();" href="' . route('user-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="' . route('user-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
+                    return '<a onclick="localStorage.clear();" href="' . route('customer-edit', [base64_encode($data->id)]) . '"     title="Editar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="' . route('customer-destroy', [base64_encode($data->id)]) . '"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
                 }
             })
@@ -94,15 +94,7 @@ class UserController extends Controller
     public function create()
     {
         $status = Status::where('flag', 'default')->get();
-        $types = UserType::where('id', '>', 1)->get();
-
-        $profile = Auth::user()->type_id;
-        if($profile > 1){
-            $configurations = '';
-        }else{
-            $configurations = Configuration::get();
-        }
-        return view('admin.user.create', compact('status', 'types', 'configurations'));
+        return view('admin.customer.create', compact('status'));
     }
 
 
@@ -134,14 +126,13 @@ class UserController extends Controller
     public static function edit($user_id)
     {
         $id = base64_decode($user_id);
-        $user = User::findOrfail($id);
+        $customer = User::findOrfail($id);
 
         $status = Status::where('flag', 'default')->get();
-        $types = UserType::where('id', '>', 1)->get();
 
         $user_complemento = UserComplement::where('user_id', $id)->first();
 
-        return view('admin.user.edit', compact('user', 'status', 'types',  'user_complemento'));
+        return view('admin.customer.edit', compact('customer', 'status',  'user_complemento'));
     }
 
 

@@ -1,16 +1,17 @@
     {{ csrf_field() }}
+    <input type="hidden" name="type_id" value="{{userTupe('customer')}}">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="name">Nome do usuário<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do usuário" value="@if(isset($user)){{$user->name}}@else{{old('name')}}@endif" required autofocus>
+                <label for="name">Nome do cliente<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome do cliente" value="@if(isset($customer)){{$customer->name}}@else{{old('name')}}@endif" required autofocus>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="email">E-mail<span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" value="@if(isset($user)){{$user->email}}@else{{old('email')}}@endif" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" value="@if(isset($customer)){{$customer->email}}@else{{old('email')}}@endif" required>
             </div>
         </div>
 
@@ -34,32 +35,20 @@
                 <label for="status_id">Status</label>
                 <select class="form-control select2" id="status_id" name="status_id" style="width: 100%;">
                     @foreach($status as $status)
-                        <option @if(isset($user)) @if($user->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
+                        <option @if(isset($customer)) @if($customer->status_id == $status->id) selected @endif @endif value="{{$status->id}}">{{$status->status}}</option>
                     @endforeach
                 </select>
             </div>
         </div>
         @endif
 
-        @if(isset($types))
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="type_id">Perfil do Usuário</label>
-                    <select class="form-control select2" id="type_id" name="type_id" style="width: 100%;">
-                        @foreach($types as $type)
-                            <option @if(isset($user)) @if($user->type_id == $type->id) selected @endif @endif value="{{$type->id}}">{{$type->type}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
     </div>
 
 
-    @if(isset($user)) {{--complements--}}
+    @if(isset($customer)) {{--complements--}}
     <div class="box">
         <div class="box-header with-border">
-            <strong>Complementos do usuário</strong>
+            <strong>Complementos do cliente</strong>
         </div>
         <div class="box-body">
             <div class="row">

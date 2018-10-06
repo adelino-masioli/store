@@ -36,7 +36,7 @@
                             <img class="profile-user-img img-responsive img-circle" src="{{asset('images/avatar.png')}}" class="user-image" alt="{{$my_config->name}}">
                         @endif
 
-                        <h3 class="profile-username text-center">{{$my_config->name}}</h3>
+                        <h3 class="profile-username text-center" style="font-size: 14px;">{{$my_config->name}}</h3>
                         <p class="text-muted text-center">{{$my_config->type_id}}</p>
 
 
