@@ -104,10 +104,14 @@ class FinancialController extends Controller
             $orders_list = $res_orders->whereBetween('created_at', array($dateS, $dateE));
         }
 
-        $orders = $orders_list->orderBy('id')->get();
-
-        //add to session
-        session()->put('order_filters', $orders);
+        if(!isset($orders_list)){
+            session()->flash('error', 'Nenhum resultado para este filtro!');
+            return redirect()->back();
+        }else{
+            $orders = $orders_list->orderBy('id')->get();
+            //add to session
+            session()->put('order_filters', $orders);
+        }
 
         return view('admin.financial.filter', compact( 'orders'));
     }

@@ -25,16 +25,13 @@
             <tfoot>
             <tr>
                 <th class="col-md-1 text-center"></th>
-                <th class="col-md-8 text-right">DESCONTO</th>
-                <th class="col-md-1 text-center"></th>
-                <th class="col-md-1 text-center"></th>
+                <th colspan="3" class="col-md-8 text-right">DESCONTO</th>
                 <th class="col-md-1 text-right">{{money_br($order->discount)}}</th>
             </tr>
             <tr>
                 <th class="col-md-1 text-right"></th>
                 <th class="col-md-8 text-center"></th>
-                <th class="col-md-1 text-center"></th>
-                <th class="col-md-1 text-center">TOTAL R$:</th>
+                <th colspan="2" class="col-md-1 text-right">TOTAL R$:</th>
                 <th class="col-md-1 text-right">{{money_br($order->total - $order->discount)}}</th>
             </tr>
             </tfoot>
