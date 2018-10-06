@@ -71,7 +71,7 @@ class FinancialController extends Controller
         $status = Status::where('flag', 'order')->get();
         $items = OrderItem::where('order_id', $id)->get();
         $annotations = OrderAnnotation::where('order_id', $id)->get();
-        $payments = Payment::orderBy('payment')->get();
+        $payments = Payment::orderBy('id', 'asc')->get();
         return view('admin.financial.show', compact('order', 'status', 'items', 'annotations', 'payments'));
     }
 

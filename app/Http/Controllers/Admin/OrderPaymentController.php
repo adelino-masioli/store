@@ -34,7 +34,7 @@ class OrderPaymentController extends Controller
             $configurations = Configuration::get();
         }
         $items = OrderItem::where('order_id', $id)->get();
-        $payments  = Payment::get();
+        $payments  = Payment::orderBy('id', 'asc')->get();
         $payment = true;
 
         $order_pay = OrderPayment::where('order_id', $id)->sum('price');
@@ -85,9 +85,16 @@ class OrderPaymentController extends Controller
                 OrderPayment::create($array);
             }
 
-            $order_payment_price = OrderPayment::where('order_id', $request->order_id)->sum('price');
+            $order_payment_price_total = OrderPayment::where('order_id', $request->order_id)->sum('price');
 
-            $msg = ['status' => 1, 'response' => 'Salvo com sucesso.', 'order_pay' => 'R$ '.money_br($order_payment_price), 'order_pay_diff' => 'R$ '.money_br(($order->total - $order->discount) - $order_payment_price)];
+            $msg = [
+                'status' => 1,
+                'response' => 'Salvo com sucesso.',
+                'order_pay' => 'R$ '.money_br($order_payment_price_total),
+                'order_pay_diff' => 'R$ '.money_br(($order->total - $order->discount) - $order_payment_price_total),
+                'payment_id' => $request->payment_id,
+                'payment_val' => money_br($request->price),
+            ];
             return response()->json($msg);
         }catch(\Exception $e){
             $msg = ['status' => 2, 'response' => 'Erro ao salvar o pagamento.'];
@@ -114,6 +121,24 @@ class OrderPaymentController extends Controller
             OrderTimelineService::store($order, null);
             return redirect(route('orders-financial'));
         }
+    }
+
+    public function destroy(Request $request)
+    {
+        $order_payment =  OrderPayment::where('payment_id', $request->payment_id)->first();
+        $order_payment->delete();
+
+        $order = Order::findOrFail($request->order_id);
+        $order_payment_price_total = OrderPayment::where('order_id', $request->order_id)->sum('price');
+        $msg = [
+            'status' => 1,
+            'response' => 'Salvo com sucesso.',
+            'order_pay' => 'R$ '.money_br($order_payment_price_total),
+            'order_pay_diff' => 'R$ '.money_br(($order->total - $order->discount) - $order_payment_price_total),
+            'payment_id' => $request->payment_id,
+            'payment_val' => money_br($request->price),
+        ];
+        return response()->json($msg);
     }
 
 }

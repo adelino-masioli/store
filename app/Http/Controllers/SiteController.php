@@ -18,6 +18,8 @@ class SiteController extends Controller
 {
     public static function index()
     {
+        return redirect('/login');
+
         $config_site = ConfigurationSite::getConfiguration();
         if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
             return redirect('/login');

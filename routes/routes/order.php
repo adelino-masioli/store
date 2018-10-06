@@ -82,6 +82,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'roles'      => permission_level_finance()
     ]);
     Route::post('/order-payment/store', 'OrderPaymentController@store')->name('order-payment-store');
+    Route::post('/order-payment/destroy', 'OrderPaymentController@destroy')->name('order-payment-destroy');
 
 
     //financial

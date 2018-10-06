@@ -39,7 +39,7 @@ class OrderPayment extends Model
         if($price->count() > 0){
             return money_br($price->first()->price);
         }else{
-            return '';
+            return '0,00';
         }
     }
 }

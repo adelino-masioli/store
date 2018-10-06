@@ -1,10 +1,4 @@
-<input type="hidden" name="order_id" id="order_id" value="{{$order->id}}">
-
-@include('admin.order.partials.payments')
-
-
-
-<div class="row text-center" style="position: relative;">
+<div class="row text-center" style="position: relative;background: #ffffff;">
     <div class="col-md-12">
         <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
             <thead>
