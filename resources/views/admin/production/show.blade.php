@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @push('styles')
-    <link href="{{ asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 @endpush
 @section('content')
     @component('admin.components.contentheader')
@@ -72,24 +71,6 @@
 
 @endsection
 @push('scripts')
-    <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
-    <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('.editor').summernote({
-                lang: 'pt-BR',
-                height: 100,
-                minHeight: 100,
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['paragraph']]
-                ]
-            });
-
-            //money
-            masMoney();
-        });
     </script>
 @endpush

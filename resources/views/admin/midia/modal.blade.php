@@ -8,7 +8,7 @@
                     <h4 class="modal-title">Mídias</h4>
             </div>
             <div class="modal-body" style="min-height: 300px;width:100%;position: relative;display: flex;">
-                <span class="imgpreload"><img width="120" src="{{asset('images/preload.gif')}}" alt="Preloader"></span>
+                <span class="imgpreload"><img width="120" src="{{asset('assets/images/preload.gif')}}" alt="Preloader"></span>
                 <ul class="list-results-midia text-center"></ul>
             </div>
             <div class="modal-footer">

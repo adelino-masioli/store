@@ -8,7 +8,7 @@
                 @if(Auth::user()->avatar != '')
                     <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
                 @else
-                    <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
+                    <img src="{{asset('assets/images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
                 @endif
             </div>
             <div class="pull-left info">

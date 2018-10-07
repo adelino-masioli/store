@@ -4,9 +4,6 @@ require_once('routes/site.php');
 
 
 Auth::routes();
-Route::get('register', function (){
-    return redirect('/login');
-});
 //Route::get('/register', function (){
 //   return bcrypt("123456");
 //});

@@ -24,7 +24,7 @@
                         @if(Auth::user()->avatar != '')
                             <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="user-image">
                         @else
-                            <img src="{{asset('images/avatar.png')}}" class="user-image" alt="{{Auth::user()->name}}">
+                            <img src="{{asset('assets/images/avatar.png')}}" class="user-image" alt="{{Auth::user()->name}}">
                         @endif
 
                         <span class="hidden-xs">{{Auth::user()->name}}</span>
@@ -35,7 +35,7 @@
                             @if(Auth::user()->avatar != '')
                                 <img src="{{url('/').defineUploadPath('avatar', null).'/'.Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="img-circle">
                             @else
-                                <img src="{{asset('images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
+                                <img src="{{asset('assets/images/avatar.png')}}" class="img-circle" alt="{{Auth::user()->name}}">
                             @endif
                             <p>
                                 {{Auth::user()->name}}

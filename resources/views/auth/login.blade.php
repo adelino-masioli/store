@@ -31,11 +31,6 @@
                     @endif
                 </div>
                 <div class="row">
-                    <!-- /.col -->
-                    <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">ENTRAR</button>
-                    </div>
-                    <!-- /.col -->
 
                     <div class="col-xs-12">
                         <div class="checkbox icheck">
@@ -45,10 +40,25 @@
                         </div>
                     </div>
 
+                    <!-- /.col -->
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg btn-flat">Entrar</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
 
-                    <a class="btn btn-link hidden" href="{{ route('password.request') }}">
-                        Forgot Your Password?
-                    </a>
+                <div class="row">
+                   <div class="col-md-12 text-center">
+                       <a class="btn  btn-block btn-lg btn-flat bg-fuchsia" href="{{ route('register') }}">
+                           Criar uma conta
+                       </a>
+                   </div>
+
+                    <div class="col-md-12 text-center">
+                       <a class="btn-link" href="{{ route('password.request') }}">
+                           Esqueci minha senha
+                       </a>
+                   </div>
                 </div>
             </form>
 

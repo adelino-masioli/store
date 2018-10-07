@@ -37,7 +37,7 @@
 </div>
 
 <div class="row text-center" style="position: relative;">
-    <img width="100" src="{{asset('images/preload.gif')}}" alt="Preloader" class="imgpreload" style="display: none;position: absolute;">
+    <img width="100" src="{{asset('assets/images/preload.gif')}}" alt="Preloader" class="imgpreload" style="display: none;position: absolute;">
     <div class="col-md-12 show-content-table">
         @include('admin.order.partials.tableitens')
     </div>
