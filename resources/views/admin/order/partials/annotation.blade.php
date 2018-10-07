@@ -22,7 +22,7 @@
                         </button>
                         <ul class="dropdown-menu flat" aria-labelledby="dropdownMenu1" style="width: 100%;">
                             <li onclick="selectColor('bg-green', 'Normal');"><a class="bg-green" href="javascript:void(0);">Normal</a></li>
-                            <li onclick="selectColor('bg-yellow', 'Antenção');"><a class="bg-yellow" href="javascript:void(0);">Antenção</a></li>
+                            <li onclick="selectColor('bg-yellow', 'Atenção');"><a class="bg-yellow" href="javascript:void(0);">Atenção</a></li>
                             <li onclick="selectColor('bg-red', 'Crítico');"><a class="bg-red" href="javascript:void(0);">Crítico</a></li>
                         </ul>
                     </div>
