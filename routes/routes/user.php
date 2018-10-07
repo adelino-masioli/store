@@ -1,7 +1,7 @@
 <?php
-Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->prefix('admin')->group(function () {
     //user
-    Route::get('user/me', [
+    Route::get('me', [
         'uses' => 'UserController@me',
         'as' => 'me',
         'middleware' => 'roles',

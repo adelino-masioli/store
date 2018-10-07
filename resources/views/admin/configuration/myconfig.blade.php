@@ -8,10 +8,10 @@
             Configuração
         @endslot
         @slot('small')
-            Minhas configuraçãos: {{$my_config->name}}
+            Minhas configurações: {{$my_config->name}}
         @endslot
         @slot('link')
-            Minhas configuraçãos
+            Minhas configurações
         @endslot
     @endcomponent
 
@@ -32,7 +32,7 @@
                         @if(defineUploadPath('brands', null).'/'.$my_config->brand && $my_config->brand != '')
                             <img class="img-responsive" src="{{url('/').defineUploadPath('brands', null).'/thumb/'.$my_config->brand}}" alt="{{$my_config->name}}" style="margin: auto;">
                         @else
-                            <img class="profile-user-img img-responsive img-circle" src="{{asset('images/avatar.png')}}" class="user-image" alt="{{$my_config->name}}">
+                            <img class="profile-user-img img-responsive img-circle" src="{{asset('assets/images/avatar.png')}}" class="user-image" alt="{{$my_config->name}}">
                         @endif
 
                         <h3 class="profile-username text-center" style="font-size: 14px;">{{$my_config->name}}</h3>
@@ -76,7 +76,7 @@
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#settings" data-toggle="tab">Meus dados</a></li>
+                        <li class="active"><a href="#settings" data-toggle="tab">Dados da empresa</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="settings">

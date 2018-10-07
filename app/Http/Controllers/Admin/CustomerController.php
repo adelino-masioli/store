@@ -64,7 +64,7 @@ class CustomerController extends Controller
     {
         $model = new \App\User;
         $columns = ['id',  'name', 'email', 'status_id'];
-        $result = $model->with('complement')->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type_id', userTupe('customer'))->where('status_id', '!=', statusOrder('canceled'));
+        $result = $model->with('complement')->select($columns)->where('configuration_id', Auth::user()->configuration_id)->where('type_id', userTypeId('customer'))->where('status_id', '!=', statusOrder('canceled'));
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {

@@ -111,13 +111,28 @@ function userType($type)
 {
     switch ($type) {
         case 1:
-            return  "Administrador";
+            return  "Super Administrador";
             break;
         case 2:
-            return  "Moderador";
+            return  "Administrador";
             break;
         case 3:
-            return  "Usuário";
+            return  "Gerente";
+            break;
+        case 4:
+            return  "Usuários";
+            break;
+        case 5:
+            return  "Financeiro";
+            break;
+        case 6:
+            return  "Produção";
+            break;
+        case 7:
+            return  "Expedição";
+            break;
+        case 8:
+            return  "Gerente";
             break;
     }
 }
@@ -392,7 +407,7 @@ function permission_level_finance()
     return [1, 2, 3, 5];
 }
 
-function userTupe($type){
+function userTypeId($type){
     switch ($type) {
         case 'superadmin':
             return  1;

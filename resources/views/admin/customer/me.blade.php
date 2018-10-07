@@ -39,7 +39,7 @@
                         @if(defineUploadPath('avatar', null).'/'.$user->avatar && $user->avatar != '')
                             <img class="profile-user-img img-responsive img-circle" src="{{url('/').defineUploadPath('avatar', null).'/'.$user->avatar}}" alt="{{$user->name}}">
                         @else
-                            <img class="profile-user-img img-responsive img-circle" src="{{asset('images/avatar.png')}}" class="user-image" alt="{{$user->name}}">
+                            <img class="profile-user-img img-responsive img-circle" src="{{asset('assets/images/avatar.png')}}" class="user-image" alt="{{$user->name}}">
                         @endif
 
                         <h3 class="profile-username text-center">{{$user->name}}</h3>

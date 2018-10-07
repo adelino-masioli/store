@@ -8,6 +8,7 @@ use App\Models\Status;
 use App\Services\InputFields;
 use App\Services\Messages;
 use App\Services\UploadImage;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -215,6 +216,54 @@ class ConfigurationController extends Controller
         }
         session()->flash('success', 'Excluído com sucesso!');
         return redirect()->back();
+    }
+
+
+    //complete
+    public function complete()
+    {
+        if(Auth::user()->status_id == statusOrder('inactive')) {
+            return view('admin.configuration.complete');
+        }else{
+            return redirect(route('dashboard'));
+        }
+    }
+
+    //store
+    public static function completeStore(Request $request)
+    {
+
+        try{
+            $messages = Messages::msgConfig();
+            $validator = Validator::make($request->all(), [
+                'name'          => 'required|string|min:5|max:50|unique:configurations',
+                'contact'       => 'required',
+                'email'         => 'required|string|email|min:5|max:150|unique:configurations',
+                'phone'         => 'required',
+                'zipcode'       => 'required',
+                'address'       => 'required',
+                'district'      => 'required',
+                'number'        => 'required',
+                'state'         => 'required',
+                'city'          => 'required',
+            ], $messages);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+                exit();
+            }
+
+            if(Auth::user()->status_id == statusOrder('inactive')) {
+                $config = Configuration::create(InputFields::inputFieldsConfiguration($request));
+                $user = User::findOrFail(Auth::user()->id);
+                $user->update(['status_id' => statusOrder('active'), 'configuration_id' => $config->id]);
+            }
+
+            session()->flash('success', 'Salvo com sucesso!');
+            return redirect(route('dashboard'));
+        }catch(\Exception $e){
+            session()->flash('error', 'Erro ao salvar!');
+            return redirect()->back();
+        }
     }
 
 }

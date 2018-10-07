@@ -1,5 +1,5 @@
 <?php
-Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->prefix('admin')->group(function () {
     //product
     Route::get('products', [
         'uses' => 'ProductController@index',

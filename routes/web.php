@@ -4,9 +4,11 @@ require_once('routes/site.php');
 
 
 Auth::routes();
-//Route::get('/register', function (){
-//   return bcrypt("123456");
-//});
+
+Route::namespace('Auth')->group(function () {
+    Route::get('/activate/account/{token}', 'RegisterController@activate')->name('activate-account');
+    Route::get('/activate/account/', 'RegisterController@activatePage')->name('activate-page');
+});
 
 require_once('routes/configuration.php');
 require_once('routes/user.php');
@@ -28,7 +30,7 @@ Route::get('/error/401', function (){
     return view('admin.error.401');
 });
 //admin
-Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->prefix('admin')->group(function () {
     //dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -40,6 +42,16 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
         'roles'      => permission_level_four()
     ]);
     Route::get('/datatable-newsletters', 'NewsletterController@getDatatable')->name('datatable-newsletters');
+});
+Route::middleware(['auth', 'suspended'])->namespace('Admin')->prefix('admin')->group(function () {
+    //complete-registration
+    Route::get('complete/registration', [
+        'uses' => 'ConfigurationController@complete',
+        'as' => 'complete-registration',
+        'middleware' => 'roles',
+        'roles' => permission_level_two()
+    ]);
+    Route::post('/complete/registration/store', 'ConfigurationController@completeStore')->name('complete-registration-store');
 });
 
 //customers

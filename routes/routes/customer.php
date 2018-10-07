@@ -1,12 +1,6 @@
 <?php
-Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'suspended'])->namespace('Admin')->prefix('admin')->group(function () {
     //customer
-    Route::get('customer/me', [
-        'uses' => 'CustomerController@me',
-        'as' => 'me',
-        'middleware' => 'roles',
-        'roles' => permission_level_seven()
-    ]);
     Route::get('customers', [
         'uses' => 'CustomerController@index',
         'as' => 'customers',

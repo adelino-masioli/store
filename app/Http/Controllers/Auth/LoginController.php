@@ -41,6 +41,14 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
+        if(Auth::user()->status_id == statusOrder('inactive')){
+            Auth::logout();
+
+            session()->flash('error', 'Favor entrar em contato com o suporte.');
+            return redirect('/login');
+            exit();
+        }
+
         if(Auth::user()->type_id == 5){
             return redirect('/admin/orders-financial');
         }else if(Auth::user()->type_id == 6){

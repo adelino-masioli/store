@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\UserRegister;
+use App\Services\InputFields;
+use App\Services\Messages;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -27,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    //protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -47,11 +53,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages = Messages::msgUser();
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+        ], $messages);
     }
 
     /**
@@ -60,12 +67,57 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+
+        return redirect('/login');
+    }
+
+
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'active_token' => md5(date('Y-m-d H:i:s')),
+            'type_id' =>userTypeId('admin'),
+            'status_id' => statusOrder('inactive'),
         ]);
+
+        self::sendEmail($user);
+    }
+
+
+    public static function sendEmail($user)
+    {
+        Mail::to($user->email)->send(new UserRegister($user));
+    }
+
+
+    //activate
+    public static function activate($token)
+    {
+        $user = User::where('active_token', $token)->first();
+        if($user) {
+            $user->update([
+                'status_id' => statusOrder('active')
+            ]);
+            session()->flash('success', 'Cadastro ativado com sucesso! Agora você já pode fazer o login.');
+            return redirect(route('activate-page'));
+        }else{
+            session()->flash('error', 'Erro ao ativar o cadastro. Favor contactar o suporte caso for este o link recebido em seu email.');
+            return redirect(route('activate-page'));
+        }
+    }
+
+    public static function  activatePage()
+    {
+        return view('auth.activate');
     }
 }

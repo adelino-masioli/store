@@ -7,6 +7,8 @@
         <div class="login-box-body">
             <p class="login-box-msg">Informe seu email e senha válidos</p>
 
+            <div class="text-center">@include('auth.messages')</div>
+
             <form method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
 
