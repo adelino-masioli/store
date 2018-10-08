@@ -112,10 +112,9 @@ class CustomerController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
                 exit();
             }
-            User::create(InputFields::inputFieldsUser($request));
+            $user = User::create(InputFields::inputFieldsUser($request));
 
-            session()->flash('success', 'Salvo com sucesso!');
-            return redirect()->back();
+            return redirect(route('customer-edit', [base64_encode($user->id)]));
         }catch(\Exception $e){
             session()->flash('error', 'Erro ao salvar!');
             return redirect()->back();
