@@ -71,10 +71,10 @@ class CustomerController extends Controller
                 return $data->status->status;
             })
             ->addColumn('phone', function ($data) {
-                return $data->complement->phone;
+                return $data->complement ? $data->complement->phone : '--';
             })
             ->addColumn('cellphone', function ($data) {
-                return $data->complement->cellphone;
+                return $data->complement ? $data->complement->cellphone : '--';
             })
             ->addColumn('action', function ($data) {
                 if($data->status_id == canceledRegister()) {
