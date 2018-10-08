@@ -1,5 +1,5 @@
     {{ csrf_field() }}
-    <input type="hidden" name="type_id" value="{{userTupe('customer')}}">
+    <input type="hidden" name="type_id" value="{{userType('customer')}}">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
