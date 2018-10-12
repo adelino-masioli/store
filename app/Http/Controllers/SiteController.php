@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Quote;
+use App\Models\SubCategory;
 use App\Services\ConfigurationSite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class SiteController extends Controller
 {
     public static function index()
     {
-        return redirect('/login');
+        //return redirect('/login');
 
         $config_site = ConfigurationSite::getConfiguration();
         if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
@@ -27,10 +28,11 @@ class SiteController extends Controller
         }
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(20)->get();
+        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(8)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
         $banners = Banner::where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        return view('frontend.'.$config_site->theme.'.pages.home', compact('categories', 'products', 'banners', 'config_site', 'page'));
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.home', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
     }
     public static function about()
     {
@@ -41,8 +43,10 @@ class SiteController extends Controller
         }
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'about')->where('status_id', 1)->first();
-        return view('frontend.'.$config_site->theme.'.pages.about', compact('categories', 'config_site', 'page'));
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'about')->where('status_id', 1)->first();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.about', compact('categories', 'config_site', 'page', 'page_display', 'menu'));
     }
     public static function service()
     {
@@ -61,9 +65,10 @@ class SiteController extends Controller
         $config_site = ConfigurationSite::getConfiguration();
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
-        return view('frontend.'.$config_site->theme.'.pages.contact', compact('categories', 'config_site', 'page'));
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.contact', compact('categories', 'config_site', 'page', 'menu'));
     }
-    public static function product()
+    public static function category(Request $request, $slug)
     {
         $config_site = ConfigurationSite::getConfiguration();
         if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
@@ -72,9 +77,73 @@ class SiteController extends Controller
         }
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(20)->get();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
-        return view('frontend.'.$config_site->theme.'.pages.products', compact('categories', 'products', 'config_site', 'page'));
+        $category = Category::where('slug', $slug)->where('status_id', 1)->first();
+        $subcategory = SubCategory::where('slug', $slug)->where('status_id', 1)->first();
+
+        if($category) {
+            $products = Product::where('configuration_id', $config_site->id)
+                ->where('status_id', 1)
+                ->join('product_categories', 'products.id', 'product_categories.product_id')
+                ->where('category_id', $category->id)
+                ->where('status_id', 1);
+        }else{
+            $products = Product::where('configuration_id', $config_site->id)
+                ->where('status_id', 1)
+                ->join('product_categories', 'products.id', 'product_categories.product_id')
+                ->where('subcategory_id', $subcategory->id)
+                ->where('status_id', 1);
+        }
+
+
+        if($request['filtrar']) {
+            if($request['filtrar'] == 'Menor preço'){
+                $products->orderBy('price', 'asc');
+            }
+            if($request['filtrar'] == 'Ordem alfabética'){
+                $products->orderBy('products.id', 'asc');
+            }
+            if($request['filtrar'] == 'Mais novos'){
+                $products->orderBy('products.id', 'desc');
+            }
+        }
+        $products = $products->paginate(12);
+
+
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.products', compact('categories', 'products', 'config_site', 'page', 'page_display', 'menu', 'category', 'subcategory'));
+    }
+
+    public static function product(Request $request)
+    {
+        $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $products = Product::where('configuration_id', $config_site->id)->where('status_id', 1);
+
+        if($request['filtrar']) {
+            if($request['filtrar'] == 'Menor preço'){
+                $products->orderBy('price', 'asc');
+            }
+            if($request['filtrar'] == 'Ordem alfabética'){
+                $products->orderBy('products.id', 'asc');
+            }
+            if($request['filtrar'] == 'Mais novos'){
+                $products->orderBy('products.id', 'desc');
+            }
+        }
+        $products = $products->paginate(12);
+
+
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.products', compact('categories', 'products', 'config_site', 'page', 'page_display', 'menu'));
     }
 
     public static function show($product)
@@ -87,8 +156,10 @@ class SiteController extends Controller
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $product = Product::where('slug', $product)->where('configuration_id', $config_site->id)->where('status_id', 1)->take(1)->first();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
-        return view('frontend.'.$config_site->theme.'.pages.product-detail', compact('categories', 'product', 'config_site', 'page'));
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.product', compact('categories', 'product', 'config_site', 'page', 'page_display', 'menu'));
     }
 
     //post
@@ -101,10 +172,36 @@ class SiteController extends Controller
         }
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $products = Product::where('name', 'like', '%' . $request['search'] . '%')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
+
+        $products_res = Product::where('configuration_id', $config_site->id)->where('status_id', 1);
+
+        if($request['q']) {
+            $products = $products_res->where('name', 'like', '%' . $request['q'] . '%');
+        }
+
+        if($request['categoria']) {
+            $category = Category::where('slug', $request['categoria'])->first();
+            $products = $products_res->join('product_categories', 'products.id', 'product_categories.product_id')->where('category_id',  $category->id)->where('status_id', 1);
+        }
+        if($request['filtrar']) {
+            if($request['filtrar'] == 'Menor preço'){
+                $products->orderBy('price', 'asc');
+            }
+            if($request['filtrar'] == 'Ordem alfabética'){
+                $products->orderBy('products.id', 'asc');
+            }
+            if($request['filtrar'] == 'Mais novos'){
+                $products->orderBy('products.id', 'desc');
+            }
+        }
+        $products = $products->paginate(12);
+
+
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
         $search = $request['search'];
-        return view('frontend.'.$config_site->theme.'.pages.products-search', compact('categories', 'products', 'search', 'page'));
+        return view('frontend.'.$config_site->theme.'.pages.products_search', compact('categories', 'products', 'search', 'page', 'page_display', 'menu'));
     }
     //save newsletter
     public static function postNewsletter(Request $request)

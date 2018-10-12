@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="url">URL[Somente se for usar o site]</label>
-                <input type="text" class="form-control" id="url" name="url" placeholder="http://www.seusite.com.br" value="@if(isset($my_config)){{$my_config->url}}@else{{old('url')}}@endif" required autofocus>
+                <input type="text" class="form-control" id="url" name="url" placeholder="http://www.seusite.com.br" value="@if(isset($my_config)){{$my_config->url}}@else{{old('url')}}@endif" required>
             </div>
         </div>
         <div class="col-md-6">
@@ -65,7 +65,7 @@
             <button type="button" class="btn btn-xs btn-flat" data-toggle="modal" data-target="#modal-midia"><i class="fa fa-photo"></i> Adicionar mídia</button>
             <div class="form-group">
                 <label for="about">Sobre a empresa<span class="text-danger">*</span></label>
-                <textarea class="form-control editor" id="about" name="about" placeholder="Sobre a empresa" required>@if(isset($my_config)){{$my_config->about}}@else{{old('about')}}@endif</textarea>
+                <textarea class="form-control editor" id="about" name="about" placeholder="Sobre a empresa">@if(isset($my_config)){{$my_config->about}}@else{{old('about')}}@endif</textarea>
             </div>
         </div>
     </div>

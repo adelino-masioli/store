@@ -25,6 +25,8 @@ class Category extends Model
         'name',
         'description',
         'slug',
+        'display_on_menu',
+        'order',
         'status_id',
         'configuration_id',
     ];

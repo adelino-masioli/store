@@ -53,7 +53,7 @@ class ProductImageController extends Controller
                 ]);
 
                 //upload image
-                UploadImage::uploadImage(500, 200,  $file, $fileName, $path);
+                UploadImage::uploadImage(500, 150,  $file, $fileName, $path);
 
 
                 session()->flash('success', 'Salvo com sucesso!');

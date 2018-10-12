@@ -88,7 +88,7 @@
         <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Usuários</a></li>
         <li class="hidden"><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
         <li class="hidden"><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
-        <li class="hidden"><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
+        <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
         <li class="hidden"><a href="{{route('themes')}}"><i class="fa fa-circle-o"></i> Temas</a></li>
     </ul>
 </li>

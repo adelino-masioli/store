@@ -1,5 +1,10 @@
 <?php
 
+//only number
+function only_number($c)
+{
+    return preg_replace("/[^0-9]/", "",$c);
+}
 //helper convert date
 function  date_br($date)
 {
@@ -132,7 +137,7 @@ function userType($type)
             return  "Expedição";
             break;
         case 8:
-            return  "Gerente";
+            return  "Cliente";
             break;
     }
 }

@@ -19,7 +19,7 @@
 
     <div class="row">
         @if(isset($status))
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="status_id">Status</label>
                     <select class="form-control select2" id="status_id" name="status_id">
@@ -32,16 +32,20 @@
         @endif
 
 
-        @if(isset($configurations) && $configurations != '')
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="configuration_id">Empresa</label>
-                    <select class="form-control select2" id="configuration_id" name="configuration_id">
-                        @foreach($configurations as $configuration)
-                            <option @if(isset($category)) @if($category->configuration_id == $configuration->id) selected @endif @endif value="{{$configuration->id}}">{{$configuration->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="display_on_menu">Mostrar no menu?</label>
+                <select class="form-control select2" id="display_on_menu" name="display_on_menu">
+                    <option @if(isset($category)) @if($category->display_on_menu == 0) selected @endif @endif value="0">Não</option>
+                    <option @if(isset($category)) @if($category->display_on_menu == 1) selected @endif @endif value="1">Sim</option>
+                </select>
             </div>
-        @endif
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="order">Ordem<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="order" name="order" placeholder="Ordem" value="@if(isset($category)){{$category->order}}@else{{old('order')}}@endif" required>
+            </div>
+        </div>
     </div>

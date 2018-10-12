@@ -35,8 +35,10 @@
                                 <tr>
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
-                                    <th class="col-md-6 text-center">NOME DA CATEGORIA</th>
+                                    <th class="col-md-4 text-center">NOME DA CATEGORIA</th>
                                     <th class="col-md-3 text-center">NOME DA EMPRESA</th>
+                                    <th class="col-md-1 text-center">MENU</th>
+                                    <th class="col-md-1 text-center">ORDEM</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -66,6 +68,8 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'name', name: 'name'},
                 {data: 'configuration', name: 'configuration'},
+                {data: 'display_on_menu', name: 'display_on_menu', className: 'text-center'},
+                {data: 'order', name: 'order', className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

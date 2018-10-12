@@ -83,6 +83,7 @@ class Messages
             'email.min'          => 'Favor informar o EMAIL DO USUÁRIO com mínimo 5 caracteres',
             'email.max'          => 'Favor informar o EMAIL DO USUÁRIO com máximo 50 caracteres',
             'email.unique'       => 'Este EMAIL DO USUÁRIO já está em uso',
+            'email.confirmed'    => 'Favor confirmar o EMAIL',
             'password.required'  => 'Favor informar a SENHA',
             'password.min'       => 'Favor informar a SENHA com mínimo 6 caracteres',
             'password.confirmed' => 'Favor confirmar a SENHA',

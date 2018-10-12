@@ -9,7 +9,7 @@
 
         <div class="col-md-5">
             <div class="form-group">
-                <label for="name">Banner da página[JPG,JPEG,PNG - Tamanho: 1920px(Larg)]</label>
+                <label for="name">Banner da página[JPG,JPEG,PNG - Tamanho: 1920px X 200px]</label>
                 @if(isset($page) && $page->banner != '')
                     <p style="position: relative;top:5px;"><a href="{{route('page-destroy-file', base64_encode($page->id))}}"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i> Deseja excluir este banner da página?</a></p>
                 @else

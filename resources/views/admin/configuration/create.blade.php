@@ -40,7 +40,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="category">
-                                            <form action="{{route('configuration-store')}}" method="post" class="panels" id="formsubmit">
+                                            <form action="{{route('configuration-store')}}" method="post" class="panels" id="formsubmit" novalidate>
                                                 @include('admin.configuration.partials.form')
                                             </form>
                                         </div>

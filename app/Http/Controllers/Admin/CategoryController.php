@@ -33,12 +33,15 @@ class CategoryController extends Controller
     public function getDatatable(Request $request)
     {
         $model = new \App\Models\Category;
-        $columns = ['id',  'name',  'configuration_id', 'status_id'];
+        $columns = ['id',  'name', 'display_on_menu', 'order',  'configuration_id', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
                 return $data->status->status;
+            })
+            ->addColumn('display_on_menu', function ($data) {
+                return $data->order_display_on_menu == 0 ? 'Não' : 'Sim';
             })
             ->addColumn('configuration', function ($data) {
                 return $data->configuration_id ? $data->configuration->name : 'Sem proprietário';

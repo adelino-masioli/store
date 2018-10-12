@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @component('frontend.acqua.components.breadcrump')
+                @component('frontend.acqua.components.breadcrumb')
                     <li class="active">{{$page->title}}</li>
                 @endcomponent
             </div>

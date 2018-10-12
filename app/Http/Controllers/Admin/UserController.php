@@ -175,7 +175,7 @@ class UserController extends Controller
 
 
             //create complement
-            CreateAddress::createComplement($request);
+            CreateAddress::createComplement($request, $request->id);
 
 
             session()->flash('success', 'Salvo com sucesso!');

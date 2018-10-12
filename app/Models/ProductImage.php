@@ -35,4 +35,9 @@ class ProductImage extends Model
             return $image->image;
         }
     }
+    public static function getImages($product_id)
+    {
+        $image =  ProductImage::where('product_id', $product_id)->get();
+        return $image;
+    }
 }

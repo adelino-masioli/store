@@ -41,7 +41,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="category">
-                                            <form action="{{route('configuration-update')}}" method="post" class="panels" id="formsubmit">
+                                            <form action="{{route('configuration-update')}}" method="post" class="panels" id="formsubmit" novalidate>
                                                 <input type="hidden" name="id" value="{{$configuration->id}}">
                                                 @include('admin.configuration.partials.form')
                                             </form>

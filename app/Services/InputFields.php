@@ -91,6 +91,40 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsUserSite($request)
+    {
+        if(Auth::user() && Auth::user()->configuration_id){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = ConfigurationSite::getConfiguration()->id;
+        }
+
+        if($request['password']) {
+            $fields = [
+                'name'             => $request['name'],
+                'email'            => $request['email'],
+                'password'         => bcrypt($request['password']),
+                'configuration_id' => $configuration_id,
+                'type_id'          => userTypeId('customer'),
+                'status_id'        => $request['status_id'] ? $request['status_id'] : statusOrder('inactive')
+            ];
+        }else{
+            $fields = [
+                'name'             => $request['name'],
+                'email'            => $request['email'],
+                'configuration_id' => $configuration_id
+            ];
+            if($request['type_id']){
+                $fields['type_id'] = userTypeId('customer');
+            }
+            if($request['status_id']){
+                $fields['status_id'] = $request['status_id'] ? $request['status_id'] : statusOrder('inactive');
+            }
+        }
+
+        return $fields;
+    }
+
     public static function inputFieldsCategory($request){
         $status = $request['status_id'] ? $request['status_id'] : 2;
         $profile = Auth::user()->type_id;
@@ -101,12 +135,14 @@ class InputFields
         }
 
         $fields = [
-            'deep'               => 1,
-            'name'               => $request['name'],
-            'slug'               => str_slug($request['name'], '-'),
-            'description'        => $request['description'],
-            'status_id'          => $status,
-            'configuration_id'   => $configuration_id
+            'deep'                     => 1,
+            'name'                     => $request['name'],
+            'slug'                     => str_slug($request['name'], '-'),
+            'description'              => $request['description'],
+            'display_on_menu'          => $request['display_on_menu'],
+            'order'                    => $request['order'],
+            'status_id'                => $status,
+            'configuration_id'         => $configuration_id
         ];
 
         return $fields;
@@ -232,7 +268,7 @@ class InputFields
 
 
     public static function inputFieldsOrder($request){
-        $status = $request['status_id'] ? $request['status_id'] : 7;
+        $status = $request['status_id'] ? $request['status_id'] : statusOrder('proccess');
         $customer_id = $request['customer_id'] ? $request['customer_id'] : null;
         $configuration_id = Auth::user()->configuration_id;
 
@@ -280,6 +316,35 @@ class InputFields
             'order_id'         => $request['order_id'],
             'user_id'          => $request['user_id'],
             'status_id'        => statusOrder('open')
+        ];
+
+        return $fields;
+    }
+
+    public static function inputFieldsOrderStore($user, $total){
+        $status           =  statusOrder('proccess');
+        $customer_id      = $user->id ? $user->id : null;
+        $configuration_id = Auth::user()->configuration_id ? Auth::user()->configuration_id : null;
+
+        $fields = [
+            'origin'           => quoteOrigin(2),
+            'type'             => 1,
+            'name'             => $user->name,
+            'email'            => $user->email,
+            'phone'            => $user->phone,
+            'about'            => null,
+            'description'      => null,
+            'total'            => $total,
+            'zipcode'          => $user->zipcode,
+            'address'          => $user->address,
+            'district'         => $user->district,
+            'number'           => $user->number,
+            'state'            => $user->state,
+            'city'             => $user->city,
+            'status_id'        => $status,
+            'configuration_id' => $configuration_id,
+            'user_id'          => null,
+            'customer_id'      => $customer_id,
         ];
 
         return $fields;

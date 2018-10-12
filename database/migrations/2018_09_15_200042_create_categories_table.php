@@ -23,6 +23,8 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 150);
             $table->text('description')->nullable();
             $table->string('slug', 255)->nullable();
+            $table->boolean('display_on_menu')->nullable();
+            $table->boolean('order')->nullable();
             $table->timestamps();
         });
     }
