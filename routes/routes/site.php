@@ -6,6 +6,8 @@ Route::get('/produtos/{category}', 'SiteController@category')->name('frontend-pr
 Route::get('/produto/{product}', 'SiteController@show')->name('frontend-product-detail');
 Route::get('/servicos', 'SiteController@service')->name('frontend-service');
 Route::get('/contato', 'SiteController@contact')->name('frontend-contact');
+Route::get('/termos', 'SiteController@terms')->name('frontend-terms');
+Route::get('/privacidade', 'SiteController@privacy')->name('frontend-privacy');
 
 //filters
 Route::get('/busca/', 'SiteController@result')->name('frontend-product-result');
@@ -24,13 +26,18 @@ Route::get('/finalizar-carrrinho/{shopcart}', 'ShoppingcartController@finish')->
 
 //user
 Route::get('/entrar', 'UserController@login')->name('frontend-login');
+Route::get('/sair', 'UserController@logout')->name('frontend-logout');
 Route::get('/esqueci-minha-senha', 'UserController@login')->name('frontend-login-forgot');
-Route::get('/termos', 'UserController@terms')->name('frontend-terms');
-Route::get('/privacidade', 'UserController@privacy')->name('frontend-privacy');
 Route::get('/cadastre-se', 'UserController@register')->name('frontend-register');
 Route::get('/cadastro-com-sucesso', 'UserController@registerSuccess')->name('frontend-register-success');
 Route::get('/cadastro-ativado/{token}', 'UserController@activate')->name('frontend-register-activate');
 Route::get('/cadastro-ativado-com-sucesso', 'UserController@activatePage')->name('frontend-register-activate-success');
-Route::get('/minha-conta', 'UserController@index')->name('frontend-my-account');
 Route::post('/logar', 'UserController@postLogin')->name('frontend-login-post');
 Route::post('/cadastrar', 'UserController@postRegister')->name('frontend-register-post');
+Route::post('/atualizar', 'UserController@postUpdate')->name('frontend-register-update');
+
+//dashboard
+Route::get('/minha-conta', 'DashboardController@index')->name('frontend-my-account')->middleware('checkauth');
+Route::get('/meus-pedidos', 'DashboardController@order')->name('frontend-my-account-order')->middleware('checkauth');
+Route::get('/meu-pedido/{order}', 'DashboardController@orderDetail')->name('frontend-my-account-order-detail')->middleware('checkauth');
+Route::get('/suporte-ao-cliente', 'DashboardController@support')->name('frontend-my-account-support')->middleware('checkauth');

@@ -15,32 +15,28 @@
                 </thead>
 
                 <tbody>
-                <tr class="d-flex">
-                    <td class="text-left col-6 no-border-right text-truncate">
-                        <a href="#">
-                        <div class="protuct-shopcart-photo">
-                            <img class="rounded-circle img-fluid" src="<?php echo $base_url; ?>/assets/build/images/products/1_thumb.jpg" height="100" width="50" alt="">
-                        </div>
-                            <span class="protuct-shopcart-title">Nome completo do produto</span>
-                        </a>
-                    </td>
-                    <td class="text-center col-2 d-flex align-items-center justify-content-center no-border-right">6</td>
-                    <td class="col-2 d-flex flex-row-reverse align-items-center no-border-right">57,00</td>
-                    <td class="col-2 d-flex flex-row-reverse align-items-center ">57,00</td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="text-left col-6 no-border-right text-truncate">
-                        <a href="#">
+                <?php $total = 0;?>
+                @foreach($order_itens as $row)
+                    <tr class="d-flex">
+                        <td class="text-left col-6 no-border-right text-truncate">
+                            <a href="{{route('frontend-product-detail', [str_slug($row->product_name, '-')])}}">
                             <div class="protuct-shopcart-photo">
-                                <img class="rounded-circle img-fluid" src="<?php echo $base_url; ?>/assets/build/images/products/1_thumb.jpg" height="100" width="50" alt="">
+                                @if(\App\Models\ProductImage::getCoverImage($row->id))
+                                    <img class="rounded-circle img-fluid" src="{{pathMidia('catalog')}}/thumb/{{\App\Models\ProductImage::getCoverImage($row->id)}}" alt="{{$row->product_name}}"  height="100" width="50">
+                                @else
+                                    <img class="rounded-circle img-fluid" src="{{asset('assets/images/no-photo_150x150.jpg')}}" alt="{{$row->product_name}}" height="100" width="50">
+                                @endif
                             </div>
-                            <span class="protuct-shopcart-title">Nome completo do produto</span>
-                        </a>
-                    </td>
-                    <td class="text-center col-2 d-flex align-items-center justify-content-center no-border-right">6</td>
-                    <td class="col-2 d-flex flex-row-reverse align-items-center no-border-right">57,00</td>
-                    <td class="col-2 d-flex flex-row-reverse align-items-center ">57,00</td>
-                </tr>
+                                <span class="protuct-shopcart-title">{{$row->product_name}}</span>
+                            </a>
+                        </td>
+                        <td class="text-center col-2 d-flex align-items-center justify-content-center no-border-right">{{$row->qty}}</td>
+                        <td class="col-2 d-flex flex-row-reverse align-items-center no-border-right">{{money_br($row->price)}}</td>
+                        <td class="col-2 d-flex flex-row-reverse align-items-center ">{{money_br($row->price * $row->qty)}}</td>
+                    </tr>
+                <?php $total += $row->price * $row->qty;?>
+                @endforeach
+
                 </tbody>
             </table>
 
@@ -54,12 +50,12 @@
                     </tr>
                     <tr class="d-flex">
                         <th scope="col" class="text-center col col-6 no-border-right result-address">
-                            <p>Rua Araguari, Barro Preto, Belo Horizonte, MG
+                            <p class="d-none">Rua Araguari, Barro Preto, Belo Horizonte, MG
                                 O valor do frete é: <span>R$ 25,21</span> e o prazo
                                 de entrega é de até <span>6 dias úteis</span></p>
                         </th>
                         <th scope="col" class="text-center col col-6 d-flex flex-row-reverse align-items-center shopcart-total">
-                            R$ 3.024,21
+                            R$ {{money_br($total)}}
                         </th>
                     </tr>
                 </tfoot>

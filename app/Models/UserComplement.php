@@ -32,4 +32,8 @@ class UserComplement extends Model
         'cellphone',
         'user_id'
     ];
+
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

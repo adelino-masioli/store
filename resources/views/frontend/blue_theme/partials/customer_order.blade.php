@@ -14,14 +14,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach($orders as $order)
                     <tr class="d-flex">
-                        <td class="text-left col no-border-right text-truncate d-flex align-items-center justify-content-center">25/02/1979</td>
-                        <td class="col d-flex align-items-center justify-content-center no-border-right">Finalizado</td>
-                        <td class="col d-flex flex-row-reverse align-items-center no-border-right">57,00</td>
+                        <td class="text-left col no-border-right text-truncate d-flex align-items-center justify-content-center">{{date_br($order->created_at)}}</td>
+                        <td class="col d-flex align-items-center justify-content-center no-border-right">{{$order->status->status}}</td>
+                        <td class="col d-flex flex-row-reverse align-items-center no-border-right">{{money_br($order->total)}}</td>
                         <td class="col d-flex  align-items-center justify-content-center">
-                            <a href="#"><i class="fa fa-search text-info"></i> Visualizar</a>
+                            <a href="{{route('frontend-my-account-order-detail', [base64_encode($order->id)])}}"><i class="fa fa-search text-info"></i> Visualizar</a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
 

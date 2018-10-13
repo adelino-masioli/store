@@ -23,10 +23,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class UserController extends Controller
 {
+    use AuthenticatesUsers;
 
     //login
     public static function login()
@@ -51,8 +53,7 @@ class UserController extends Controller
         try{
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                session()->flash('success_message', 'Usuário logado com sucesso!');
-                return redirect()->route('frontend-shoppingcart-home');
+                return redirect()->route('frontend-my-account');
             }else{
                 session()->flash('error_message', 'Usuário e ou senhas não conferem!');
                 return redirect()->back()->withInput();
@@ -110,6 +111,45 @@ class UserController extends Controller
         }
     }
 
+    //update register
+    public static function postUpdate(Request $request)
+    {
+        try{
+            $result = User::findOrFail($request->id);
+
+            $messages = Messages::msgUser();
+
+            if($request['password']) {
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|string|min:5|max:50',
+                    'email' => 'required|string|email|min:5|max:150|unique:users,email,' . $request['id'],
+                    'password' => 'required|min:6|confirmed', //password_confirmation
+                ], $messages);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|string|min:5|max:50',
+                    'email' => 'required|string|email|min:5|max:150|unique:users,email,' . $request['id']
+                ], $messages);
+            }
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+                exit();
+            }
+            $data = InputFields::inputFieldsUserSite($request);
+            $result->update($data);
+
+            //create complement
+            CreateAddress::createComplement($request, $result);
+
+            session()->flash('success_message', 'Cadastro atualziado com sucesso!');
+            return redirect()->route('frontend-my-account');
+        }catch(\Exception $e){
+            session()->flash('error_message', 'Erro ao salvar!');
+            return redirect()->back()->withInput();
+        }
+    }
+
     //register success
     public static function registerSuccess()
     {
@@ -129,9 +169,6 @@ class UserController extends Controller
         $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
         return view('frontend.'.$config_site->theme.'.pages.customer.registration-success', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
     }
-
-
-
 
     //activate
     public static function activate($token)
@@ -172,4 +209,12 @@ class UserController extends Controller
         Mail::to($user->email)->send(new UserRegisterSite($user));
     }
 
+
+    public function logout()
+    {
+        $this->guard()->logout();
+        session()->flush();
+        session()->regenerate();
+        return redirect()->route('frontend-home');
+    }
 }

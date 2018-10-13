@@ -6,9 +6,14 @@
         </ul>
 
         <ul class="pull-right">
-            <li><a href="{{url('/')}}">Cadastre-se</a></li>
-            <li><a href="{{url('/')}}"><i class="fa fa-user"></i> <span class="mobile-hidden">Minha Conta</span></a></li>
-            <li><a href="{{url('/')}}"><i class="fa fa-shopping-cart"></i> <span class="mobile-hidden">Meu Carrinho</span></a></li>
+            @if(!Auth()->user())
+                <li><a href="{{route('frontend-register')}}">Cadastre-se</a></li>
+                <li><a href="{{route('frontend-login')}}"><i class="fa fa-lock"></i> <span class="mobile-hidden">Entrar</span></a></li>
+            @else
+                <li><a href="{{route('frontend-logout')}}"><i class="fa fa-sign-out"></i> <span class="mobile-hidden">Sair</span></a></li>
+                <li><a href="{{route('frontend-my-account')}}"><i class="fa fa-user"></i> <span class="mobile-hidden">Minha Conta</span></a></li>
+            @endif
+                <li><a href="{{route('frontend-shoppingcart-home')}}"><i class="fa fa-shopping-cart"></i> <span class="mobile-hidden">Meu Carrinho</span></a></li>
         </ul>
     </div>
 </section>

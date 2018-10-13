@@ -90,11 +90,11 @@
                 <div class="col-xs-12 col-xs-12 col-sm-12 col-md-9 col-lg-9 offset-sm-3 col-md-9 offset-md-3 col-lg-9 offset-lg-3">
                     <button class="btn btn-primary btn-flat btn-register" type="submit">CADASTRAR</button>
 
-                    <div class="show-alert"><br/>
-                        @if (Session::has('success_message') || Session::has('error_message'))
+                    @if (Session::has('success_message') || Session::has('error_message'))
+                        <div class="show-alert"><br/>
                             @include('frontend.blue_theme.messages.messages')
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </form>

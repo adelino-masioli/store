@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'roles' => \App\Http\Middleware\CheckRole::class,
         'checkstatus' => \App\Http\Middleware\CheckStatus::class,
         'suspended' => \App\Http\Middleware\CheckSuspended::class,
+        'checkauth' => \App\Http\Middleware\CheckAuth::class,
     ];
 }
