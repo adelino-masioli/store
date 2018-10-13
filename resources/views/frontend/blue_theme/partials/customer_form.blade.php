@@ -26,13 +26,13 @@
             <div class="form-group row">
                 <label for="phone" class="col d-sm-none d-md-block col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Telefone <span class="text-danger">*</span></label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control phone" name="phone"  placeholder="Telefone" required value="{{Auth::user() ?  Auth::user()->complement->phone : old('phone')}}">
+                    <input type="text" class="form-control phone" name="phone"  placeholder="Telefone" required value="{{Auth::user()->complement ?  Auth::user()->complement->phone : old('phone')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="whatsapp" class="col d-sm-none d-md-block col-sm-3 col-md-3 col-lg-3 col-form-label text-right">WhatsApp</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="cellphone" id="cellphone" placeholder="WhatsApp" value="{{Auth::user() ?  Auth::user()->complement->cellphone : old('cellphone')}}" onKeyDown="maskCellphone('#cellphone');">
+                    <input type="text" class="form-control" name="cellphone" id="cellphone" placeholder="WhatsApp" value="{{Auth::user()->complement ?  Auth::user()->complement->cellphone : old('cellphone')}}" onKeyDown="maskCellphone('#cellphone');">
                 </div>
             </div>
             <div class="form-group row">
@@ -57,37 +57,37 @@
             <div class="form-group row">
                 <label for="zipcode" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">CEP <span class="text-danger">*</span></label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control zipcode" name="zipcode" id="zipcode" placeholder="CEP" required value="{{Auth::user() ?  Auth::user()->complement->zipcode : old('zipcode')}}">
+                    <input type="text" class="form-control zipcode" name="zipcode" id="zipcode" placeholder="CEP" required value="{{Auth::user()->complement ?  Auth::user()->complement->zipcode : old('zipcode')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="street" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Rua</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="address" id="address" placeholder="Rua" value="{{Auth::user() ?  Auth::user()->complement->address : old('address')}}">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Rua" value="{{Auth::user()->complement ?  Auth::user()->complement->address : old('address')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="number" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Número</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="number" id="number" placeholder="Número" value="{{Auth::user() ?  Auth::user()->complement->number : old('number')}}">
+                    <input type="text" class="form-control" name="number" id="number" placeholder="Número" value="{{Auth::user()->complement ?  Auth::user()->complement->number : old('number')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="district" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Bairro</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="district" id="district" placeholder="Bairro" value="{{Auth::user() ?  Auth::user()->complement->district : old('district')}}">
+                    <input type="text" class="form-control" name="district" id="district" placeholder="Bairro" value="{{Auth::user()->complement ?  Auth::user()->complement->district : old('district')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="city" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Cidade</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="city" id="city" placeholder="Cidade" value="{{Auth::user() ?  Auth::user()->complement->city : old('city')}}">
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Cidade" value="{{Auth::user()->complement ?  Auth::user()->complement->city : old('city')}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="state" class="col col-xs-12 col-sm-3 col-md-3 col-lg-3 col-form-label text-right">Estado</label>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <input type="text" class="form-control" name="state" id="state" placeholder="Estado" maxlength="2" value="{{Auth::user() ?  Auth::user()->complement->state : old('state')}}">
+                    <input type="text" class="form-control" name="state" id="state" placeholder="Estado" maxlength="2" value="{{Auth::user()->complement ?  Auth::user()->complement->state : old('state')}}">
                 </div>
             </div>
 

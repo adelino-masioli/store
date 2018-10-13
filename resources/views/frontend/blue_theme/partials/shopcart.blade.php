@@ -58,7 +58,9 @@
             <table class="table table-condensed table-bordered table-sm">
                 <tbody>
                     <tr class="d-flex">
-                        <td scope="col" class="text-center col col-12 no-border-right text-truncate">Nenhum produto foi adicionado ao carrinho. Clique <a href="{{route('frontend-products')}}">aqui</a> para comprar.</td>
+                        <td scope="col" class="text-center col col-12 no-border-right text-truncate">Nenhum produto foi adicionado ao carrinho. Clique <a href="{{route('frontend-products')}}">aqui</a> para comprar.
+                            <br/><i class="fa fa-frown-o fa-5x text-gray" aria-hidden="true"></i>
+                        </td>
                     </tr>
                 </tbody>
             </table>

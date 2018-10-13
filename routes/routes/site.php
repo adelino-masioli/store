@@ -26,6 +26,9 @@ Route::get('/finalizar-carrrinho/{shopcart}', 'ShoppingcartController@finish')->
 
 //user
 Route::get('/entrar', 'UserController@login')->name('frontend-login');
+Route::get('/recuperar-senha', 'UserController@email')->name('frontend-email-password');
+Route::get('/link-para-recuperar-senha-enviado-com-sucesso', 'UserController@emailSuccess')->name('frontend-email-password-success');
+Route::get('/alterar-senha/{token}', 'UserController@reset')->name('frontend-reset-password');
 Route::get('/sair', 'UserController@logout')->name('frontend-logout');
 Route::get('/esqueci-minha-senha', 'UserController@login')->name('frontend-login-forgot');
 Route::get('/cadastre-se', 'UserController@register')->name('frontend-register');
@@ -35,6 +38,8 @@ Route::get('/cadastro-ativado-com-sucesso', 'UserController@activatePage')->name
 Route::post('/logar', 'UserController@postLogin')->name('frontend-login-post');
 Route::post('/cadastrar', 'UserController@postRegister')->name('frontend-register-post');
 Route::post('/atualizar', 'UserController@postUpdate')->name('frontend-register-update');
+Route::post('/recuperar-senha-link', 'UserController@postEmail')->name('frontend-email-post');
+Route::post('/alterar-minha-senha', 'UserController@postReset')->name('frontend-reset-my-password');
 
 //dashboard
 Route::get('/minha-conta', 'DashboardController@index')->name('frontend-my-account')->middleware('checkauth');
