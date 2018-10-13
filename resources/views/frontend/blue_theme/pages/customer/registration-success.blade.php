@@ -1,6 +1,6 @@
 @extends('frontend.blue_theme.template.layout')
 
-@section('title', $config_site->name .' - Cadatre-se' )
+@section('title', $config_site->name .' - Cadastro efetuado com sucesso' )
 
 @section('content')
     <main role="main">
@@ -8,17 +8,17 @@
 
     <div class="container internal-pages">
         @component('frontend.blue_theme.components.breadcrumb')
-            <li class="breadcrumb-item active" aria-current="page">Login</li>
+            <li class="breadcrumb-item active" aria-current="page">Cadastro efetuado com sucesso</li>
         @endcomponent {{--component breadcrumb--}}
 
-        @include('frontend.blue_theme.partials.register_form')<!-- register form-->
+        @include('frontend.blue_theme.partials.register_success')<!-- register form-->
     </div>
 
 
     @include('frontend.blue_theme.partials.newsletter')<!-- newsletter-->
 
 
-        {{--@include('frontend.blue_theme.partials.maps')<!-- maps-->--}}
+        @include('frontend.blue_theme.partials.maps')<!-- maps-->
 
 
         <section class="contactfooter">

@@ -24,10 +24,13 @@ Route::get('/finalizar-carrrinho/{shopcart}', 'ShoppingcartController@finish')->
 
 //user
 Route::get('/entrar', 'UserController@login')->name('frontend-login');
+Route::get('/esqueci-minha-senha', 'UserController@login')->name('frontend-login-forgot');
 Route::get('/termos', 'UserController@terms')->name('frontend-terms');
 Route::get('/privacidade', 'UserController@privacy')->name('frontend-privacy');
 Route::get('/cadastre-se', 'UserController@register')->name('frontend-register');
-Route::get('/cadastro-com-sucesso', 'UserController@register')->name('frontend-register-success');
+Route::get('/cadastro-com-sucesso', 'UserController@registerSuccess')->name('frontend-register-success');
+Route::get('/cadastro-ativado/{token}', 'UserController@activate')->name('frontend-register-activate');
+Route::get('/cadastro-ativado-com-sucesso', 'UserController@activatePage')->name('frontend-register-activate-success');
 Route::get('/minha-conta', 'UserController@index')->name('frontend-my-account');
 Route::post('/logar', 'UserController@postLogin')->name('frontend-login-post');
 Route::post('/cadastrar', 'UserController@postRegister')->name('frontend-register-post');

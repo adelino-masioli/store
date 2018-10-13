@@ -25,7 +25,7 @@
     @include('frontend.blue_theme.partials.newsletter')<!-- newsletter-->
 
 
-    {{--@include('frontend.blue_theme.partials.maps')<!-- maps-->--}}
+    @include('frontend.blue_theme.partials.maps')<!-- maps-->
 
 
     <section class="contactfooter">

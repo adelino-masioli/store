@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+use App\Mail\UserRegister;
+use App\Mail\UserRegisterSite;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Contact;
@@ -20,6 +22,7 @@ use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -97,12 +100,76 @@ class UserController extends Controller
             //create complement
             CreateAddress::createComplement($request, $user);
 
-            session()->flash('success_message', 'Salvo com sucesso! favor acessar seu e-mail para confirmar.');
-            return redirect()->back();
+            self::sendEmail($user);
+
+            session()->flash('verify_code', $user->active_token);
+            return redirect()->route('frontend-register-success');
         }catch(\Exception $e){
             session()->flash('error_message', 'Erro ao salvar!');
             return redirect()->back()->withInput();
         }
+    }
+
+    //register success
+    public static function registerSuccess()
+    {
+        if(!session()->get("verify_code")){
+            return redirect()->route('frontend-home');
+        }
+        $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(8)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $banners = Banner::where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.customer.registration-success', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
+    }
+
+
+
+
+    //activate
+    public static function activate($token)
+    {
+        $user = User::where('active_token', $token)->first();
+        if($user) {
+            $user->update([
+                'active'       => statusOrder('active'),
+                'active_token' => null,
+                'status_id'    => statusOrder('active')
+            ]);
+            session()->flash('success', 'success');
+            return redirect(route('frontend-register-activate-success'));
+        }else{
+            session()->flash('error', 'error');
+            return redirect(route('frontend-register-activate-success'));
+        }
+    }
+
+    public static function activatePage()
+    {
+        $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(8)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $banners = Banner::where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.customer.activate-success', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
+    }
+
+    public static function sendEmail($user)
+    {
+        Mail::to($user->email)->send(new UserRegisterSite($user));
     }
 
 }

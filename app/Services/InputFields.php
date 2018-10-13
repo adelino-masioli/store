@@ -99,26 +99,53 @@ class InputFields
             $configuration_id = ConfigurationSite::getConfiguration()->id;
         }
 
-        if($request['password']) {
-            $fields = [
-                'name'             => $request['name'],
-                'email'            => $request['email'],
-                'password'         => bcrypt($request['password']),
-                'configuration_id' => $configuration_id,
-                'type_id'          => userTypeId('customer'),
-                'status_id'        => $request['status_id'] ? $request['status_id'] : statusOrder('inactive')
-            ];
-        }else{
-            $fields = [
-                'name'             => $request['name'],
-                'email'            => $request['email'],
-                'configuration_id' => $configuration_id
-            ];
-            if($request['type_id']){
-                $fields['type_id'] = userTypeId('customer');
+        if($request['id']) {
+            if ($request['password']) {
+                $fields = [
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => bcrypt($request['password']),
+                    'configuration_id' => $configuration_id,
+                    'type_id' => userTypeId('customer'),
+                    'status_id' => $request['status_id'] ? $request['status_id'] : statusOrder('inactive')
+                ];
+            } else {
+                $fields = [
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'configuration_id' => $configuration_id
+                ];
+                if ($request['type_id']) {
+                    $fields['type_id'] = userTypeId('customer');
+                }
+                if ($request['status_id']) {
+                    $fields['status_id'] = $request['status_id'] ? $request['status_id'] : statusOrder('inactive');
+                }
             }
-            if($request['status_id']){
-                $fields['status_id'] = $request['status_id'] ? $request['status_id'] : statusOrder('inactive');
+        }else{
+            if ($request['password']) {
+                $fields = [
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => bcrypt($request['password']),
+                    'configuration_id' => $configuration_id,
+                    'type_id' => userTypeId('customer'),
+                    'active_token' => md5(date('Y-m-d H:i:s')),
+                    'status_id' => $request['status_id'] ? $request['status_id'] : statusOrder('inactive')
+                ];
+            } else {
+                $fields = [
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'active_token' => md5(date('Y-m-d H:i:s')),
+                    'configuration_id' => $configuration_id
+                ];
+                if ($request['type_id']) {
+                    $fields['type_id'] = userTypeId('customer');
+                }
+                if ($request['status_id']) {
+                    $fields['status_id'] = $request['status_id'] ? $request['status_id'] : statusOrder('inactive');
+                }
             }
         }
 
