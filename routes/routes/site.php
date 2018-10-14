@@ -4,6 +4,7 @@ Route::get('/sobre', 'SiteController@about')->name('frontend-about');
 Route::get('/produtos', 'SiteController@product')->name('frontend-products');
 Route::get('/produtos/{category}', 'SiteController@category')->name('frontend-product-categories');
 Route::get('/produto/{product}', 'SiteController@show')->name('frontend-product-detail');
+Route::get('/produto-avaliacao/{product}/{rate}', 'SiteController@rate')->name('frontend-product-rate');
 Route::get('/servicos', 'SiteController@service')->name('frontend-service');
 Route::get('/contato', 'SiteController@contact')->name('frontend-contact');
 Route::get('/termos', 'SiteController@terms')->name('frontend-terms');
@@ -46,3 +47,6 @@ Route::get('/minha-conta', 'DashboardController@index')->name('frontend-my-accou
 Route::get('/meus-pedidos', 'DashboardController@order')->name('frontend-my-account-order')->middleware('checkauth');
 Route::get('/meu-pedido/{order}', 'DashboardController@orderDetail')->name('frontend-my-account-order-detail')->middleware('checkauth');
 Route::get('/suporte-ao-cliente', 'DashboardController@support')->name('frontend-my-account-support')->middleware('checkauth');
+
+//correio
+Route::post('/calcular-envio-correios', 'CorreioController@calculate')->name('frontend-calculate-dispatch');

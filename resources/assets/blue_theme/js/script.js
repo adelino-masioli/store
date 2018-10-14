@@ -85,14 +85,14 @@ $("#zipcode").blur(function() {
                 else {
                     //CEP searching not result
                     clear_form_cep();
-                    toast('Importante', 'CEP não encontrado.', 'top-right', '#2594ff')
+                    //toast('Importante', 'CEP não encontrado.', 'top-right', '#2594ff')
                 }
             });
         } //end if.
         else {
             //CEP no valid.
             clear_form_cep();
-            toast('Importante', 'Formato de CEP inválido.', 'top-right', '#2594ff')
+            //toast('Importante', 'Formato de CEP inválido.', 'top-right', '#2594ff')
         }
     } //end if.
     else {

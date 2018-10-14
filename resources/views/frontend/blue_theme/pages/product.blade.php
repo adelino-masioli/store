@@ -30,3 +30,16 @@
 @include('frontend.blue_theme.partials.footer')<!-- partial footer-->
 </main>
 @endsection
+@push('scripts')
+    <script src="{{asset('templates/'.$config_site->theme)}}/assets/js/plugins.min.js"></script>
+    <script>
+        maskZipCode();
+
+        function hoverRate(rate) {
+            $('.rate_product').removeClass('active-rate')
+            for(var i=1;i<=rate;i++){
+                $('.rate_'+i).addClass('active-rate')
+            }
+        }
+    </script>
+@endpush

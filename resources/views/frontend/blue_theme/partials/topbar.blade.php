@@ -13,7 +13,7 @@
                 <li><a href="{{route('frontend-logout')}}"><i class="fa fa-sign-out"></i> <span class="mobile-hidden">Sair</span></a></li>
                 <li><a href="{{route('frontend-my-account')}}"><i class="fa fa-user"></i> <span class="mobile-hidden">Minha Conta</span></a></li>
             @endif
-                <li><a href="{{route('frontend-shoppingcart-home')}}"><i class="fa fa-shopping-cart"></i> <span class="mobile-hidden">Meu Carrinho</span></a></li>
+                <li><a href="{{route('frontend-shoppingcart-home')}}"><i class="fa fa-shopping-cart"></i> <span class="mobile-hidden">{{Cart::content()->count()}}</span></a></li>
         </ul>
     </div>
 </section>

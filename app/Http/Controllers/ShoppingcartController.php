@@ -12,6 +12,7 @@ use App\Models\ProductImage;
 use App\Models\Quote;
 use App\Models\SubCategory;
 use App\Services\ConfigurationSite;
+use App\Services\Correios;
 use App\Services\InputFields;
 use Cart;
 use Illuminate\Http\Request;
@@ -40,13 +41,27 @@ class ShoppingcartController extends Controller
 
     public static function store($product=null,$product_id=null)
     {
-
         try{
             $id = base64_decode($product_id);
             $res = Product::findOrFail($id);
             $image = ProductImage::getCoverImage($res->id);
 
-            Cart::add(['id'=>$res->id, 'name'=>$res->name, 'qty' =>1, 'price' =>$res->price, 'options' => ['image' => $image]]);
+            //transport if isset
+            $transport = self::transport($res);
+
+            Cart::add([
+                'id'=>$res->id,
+                'name'=>$res->name,
+                'qty' =>1,
+                'price' =>$res->price,
+                'options' => [
+                    'image' => $image,
+                    'transp_days' => $transport['transp_days'],
+                    'transp_price' => $transport['transp_price'],
+                    'transp_city' => $transport['transp_city'],
+                    'transp_state' => $transport['transp_state']
+                ]
+            ]);
 
             session()->flash('success_message', 'Produto adicionado com sucesso!');
             return redirect()->route('frontend-shoppingcart-home');
@@ -62,6 +77,10 @@ class ShoppingcartController extends Controller
         try{
             $rowId = base64_decode($row);
             Cart::remove($rowId);
+
+            if( Cart::count()==0){
+                session()->forget('zipcode');
+            }
 
             session()->flash('success_message', 'Produto removido com sucesso!');
             return redirect()->back();
@@ -118,4 +137,43 @@ class ShoppingcartController extends Controller
         }
     }
 
+    //transport
+    public static function transport($product){
+        $array_transport = [];
+        if(session()->has('transport')){
+            $array_transport['transp_days']  = session()->get('transport')['prazo'];
+            $array_transport['transp_price'] = session()->get('transport')['valor'];
+            $array_transport['transp_city'] = session()->get('transport')['localidade'];
+            $array_transport['transp_state'] = session()->get('transport')['uf'];
+
+            if(!session()->has('zipcode')){
+                session()->put('zipcode', session()->get('transport')['cep']);
+            }
+
+            //clear session transport
+            session()->forget('transport');
+
+            return $array_transport;
+        }else{
+            if(session()->has('zipcode')){
+                Correios::recalculaFrete($product, session()->get('zipcode'));
+
+                $array_transport['transp_days']  = session()->get('transport')['prazo'];
+                $array_transport['transp_price'] = session()->get('transport')['valor'];
+                $array_transport['transp_city'] = session()->get('transport')['localidade'];
+                $array_transport['transp_state'] = session()->get('transport')['uf'];
+                //clear session transport
+                session()->forget('transport');
+
+                return $array_transport;
+            }else {
+                $array_transport['transp_days'] = null;
+                $array_transport['transp_price'] = null;
+                $array_transport['transp_city'] = null;
+                $array_transport['transp_state'] = null;
+
+                return $array_transport;
+            }
+        }
+    }
 }

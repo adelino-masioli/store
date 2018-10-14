@@ -14,10 +14,11 @@
 
                 <tbody>
                 <?php $total = 0;?>
+                <?php $total_transport = 0;?>
                 @foreach(Cart::content() as $row)
                     <tr class="d-flex">
                         <td class="text-left col-sm-5 col-md-5 col-lg-8 no-border-right text-truncate">
-                            <a href="#">
+                            <a href="{{route('frontend-product-detail', [str_slug($row->name)])}}">
                             <div class="protuct-shopcart-photo">
                                 @if($row->options->has('image') && $row->options->image)
                                     <img class="rounded-circle img-fluid" src="{{pathMidia('catalog')}}/thumb/{{$row->options->image}}" alt="{{$row->name}}" height="100" width="50">
@@ -25,7 +26,11 @@
                                     <img class="rounded-circle img-fluid" src="{{asset('assets/images/no-photo_150x150.jpg')}}" alt="{{$row->name}}" height="100" width="50">
                                 @endif
                             </div>
-                                <span class="protuct-shopcart-title">{{$row->name}}</span>
+                                <span class="protuct-shopcart-title">{{$row->name}}
+                                    @if($row->options->transp_price != null)
+                                        <small class="d-none d-md-inline-block">| (Valor do envio: R$ {{moneyReverse($row->options->transp_price) * $row->qty}})</small>
+                                    @endif
+                                </span>
                             </a>
                         </td>
                         <td class="text-center col-sm-2 col-md-2 col-lg-1 d-flex align-items-center justify-content-center no-border-right">
@@ -46,7 +51,12 @@
                             <a href="{{route('frontend-remove-cart', [str_slug($row->name, '-'), base64_encode($row->rowId)])}}" class="link-trash"><i class="fa fa-trash text-danger"></i></a>
                         </td>
                     </tr>
-                    <?php $total += $row->price * $row->qty;?>
+                            @if($row->options->transp_price != null)
+                                <?php $total_transport +=  moneyReverse($row->options->transp_price) * $row->qty;?>
+                                <?php $total += ($row->price * $row->qty) + $total_transport;?>
+                            @else
+                                <?php $total += $row->price * $row->qty;?>
+                            @endif
                 @endforeach
                 </tbody>
             </table>
@@ -69,8 +79,6 @@
 
         @if(Cart::count() > 0)
         <div class="table-responsive">
-
-        <div class="table-responsive">
             <table class="table table-condensed table-bordered table-sm">
                 <tfoot>
                     <tr class="d-flex">
@@ -79,14 +87,13 @@
                         <th scope="col" class="text-center col col-6 text-truncate">VALOR TOTAL DA COMPRA</th>
                     </tr>
                     <tr class="d-flex">
-                        <th scope="col" class="text-center col col-3 no-border-right">
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="Insira seu CEP" name="zipcode" id="zipcode" aria-label="Insira seu CEP"  aria-describedby="btnconsult" maxlength="8">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="btnconsult"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </th>
+                        <td scope="col" class="text-center col col-3 d-flex align-items-center justify-content-center no-border-right">
+                            @if($row->options->transp_price != null)
+                                <span class="text-info">Valor total para o envio</span>
+                            @else
+                                Envio não calculado.
+                            @endif
+                        </td>
                         <th scope="col" class="text-center col col-3 no-border-right">
                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control" placeholder="Insira o código" name="discount_coupon" id="discount_coupon" aria-label="Insira o código"  aria-describedby="btnconsultcode">
@@ -101,10 +108,12 @@
                     </tr>
 
                     <tr class="d-flex">
-                        <th scope="col" class="text-left col col-3 no-border-right  result-address">
-                            <p>Rua Araguari, Barro Preto, Belo Horizonte, MG
-                                O valor do frete é: <span>R$ 25,21</span> e o prazo
-                                de entrega é de até <span>6 dias úteis</span></p>
+                        <th scope="col" class="text-center col col-3 no-border-right  result-address">
+                            @if($row->options->transp_price != null)
+                            <p>{{$row->options->transp_city}},  {{$row->options->transp_state}}.<br/>
+                                O valor do frete é: <span>R$ {{money_br($total_transport)}}</span> e o prazo
+                                de entrega dos <strong>Correios</strong> após o envio é de até <span>{{$row->options->transp_days}}</span></p>
+                            @endif
                         </th>
                         <th scope="col" class="text-center col col-3 d-flex align-items-center justify-content-center no-border-right">
                             <a href="{{route('frontend-products')}}" class="btn btn-outline-secondary btn-flat text-truncate"><i class="fa fa-angle-double-left" aria-hidden="true"></i> CONTINUAR COMPRANDO</a>
@@ -119,6 +128,5 @@
         @endif
 
     </div>
-
 
 </div><!-- /.row -->

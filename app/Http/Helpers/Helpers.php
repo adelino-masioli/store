@@ -440,3 +440,22 @@ function userTypeId($type){
             break;
     }
 }
+//rate
+function rate($page){
+    switch ($page) {
+        case 'one':
+            return  1;
+            break;
+        case 'two':
+            return  2;
+            break;
+        case 'three':
+            return  3;
+            break;
+        case 'fuor':
+            return  4;
+            break;
+        default:
+            return 5;
+    }
+}

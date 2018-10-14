@@ -371,11 +371,16 @@ footer p, footer p a, footer p, footer p a:hover{
   margin-bottom: 40px;
 }
 .rate ul li{
-  cursor: pointer;
   float: left;
   width: 25px;
 }
-.rate ul li:hover{
+.rate ul li a{
+  color: #cccccc;
+}
+.rate ul li a:hover, .rate ul li a.active-rate, .rate ul li.active-rate{
+  color: #f1c200;
+}
+.rate ul li.active-rate-vote{
   color: #f1c200;
 }
 .rate ul li i{

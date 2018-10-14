@@ -8,10 +8,13 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductRate;
 use App\Models\Quote;
 use App\Models\SubCategory;
 use App\Services\ConfigurationSite;
+use App\Services\Rate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -156,10 +159,14 @@ class SiteController extends Controller
 
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $product = Product::where('slug', $product)->where('configuration_id', $config_site->id)->where('status_id', 1)->take(1)->first();
+
+        $rate = Rate::rate($product->rate);
+        $is_rate = Auth::user() ? ProductRate::where('product_id', $product->id)->where('user_id', Auth::user()->id)->count() : 0;
+
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
         $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'product')->where('status_id', 1)->first();
         $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
-        return view('frontend.'.$config_site->theme.'.pages.product', compact('categories', 'product', 'config_site', 'page', 'page_display', 'menu'));
+        return view('frontend.'.$config_site->theme.'.pages.product', compact('categories', 'product', 'config_site', 'page', 'page_display', 'menu', 'rate', 'is_rate'));
     }
 
     //post
@@ -317,6 +324,26 @@ class SiteController extends Controller
             return redirect()->back();
         }catch(\Exception $e){
             session()->flash('error_quote', 'Erro ao cadastrar-se!');
+            return redirect()->back();
+        }
+    }
+
+    public static function rate($product, $rate)
+    {
+        if(!Auth::user()){
+            return redirect()->back();
+        }else{
+            $product_id = base64_decode($product);
+            $product_rate = base64_decode($rate);
+
+            $res = ProductRate::where('product_id', $product_id)->where('user_id', Auth::user()->id)->count();
+            if($res == 0){
+             ProductRate::create([
+                 'rate'       => rate($product_rate),
+                 'product_id' => $product_id,
+                 'user_id'    => Auth::user()->id,
+             ]);
+            }
             return redirect()->back();
         }
     }

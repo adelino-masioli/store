@@ -218,6 +218,11 @@ class InputFields
             'meta_keyword'     => $request['meta_keyword'],
             'price'            => moneyReverse($request['price']),
             'qty'              => $request['qty'],
+            'weight'           => $request['weight'],
+            'height'           => $request['height'],
+            'width'            => $request['width'],
+            'length'           => $request['length'],
+            'packing'          => $request['packing'] ? moneyReverse($request['packing']) : 0.00,
             'configuration_id' => $configuration_id,
             'status_id'        => $status
         ];

@@ -41,7 +41,6 @@ class ProductController extends Controller
         $columns = ['id',  'name',  'configuration_id', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
-
         return DataTables::eloquent($result)
             ->addColumn('status', function ($data) {
                 return $data->status->status;

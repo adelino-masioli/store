@@ -30,34 +30,23 @@ class Product extends Model
         'slug',
         'price',
         'qty',
+        'weight',
+        'height',
+        'width',
+        'length',
+        'packing',
         'status_id',
         'configuration_id',
     ];
 
-    public static function productByCategory($category_id)
-    {
-        $categories =  ProductCategory::where('category_id', $category_id)->where('status', 1)->get();
-
-        $productsArray = [];
-        foreach ($categories as $category){
-            foreach (Product::where('id', $category->product_id)->orderBy('name', 'asc')->get() as $product){
-                $productsArray[] = $product;
-            }
-        }
-        return $productsArray;
-    }
-
-    public static function productCategory($product_id)
-    {
-        $category_id =  ProductCategory::where('product_id', $product_id)->first();
-        $category =  Category::where('id', $category_id->category_id)->where('status', 1)->first();
-
-        return $category;
+    public function rate() {
+        return $this->hasMany('App\Models\ProductRate', 'product_id');
     }
 
     public function status() {
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
+
     public function configuration() {
         return $this->belongsTo('App\Models\Configuration', 'configuration_id');
     }

@@ -27,10 +27,6 @@
 </div>
 
 @push('scripts')
-    <script src="{{ asset('plugins/summernote/dist/summernote.min.js') }}"></script>
-    <script src="{{ asset('plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
-    <script src="{{ asset('plugins/mask/jquery.mask.min.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('.editor').summernote({

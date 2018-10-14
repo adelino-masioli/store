@@ -27,7 +27,12 @@ class CreateProductsTable extends Migration
             $table->text('meta_keyword')->nullable();
             $table->string('slug', 255)->nullable();
             $table->decimal('price', 10,2)->nullable();
-            $table->integer('qty')->nullable()->nullable();
+            $table->integer('qty')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('height')->nullable();
+            $table->string('width')->nullable();
+            $table->string('length')->nullable();
+            $table->decimal('packing', 10,2)->nullable();
             $table->timestamps();
         });
     }

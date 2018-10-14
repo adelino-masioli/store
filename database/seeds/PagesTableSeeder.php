@@ -61,5 +61,35 @@ class PagesTableSeeder extends Seeder
             'status_id'         => 1,
             'configuration_id'  => 1
         ]);
+        DB::table('pages')->insert([
+            'title'             => 'Política e Privacidade',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
+            'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
+            'banner'            => '',
+            'type'              => 'privacy',
+            'show_form'         => 0,
+            'status_id'         => 1,
+            'configuration_id'  => 1
+        ]);
+        DB::table('pages')->insert([
+            'title'             => 'Termos de uso',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
+            'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
+            'banner'            => '',
+            'type'              => 'term',
+            'show_form'         => 0,
+            'status_id'         => 1,
+            'configuration_id'  => 1
+        ]);
+        DB::table('pages')->insert([
+            'title'             => 'Troca e devolução',
+            'summary'           => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim exc.',
+            'text'              => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid amet, aut ea eaque eius enim excepturi harum, in molestiae nulla quae quasi quia rem rerum sed vitae voluptates?',
+            'banner'            => '',
+            'type'              => 'return',
+            'show_form'         => 0,
+            'status_id'         => 1,
+            'configuration_id'  => 1
+        ]);
     }
 }

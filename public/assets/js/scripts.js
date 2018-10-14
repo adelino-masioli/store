@@ -125,3 +125,11 @@ function addImage(image) {
  function funcionRefreshDatatable(){
      table.ajax.reload();
  }
+ //only number
+ function onlyNumber(input) {
+     $(input).on('keypress input', function() {
+         var value = $(this).val();
+         value = value.replace(/\D+/, '');
+         $(this).val(value);
+     });
+ }
