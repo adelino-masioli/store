@@ -22,7 +22,8 @@ Route::get('/carrinho', 'ShoppingcartController@index')->name('frontend-shopping
 Route::get('/adicionar-ao-carrrinho/{product}/{id}', 'ShoppingcartController@store')->name('frontend-add-cart');
 Route::post('/atulizat-carrrinho/{product}', 'ShoppingcartController@update')->name('frontend-update-cart');
 Route::get('/remover-do-carrrinho/{product}/{id}', 'ShoppingcartController@remove')->name('frontend-remove-cart');
-Route::get('/finalizar-carrrinho/{shopcart}', 'ShoppingcartController@finish')->name('frontend-finish-cart');
+Route::get('/carrinho-pagamento', 'ShoppingcartController@checkout')->name('frontend-checkout-cart');
+Route::get('/finalizar-carrinho/{shopcart}', 'ShoppingcartController@finish')->name('frontend-finish-cart');
 
 
 //user
@@ -50,3 +51,5 @@ Route::get('/suporte-ao-cliente', 'DashboardController@support')->name('frontend
 
 //correio
 Route::post('/calcular-envio-correios', 'CorreioController@calculate')->name('frontend-calculate-dispatch');
+Route::post('/calcular-envio-correios-checkout', 'CorreioController@calculateCheckout')->name('frontend-calculate-dispatch-checkout');
+Route::post('/calcular-envio-correios-checkout-remove', 'CorreioController@calculateRemove')->name('frontend-calculate-dispatch-checkout-remove');

@@ -578,6 +578,48 @@ footer p, footer p a, footer p, footer p a:hover{
 .order-date{
   font-size: 10px;
 }
+//checkout
+.header-checkout{
+  display: block;
+  height: 35px;
+  border-bottom: 3px solid #069;
+  margin-bottom: 10px;
+  padding-bottom:5px;
+}
+.header-checkout h1{
+  font-size: 16px;
+  line-height: 23px;
+  margin: 0px;
+  padding: 0px;
+  float: left;
+  font-weight: 500;
+}
+.header-checkout-number{
+  display: block;
+  padding: 10px;
+  width:25px;
+  height: 25px;
+  font-size: 16px;
+  line-height: 4px;
+  font-weight: 600;
+  margin: auto;
+  text-align: center;
+}
+.checkout-form .form-group{
+  margin-bottom: 0.3rem;
+}
+.content-checkout legend{
+  font-size: 14px;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 3px;
+}
+.select-opt{
+  border: 1px solid #dee2e6;
+  padding:10px 10px 10px 30px;
+  margin-bottom: 10px;
+}
+
+
 
 
 
@@ -656,14 +698,31 @@ a:hover{
 .table-bordered thead td, .table-bordered thead th {
   border-bottom-width: 1px;
 }
-//.table>thead>tr>th {
-//  border-bottom: 0px;
-//}
 .table>tfoot>tr>th{
   border-top:0px;
 }
 .table>tbody>tr>td{
   border-top: 0px;
+}
+.table-no-border td, .table-no-border th{
+  border: 0px solid #dee2e6;
+}
+.table-border-bottom{
+  border-bottom: 1px solid #dee2e6;
+}
+.bg-table-gray{
+  background: #f1f1f1;
+}
+.border-decorate-table-bottom{
+  display: block;
+  width: 90%;
+  height: 1px;
+  border: 0px!important;
+  margin-top: 4px;
+  position: relative;
+  top: 5px;
+  margin: auto;
+  background: #dee2e6;
 }
 
 .nav-tabs .nav-link {

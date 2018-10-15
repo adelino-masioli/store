@@ -105,6 +105,23 @@ class ShoppingcartController extends Controller
         }
     }
 
+    public static function checkout()
+    {
+        $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(8)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $banners = Banner::where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.shoppingcart.checkout', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
+    }
+
+
     public static function finish($shopcart=null)
     {
         try{

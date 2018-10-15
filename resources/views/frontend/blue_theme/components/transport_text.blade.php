@@ -19,3 +19,7 @@
 <p class="text-danger error-result-zipcode" style="display: none;">
     O CEP informado, é diferente do que já foi calculado: <strong>{{session()->get('zipcode')}}</strong>.
 </p>
+
+<p class="text-danger error-result-nozipcode" style="display: none;">
+    O CEP informado, não está em seu cadastro. Clique <a href="{{route('frontend-my-account')}}">aqui</a> para atualizar..
+</p>
