@@ -69,7 +69,7 @@ class SiteController extends Controller
         $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
         $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
-        return view('frontend.'.$config_site->theme.'.pages.contact', compact('categories', 'config_site', 'page', 'menu'));
+        return view('frontend.'.$config_site->theme.'.pages.contact', compact('categories', 'config_site', 'page',  'menu'));
     }
     public static function category(Request $request, $slug)
     {

@@ -22,8 +22,9 @@ Route::get('/carrinho', 'ShoppingcartController@index')->name('frontend-shopping
 Route::get('/adicionar-ao-carrrinho/{product}/{id}', 'ShoppingcartController@store')->name('frontend-add-cart');
 Route::post('/atulizat-carrrinho/{product}', 'ShoppingcartController@update')->name('frontend-update-cart');
 Route::get('/remover-do-carrrinho/{product}/{id}', 'ShoppingcartController@remove')->name('frontend-remove-cart');
-Route::get('/carrinho-pagamento', 'ShoppingcartController@checkout')->name('frontend-checkout-cart');
+Route::get('/carrinho-pagamento/{shopcart}', 'ShoppingcartController@checkout')->name('frontend-checkout-cart');
 Route::get('/finalizar-carrinho/{shopcart}', 'ShoppingcartController@finish')->name('frontend-finish-cart');
+Route::get('/pedido-finalizado-com-sucesso/{shopcart}', 'ShoppingcartController@checkoutSuccess')->name('frontend-finish-success');
 
 
 //user

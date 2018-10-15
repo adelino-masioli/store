@@ -5,9 +5,16 @@
 @section('content')
     <main role="main">
 
-        <section class="product-banner" style="background-image: url('{{pathMidia('pages')}}/{{$page->banner}}');" alt="Contato">
-            <h1 class="product-banner-title">CONTATO</h1>
-        </section>
+        @if($page->banner)
+            <section class="product-banner" style="background-image: url('{{pathMidia('pages')}}/{{$page->banner}}');" alt="{{$page->title}}">
+                <h1 class="product-banner-title text-uppercase">{{$page->title}}</h1>
+            </section>
+        @else
+            <section class="product-banner" style="background: #f1f1f1;" alt="{{$page->title}}">
+                <h1 class="product-banner-title text-uppercase">{{$page->title}}</h1>
+            </section>
+        @endif
+
 
         <div class="container internal-pages">
             @component('frontend.blue_theme.components.breadcrumb')

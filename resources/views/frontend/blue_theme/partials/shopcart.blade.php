@@ -119,7 +119,7 @@
                             <a href="{{route('frontend-products')}}" class="btn btn-outline-secondary btn-flat text-truncate"><i class="fa fa-angle-double-left" aria-hidden="true"></i> CONTINUAR COMPRANDO</a>
                         </th>
                         <th scope="col" class="text-center col col-6 d-flex flex-row-reverse align-items-center">
-                            <a href="{{route('frontend-finish-cart', [md5(date('H:i:s'))])}}" class="btn btn-danger btn-flat text-truncate">CONCLUIR SUA COMPRA AGORA <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="{{route('frontend-checkout-cart', [md5(date('H:i:s'))])}}" class="btn btn-danger btn-flat text-truncate">CONCLUIR SUA COMPRA AGORA <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </th>
                     </tr>
                 </tfoot>

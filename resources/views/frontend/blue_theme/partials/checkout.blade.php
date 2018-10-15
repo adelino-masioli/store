@@ -122,7 +122,7 @@
 
              <div class="row">
                  <div class="col-md-12" style="margin-top: 30px;">
-                     <a href="#" class="btn btn-success btn-flat text-truncate btn-block hvr-buzz-out">FINALIZAR PEDIDO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                     <a href="{{route('frontend-finish-cart', [md5(date('H:i:s'))])}}" class="btn btn-success btn-flat text-truncate btn-block hvr-buzz-out">FINALIZAR PEDIDO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                  </div>
              </div>
     </div>

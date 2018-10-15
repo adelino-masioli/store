@@ -107,6 +107,10 @@ class ShoppingcartController extends Controller
 
     public static function checkout()
     {
+        if(!Auth::user()) {
+            return redirect()->route('frontend-login');
+            exit();
+        }
         $config_site = ConfigurationSite::getConfiguration();
         if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
             return redirect('/login');
@@ -129,6 +133,10 @@ class ShoppingcartController extends Controller
                 return redirect()->route('frontend-login');
                 exit();
             }
+            if(Cart::total() && Cart::total()==0.00) {
+                return redirect()->route('frontend-my-account');
+                exit();
+            }
             $total = Cart::total() - Cart::tax();
             $order =  Order::create(InputFields::inputFieldsOrderStore(Auth::user(), $total));
             foreach(Cart::content() as $row):
@@ -146,12 +154,40 @@ class ShoppingcartController extends Controller
 
             Cart::destroy();
 
+            session()->flash('shopcart_token', $shopcart);
+
             session()->flash('success_message', 'Pedido finalizado com sucesso!');
-            return redirect()->back();
+            return redirect()->route('frontend-finish-success', [$shopcart]);
         }catch(\Exception $e){
             session()->flash('error_message', 'Erro ao finalizar o pedido!');
             return redirect()->back();
         }
+    }
+
+    public static function checkoutSuccess($shopcart=null)
+    {
+        if(!Auth::user()) {
+            return redirect()->route('frontend-login');
+            exit();
+        }
+
+        if(!session()->has('shopcart_token')) {
+            return redirect()->route('frontend-my-account');
+            exit();
+        }
+
+        $config_site = ConfigurationSite::getConfiguration();
+        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
+            return redirect('/login');
+            exit();
+        }
+
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $products = Product::orderBy('id', 'desc')->where('configuration_id', $config_site->id)->where('status_id', 1)->take(8)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $banners = Banner::where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.shoppingcart.checkout_success', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu', 'shopcart'));
     }
 
     //transport
