@@ -12,7 +12,7 @@
         </div>
         <input type="hidden" name="categoria" class="category-id">
 
-        <input type="text" class="form-control"  name="q" placeholder="Informe sua busca" aria-describedby="basic-addon3">
+        <input type="text" class="form-control"  name="q" placeholder="Informe sua busca" aria-describedby="basic-addon3" required autofocus>
         <div class="input-group-prepend">
             <button class="btn btn-search"><i class="fa fa-search"></i></button>
         </div>

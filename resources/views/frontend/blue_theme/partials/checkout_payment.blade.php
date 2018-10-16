@@ -20,7 +20,7 @@
     <span style="display: block;" >Empresa LTDA</span>
 </p>
 
-<div class="custom-control custom-radio select-opt" onclick="unselectPayment('.payselected');">
+<div class="custom-control custom-radio select-opt d-none" onclick="unselectPayment('.payselected');">
     <input type="radio" id="pagseguro" name="payment" value="pagseguro" class="custom-control-input">
     <label class="custom-control-label" for="pagseguro">PagSeguro</label>
 </div>

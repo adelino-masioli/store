@@ -51,7 +51,7 @@
 
     <div class="row">
         @if(isset($status))
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="status_id">Status</label>
                     <select class="form-control select2" id="status_id" name="status_id">
@@ -62,13 +62,13 @@
                 </div>
             </div>
         @endif
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="status_id">Mostrar formulário de captura na página?</label>
-                    <select class="form-control select2" id="show_form" name="show_form">
-                        <option @if(isset($page)) @if($page->show_form == 0) selected @endif @endif value="0">NÃO</option>
-                        <option @if(isset($page)) @if($page->show_form == 1) selected @endif @endif value="0">SIM</option>
-                    </select>
-                </div>
+        <div class="d-none hidden col-md-4">
+            <div class="form-group">
+                <label for="status_id">Mostrar formulário de captura na página?</label>
+                <select class="form-control select2" id="show_form" name="show_form">
+                    <option @if(isset($page)) @if($page->show_form == 0) selected @endif @endif value="0">NÃO</option>
+                    <option @if(isset($page)) @if($page->show_form == 1) selected @endif @endif value="0">SIM</option>
+                </select>
             </div>
+        </div>
     </div>

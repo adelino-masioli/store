@@ -10,8 +10,9 @@ class UploadImage
     {
         $destinationPath = public_path($path);
         $destinationPathThumb = public_path($path.'thumb/');
-        $fullPath = $destinationPath.$fileName;
-        $fullPathThumb = $destinationPathThumb.$fileName;
+        $fullPath = $destinationPath.'/'.$fileName;
+        $fullPathThumb = $destinationPathThumb.'/'.$fileName;
+
 
         if (!file_exists($destinationPath)) {
             File::makeDirectory($destinationPath, 0775,true);

@@ -15,7 +15,7 @@
                 </h3>
                 <ul>
                     <li><a href="{{route('frontend-about')}}">&middot; Sobre</a></li>
-                    <li><a href="{{route('frontend-privacy')}}">&middot; Privacidade</a></li>
+                    <li><a href="{{route('frontend-privacity')}}">&middot; Privacidade</a></li>
                     <li><a href="{{route('frontend-terms')}}">&middot; Termos</a></li>
                     <li><a href="{{route('frontend-contact')}}">&middot; Contato</a></li>
                 </ul>

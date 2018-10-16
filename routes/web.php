@@ -5,6 +5,10 @@ require_once('routes/site.php');
 
 Auth::routes();
 
+Route::get('/home', function (){
+    return redirect()->route('dashboard');
+});
+
 Route::namespace('Auth')->group(function () {
     Route::get('/activate/account/{token}', 'RegisterController@activate')->name('activate-account');
     Route::get('/activate/account/', 'RegisterController@activatePage')->name('activate-page');

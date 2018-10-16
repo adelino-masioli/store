@@ -37,32 +37,6 @@ class SiteController extends Controller
         $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
         return view('frontend.'.$config_site->theme.'.pages.home', compact('categories', 'products', 'banners', 'config_site', 'page', 'menu'));
     }
-    public static function about()
-    {
-        $config_site = ConfigurationSite::getConfiguration();
-        if(!isset($config_site) || $config_site == null){
-            return redirect('/login');
-            exit();
-        }
-
-        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
-        $page_display = Page::where('configuration_id', $config_site->id)->where('type', 'about')->where('status_id', 1)->first();
-        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
-        return view('frontend.'.$config_site->theme.'.pages.about', compact('categories', 'config_site', 'page', 'page_display', 'menu'));
-    }
-    public static function service()
-    {
-        $config_site = ConfigurationSite::getConfiguration();
-        if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
-            return redirect('/login');
-            exit();
-        }
-
-        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
-        $page = Page::where('configuration_id', $config_site->id)->where('type', 'service')->where('status_id', 1)->first();
-        return view('frontend.'.$config_site->theme.'.pages.service', compact('categories', 'config_site', 'page'));
-    }
     public static function contact()
     {
         $config_site = ConfigurationSite::getConfiguration();
@@ -70,6 +44,16 @@ class SiteController extends Controller
         $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
         $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
         return view('frontend.'.$config_site->theme.'.pages.contact', compact('categories', 'config_site', 'page',  'menu'));
+    }
+    public static function dynamicPage(Request $request)
+    {
+        $dynamicpage = $request->path();
+        $config_site = ConfigurationSite::getConfiguration();
+        $categories = Category::orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('status_id', 1)->get();
+        $page = Page::where('configuration_id', $config_site->id)->where('type', 'contact')->where('status_id', 1)->first();
+        $page_display = Page::where('configuration_id', $config_site->id)->where('type', switchPageReverse($dynamicpage))->where('status_id', 1)->first();
+        $menu = Category::orderBy('order', 'asc')->orderBy('name', 'asc')->where('configuration_id', $config_site->id)->where('display_on_menu', 1)->where('status_id', 1)->take(4)->get();
+        return view('frontend.'.$config_site->theme.'.pages.dynamic', compact('categories', 'config_site', 'page',  'menu', 'page_display'));
     }
     public static function category(Request $request, $slug)
     {
@@ -175,6 +159,10 @@ class SiteController extends Controller
         $config_site = ConfigurationSite::getConfiguration();
         if(!isset($config_site) || $config_site == null || $config_site->theme == ''){
             return redirect('/login');
+            exit();
+        }
+        if($request['categoria'] == '' &&  $request['q'] == ''){
+            return redirect()->route('frontend-products');
             exit();
         }
 

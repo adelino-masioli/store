@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
-                <label for="sku">SKU<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="sku" name="sku" placeholder="SKU" value="@if(isset($product)){{$product->sku}}@else{{old('sku')}}@endif" required="required">
+                <label for="sku">Código<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="sku" name="sku" placeholder="Código" value="@if(isset($product)){{$product->sku}}@else{{old('sku')}}@endif" required="required">
             </div>
         </div>
         <div class="col-md-10">

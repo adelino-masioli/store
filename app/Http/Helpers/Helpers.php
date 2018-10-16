@@ -151,19 +151,19 @@ function convertFileSize($size){
 function defineUploadPath($path=null, $thumb=null)
 {
     if($thumb!=null){
-        return '/downloads/'.$path.'/'.setBaseUrlMidias().'/thumb/';
+        return '/downloads/'.setBaseUrlMidias().'/'.$path.'/thumb/';
     }else{
-        return '/downloads/'.$path.'/'.setBaseUrlMidias().'/';
+        return '/downloads/'.setBaseUrlMidias().'/'.$path.'/';
     }
 }
 function defineDownloadPath($path=null)
 {
-    return public_path().'/downloads/'.$path.'/'.setBaseUrlMidias();
+    return public_path().'/downloads/'.setBaseUrlMidias().'/'.$path;
 }
 
 function destroyFile($path=null, $file=null, $thumb=null)
 {
-    $fullpath = public_path().'/downloads/'.$path.'/'.setBaseUrlMidias();
+    $fullpath = public_path().'/downloads/'.setBaseUrlMidias().'/'.$path;
     if($thumb=='thumb'){
         if(File::exists($fullpath.'/thumb/'.$file)){
             File::delete($fullpath.'/thumb/'.$file);
@@ -177,6 +177,24 @@ function destroyFile($path=null, $file=null, $thumb=null)
         }
     }
 }
+
+function setBaseUrlMidias()
+{
+    $config_site = \App\Services\ConfigurationSite::getConfiguration();
+    if($config_site->nickname){
+        return $config_site->nickname;
+    }else{
+        return 'manazer-files';
+    }
+}
+
+//path midias
+function pathMidia($type)
+{
+    return url('/').'/downloads/'.setBaseUrlMidias().'/'.$type;
+}
+
+
 
 //return bgcolor
 function bgColor($i)
@@ -342,7 +360,7 @@ function canceledRegister(){
 function switchPage($page){
     switch ($page) {
         case 'product':
-            return  'Produto';
+            return  'Produtos';
             break;
         case 'contact':
             return  'Contato';
@@ -353,26 +371,54 @@ function switchPage($page){
         case 'content':
             return  'Conteúdo';
             break;
+        case 'service':
+            return  'Serviços';
+            break;
+        case 'privacy':
+            return  'Privacidade';
+            break;
+        case 'term':
+            return  'Termos';
+            break;
+        case 'return':
+            return  'Troca e devoluções';
+            break;
         default:
             return 'Login';
     }
 }
-
-function setBaseUrlMidias()
-{
-    $config_site = \App\Services\ConfigurationSite::getConfiguration();
-    if($config_site->nickname){
-        return $config_site->nickname;
-    }else{
-        return 'manazer-files';
+//switch page reverse
+function switchPageReverse($page){
+    switch ($page) {
+        case 'produtos':
+            return  'product';
+            break;
+        case 'contato':
+            return  'contact';
+            break;
+        case 'sobre':
+            return  'about';
+            break;
+        case 'conteudos':
+            return  'content';
+            break;
+        case 'servicos':
+            return  'service';
+            break;
+        case 'privacidade':
+            return  'privacy';
+            break;
+        case 'termos':
+            return  'term';
+            break;
+        case 'troca-e-devolucoes':
+            return  'return';
+            break;
+        default:
+            return 'login';
     }
 }
 
-//path midias
-function pathMidia($type)
-{
-    return url('/').'/downloads/'.$type.'/'.setBaseUrlMidias();
-}
 
 /*roles*/
 function permission_level_one()

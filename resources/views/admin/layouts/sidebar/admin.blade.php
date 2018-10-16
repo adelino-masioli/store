@@ -74,6 +74,7 @@
 </li>
 
 <li><a href="{{route('supports')}}"><i class="fa fa-envelope-o"></i> <span>Suporte</span></a></li>
+<li><a href="{{route('midias')}}"><i class="fa fa-photo"></i> <span>Mídias</span></a></li>
 
 
 <li class="treeview">

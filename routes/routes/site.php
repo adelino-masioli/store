@@ -1,14 +1,13 @@
 <?php
 Route::get('/', 'SiteController@index')->name('frontend-home');
-Route::get('/sobre', 'SiteController@about')->name('frontend-about');
 Route::get('/produtos', 'SiteController@product')->name('frontend-products');
 Route::get('/produtos/{category}', 'SiteController@category')->name('frontend-product-categories');
 Route::get('/produto/{product}', 'SiteController@show')->name('frontend-product-detail');
 Route::get('/produto-avaliacao/{product}/{rate}', 'SiteController@rate')->name('frontend-product-rate');
-Route::get('/servicos', 'SiteController@service')->name('frontend-service');
 Route::get('/contato', 'SiteController@contact')->name('frontend-contact');
-Route::get('/termos', 'SiteController@terms')->name('frontend-terms');
-Route::get('/privacidade', 'SiteController@privacy')->name('frontend-privacy');
+Route::get('/sobre', 'SiteController@dynamicPage')->name('frontend-about');
+Route::get('/privacidade', 'SiteController@dynamicPage')->name('frontend-privacity');
+Route::get('/termos', 'SiteController@dynamicPage')->name('frontend-terms');
 
 //filters
 Route::get('/busca/', 'SiteController@result')->name('frontend-product-result');
@@ -22,9 +21,9 @@ Route::get('/carrinho', 'ShoppingcartController@index')->name('frontend-shopping
 Route::get('/adicionar-ao-carrrinho/{product}/{id}', 'ShoppingcartController@store')->name('frontend-add-cart');
 Route::post('/atulizat-carrrinho/{product}', 'ShoppingcartController@update')->name('frontend-update-cart');
 Route::get('/remover-do-carrrinho/{product}/{id}', 'ShoppingcartController@remove')->name('frontend-remove-cart');
-Route::get('/carrinho-pagamento/{shopcart}', 'ShoppingcartController@checkout')->name('frontend-checkout-cart');
-Route::get('/finalizar-carrinho/{shopcart}', 'ShoppingcartController@finish')->name('frontend-finish-cart');
-Route::get('/pedido-finalizado-com-sucesso/{shopcart}', 'ShoppingcartController@checkoutSuccess')->name('frontend-finish-success');
+Route::get('/carrinho-pagamento/{shopcart}', 'ShoppingcartController@checkout')->name('frontend-checkout-cart')->middleware('checkauth');
+Route::get('/finalizar-carrinho/{shopcart}', 'ShoppingcartController@finish')->name('frontend-finish-cart')->middleware('checkauth');
+Route::get('/pedido-finalizado-com-sucesso/{shopcart}', 'ShoppingcartController@checkoutSuccess')->name('frontend-finish-success')->middleware('checkauth');
 
 
 //user

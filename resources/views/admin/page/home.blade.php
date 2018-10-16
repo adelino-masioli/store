@@ -35,8 +35,7 @@
                                     <th class="hidden-xs col-md-1 text-center">ID</th>
                                     <th class="hidden-xs col-md-1 text-center">AÇÃO</th>
                                     <th class="col-md-6 text-center">TÍTULO DA PÁGINA</th>
-                                    <th class="col-md-1 text-center">TEMPLATE</th>
-                                    <th class="col-md-2 text-center">MOSTRAR FORMULÁRIO?</th>
+                                    <th class="col-md-3 text-center">TEMPLATE</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -66,7 +65,6 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'title', name: 'title'},
                 {data: 'type', name: 'type', orderable: false, searchable: false},
-                {data: 'show_form', name: 'show_form', orderable: false, searchable: false, className: 'text-center'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

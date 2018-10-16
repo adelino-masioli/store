@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="name">Imagem<span class="text-danger">*</span></label>
+                <label for="name">Imagem[500x500px]<span class="text-danger">*</span></label>
                 <input type='file' id="image" name="image" accept="image/*" class="filestyle" data-btnClass="btn-default"  data-text="Selecionar arquivo"/>
             </div>
         </div>
