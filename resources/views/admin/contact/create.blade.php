@@ -8,10 +8,10 @@
             Contato
         @endslot
         @slot('small')
-            Editando o contato: {{$contact->name}}
+            Novo contato
         @endslot
         @slot('link')
-            Detalhes do contato
+            Novo  contato
         @endslot
     @endcomponent
 
@@ -31,10 +31,11 @@
 
 
                             <div class="col-xs-12 col-md-3">
-                                <form action="{{route('contact-update')}}" method="post"  id="formsubmit">
-                                    <input type="hidden" name="id" value="{{$contact->id}}">
+
+                                <form action="{{route('contact-store')}}" method="post" id="formsubmit">
                                     @include('admin.contact.partials.form')
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -43,23 +44,4 @@
         </div>
     </section>
 
-
 @endsection
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.editor').summernote({
-                lang: 'pt-BR',
-                height: 100,
-                minHeight: 100,
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['paragraph']]
-                ]
-            });
-
-        });
-    </script>
-@endpush

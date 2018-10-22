@@ -39,13 +39,13 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="phone">Telefone<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefone" value="@if(isset($my_config)){{$my_config->phone}}@else{{old('phone')}}@endif" required>
+                <input type="text" class="form-control phone" id="phone" name="phone" placeholder="Telefone" value="@if(isset($my_config)){{$my_config->phone}}@else{{old('phone')}}@endif" required>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="whatsapp">WhatsApp</label>
-                <input type="text" class="form-control" id="whatsapp" name="whatsapp" placeholder="WhatsApp" value="@if(isset($my_config)){{$my_config->whatsapp}}@else{{old('whatsapp')}}@endif">
+                <input type="text" class="form-control" id="whatsapp" name="whatsapp" placeholder="WhatsApp" onkeypress="maskCellphone('#whatsapp');" value="@if(isset($my_config)){{$my_config->whatsapp}}@else{{old('whatsapp')}}@endif">
             </div>
         </div>
     </div>

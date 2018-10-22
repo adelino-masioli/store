@@ -218,6 +218,7 @@
             });
 
             maskZipCode();
+            maskPhone();
         });
     </script>
 @endpush

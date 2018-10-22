@@ -20,10 +20,11 @@ class CreateBannersTable extends Migration
             $table->unsignedInteger('configuration_id')->nullable();
             $table->foreign('configuration_id')->references('id')->on('configurations');
             $table->string('name');
-            $table->text('description');
-            $table->string('file');
-            $table->string('extension');
-            $table->string('size');
+            $table->text('description')->nullable();
+            $table->text('link')->nullable();
+            $table->string('file')->nullable();
+            $table->string('extension')->nullable();
+            $table->string('size')->nullable();
             $table->timestamps();
         });
     }

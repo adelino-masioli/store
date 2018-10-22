@@ -54,7 +54,7 @@
                                             <button type="submit" class="btn btn-default">Enviar</button>
                                         </div>
                                     </div>
-                                    <small>Avatar(JPG, JPEG, PNG e no máximo 1MB)</small>
+                                    <small>Logo(JPG, JPEG, PNG e no máximo 1MB)</small>
                                 </div>
                             </form>
                         @endif
@@ -121,6 +121,7 @@
             });
 
             maskZipCode();
+            maskPhone();
         });
     </script>
 @endpush

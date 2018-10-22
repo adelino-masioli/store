@@ -100,7 +100,9 @@
     <script src="{{ asset('assets/plugins/summernote/dist/summernote.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
 
-    <script src="{{asset('assets/js/scripts.js')}}"></script>
+    <script src="{{ asset('assets/plugins/form/jquery.form.min.js') }}"></script>
+
+    <script src="{{asset('assets/js/script.js')}}"></script>
 
 @stack('scripts')
 </body>

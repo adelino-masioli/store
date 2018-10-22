@@ -67,8 +67,32 @@ class StatusTableSeeder extends Seeder
             'flag'    => 'order',
         ]);
         DB::table('status')->insert([
+            'status'  => 'Novo',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Prospecção',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Contato realizado',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Proposta enviada',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Negociação',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
+            'status'  => 'Encerrado',
+            'flag'    => 'crm',
+        ]);
+        DB::table('status')->insert([
             'status'  => 'Cancelado',
-            'flag'    => 'order',
+            'flag'    => 'destroy',
         ]);
     }
 }

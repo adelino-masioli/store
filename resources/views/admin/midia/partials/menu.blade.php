@@ -1,2 +1,3 @@
 <a href="{{route('midias')}}" onclick="localStorage.clear();" class="btn btn-sm bg-aqua margin-r-5 btn-flat"><i class="fa fa-list"></i> Listagem de Mídias</a>
 <a href="javascript:void(0)" class="btn btn-sm bg-yellow btn-flat" onclick="formSubmit('#formsubmit');"><i class="fa fa-check-circle"></i> Salvar Mídia</a>
+<a href="{{route('midia-create')}}" class="btn btn-sm bg-gray btn-flat"><i class="fa fa-check-circle"></i> Nova Mídia</a>

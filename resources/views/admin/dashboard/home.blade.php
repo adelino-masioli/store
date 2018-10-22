@@ -18,12 +18,9 @@
     @include('admin.dashboard.partials.box')
 
     <div class="row">
-        @include('admin.dashboard.partials.datatablelastquotes')
         @include('admin.dashboard.partials.datatablelastcontacts')
-    </div>
-
-    <div class="row">
-        @include('admin.dashboard.partials.datatablelastdocuments')
+        @include('admin.dashboard.partials.datatablelastbudgets')
+        @include('admin.dashboard.partials.datatablelastorders')
     </div>
 </section>
 

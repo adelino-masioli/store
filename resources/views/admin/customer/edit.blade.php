@@ -75,6 +75,7 @@
             });
 
             maskZipCode();
+            maskPhone();
         });
     </script>
 @endpush

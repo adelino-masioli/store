@@ -76,6 +76,20 @@
 <li><a href="{{route('supports')}}"><i class="fa fa-envelope-o"></i> <span>Suporte</span></a></li>
 <li><a href="{{route('midias')}}"><i class="fa fa-photo"></i> <span>Mídias</span></a></li>
 
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-circle-o text-blue"></i> <span>Catálogo</span>
+        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
+        <li><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
+        <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
+        <li class="hidden"><a href="{{route('themes')}}"><i class="fa fa-circle-o"></i> Temas</a></li>
+    </ul>
+</li>
 
 <li class="treeview">
     <a href="#">
@@ -87,9 +101,5 @@
     <ul class="treeview-menu">
         <li><a href="{{route('configuration')}}"><i class="fa fa-circle-o text-blue"></i> Cadastro</a></li>
         <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Usuários</a></li>
-        <li class="hidden"><a href="{{route('banners')}}"><i class="fa fa-circle-o"></i> Banners</a></li>
-        <li class="hidden"><a href="{{route('midias')}}"><i class="fa fa-circle-o"></i> Mídias</a></li>
-        <li><a href="{{route('pages')}}"><i class="fa fa-circle-o"></i> Páginas</a></li>
-        <li class="hidden"><a href="{{route('themes')}}"><i class="fa fa-circle-o"></i> Temas</a></li>
     </ul>
 </li>

@@ -87,8 +87,7 @@ class BannerController extends Controller
                 $messages = Messages::msgBanner();
                 $validator = Validator::make($request->all(), [
                     'name'             => 'required|string|min:5|max:50',
-                    'description'      => 'required',
-                    'file'             => 'required|mimes:jpeg,jpg,png',
+                    'file'             => 'required|mimes:jpeg,jpg,png|dimensions:min_width=2000',
                 ], $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator)->withInput();
@@ -106,7 +105,7 @@ class BannerController extends Controller
                 Banner::create(InputFields::inputFieldsBanner($request, $extension, $size,  $fileName));
 
                 //upload file
-                UploadImage::uploadImage(1920, 100, $file, $fileName, $path);
+                UploadImage::uploadBanner(1920, 100, $file, $fileName, $path);
 
 
                 session()->flash('success', 'Salvo com sucesso!');
@@ -146,8 +145,7 @@ class BannerController extends Controller
                 $messages = Messages::msgBanner();
                 $validator = Validator::make($request->all(), [
                     'name'             => 'required|string|min:5|max:50',
-                    'description'      => 'required',
-                    'file'             => 'required|mimes:jpeg,jpg,png',
+                    'file'             => 'required|mimes:jpeg,jpg,png|dimensions:min_width=2000',
                 ], $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator);
@@ -165,7 +163,7 @@ class BannerController extends Controller
                 $data = InputFields::inputFieldsBanner($request, $extension, $size,  $fileName);
                 $banner->update($data);
 
-                UploadImage::uploadImage(1920, 100, $file, $fileName, $path);
+                UploadImage::uploadBanner(1920, 100, $file, $fileName, $path);
 
                 session()->flash('success', 'Salvo com sucesso!');
                 return redirect()->back();
@@ -174,9 +172,7 @@ class BannerController extends Controller
 
                 $messages = Messages::msgBanner();
                 $validator = Validator::make($request->all(), [
-                    'name'             => 'required|string|min:5|max:50',
-                    'description'      => 'required',
-                    'file'             => 'required|mimes:jpeg,jpg,png',
+                    'name'             => 'required|string|min:5|max:50'
                 ], $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator);

@@ -45,7 +45,7 @@ class OrderTimelineService
     //destroy
     public static function destroy($id)
     {
-        $res =OrderTimeline::where('order_id', $id)->get();
+        $res = OrderTimeline::where('order_id', $id)->get();
         foreach ($res as $re) {
             $data['status_id'] = canceledRegister();
             $re->update($data);

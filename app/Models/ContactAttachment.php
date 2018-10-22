@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Banner extends Model
+class ContactAttachment extends Model
 {
     use Notifiable;
     /**
@@ -19,22 +19,20 @@ class Banner extends Model
      *
      * @var array
      */
-    protected $table = 'banners';
+    protected $table = 'contact_attachments';
     protected $fillable = [
         'name',
         'description',
-        'link',
         'file',
         'extension',
         'size',
-        'status_id',
-        'configuration_id'
+        'date',
+        'time',
+        'contact_id'
     ];
 
-    public function status() {
-        return $this->belongsTo('App\Models\Status', 'status_id');
-    }
-    public function configuration() {
-        return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+
+    public function contact() {
+        return $this->belongsTo('App\Models\Contact', 'contact_id');
     }
 }

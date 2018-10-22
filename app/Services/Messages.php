@@ -70,6 +70,17 @@ class Messages
         return $messages;
     }
 
+    public  static function msgContactCrm()
+    {
+        $messages = [
+            'name.required'        => 'Favor informar o NOME',
+            'name.min'             => 'Favor informar o NOME com mínimo 3 caracteres',
+            'name.unique'          => 'O NOME já existe'
+        ];
+
+        return $messages;
+    }
+
 
     public  static function msgUser()
     {
@@ -132,7 +143,7 @@ class Messages
             'type_id.required'          => 'Favor informar o TIPO DO ARQUIVO',
             'description.required'      => 'Favor informar a DESCRIÇÃO',
             'file.required'             => 'Favor selecionar o ARQUIVO',
-            'file.required'             => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+            'file.mimes'                => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
         ];
 
         return $messages;
@@ -148,7 +159,8 @@ class Messages
             'name.max'                  => 'Favor informar o TÍTULO DO BANNER com máximo 50 caracteres',
             'description.required'      => 'Favor informar a DESCRIÇÃO',
             'file.required'             => 'Favor selecionar o ARQUIVO',
-            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+            'file.mimes'                => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+            'file.dimensions'           => 'Favor selecionar o ARQUIVO com o tamanho mínimo de 2000px'
         ];
 
         return $messages;
@@ -199,7 +211,7 @@ class Messages
             'name.max'                  => 'Favor informar o TÍTULO DA MÍDIA com máximo 50 caracteres',
             'description.required'      => 'Favor informar a DESCRIÇÃO',
             'file.required'             => 'Favor selecionar o ARQUIVO',
-            'mimes.required'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
+            'file.mimes'                => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png',
         ];
 
         return $messages;
@@ -213,7 +225,7 @@ class Messages
             'title.min'             => 'Favor informar o ASSUNTO DO SUPORTE com mínimo 5 caracteres',
             'title.max'             => 'Favor informar o ASSUNTO DO SUPORTE com máximo 100 caracteres',
             'description.required'  => 'Favor informar a DESCRIÇÃO',
-            'file.required'         => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+            'file.mimes'            => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
         ];
 
         return $messages;
@@ -223,7 +235,7 @@ class Messages
     {
         $messages = [
             'description.required'  => 'Favor informar a DESCRIÇÃO',
-            'file.required'         => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+            'file.mimes'             => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
         ];
 
         return $messages;

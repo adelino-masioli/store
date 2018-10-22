@@ -77,13 +77,13 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="phone">Telefone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefone" value="@if(isset($user_complemento)){{$user_complemento->phone}}@else{{old('phone')}}@endif">
+                        <input type="text" class="form-control phone" id="phone" name="phone" placeholder="Telefone" value="@if(isset($user_complemento)){{$user_complemento->phone}}@else{{old('phone')}}@endif">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="cellphone">Celular</label>
-                        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Celular" value="@if(isset($user_complemento)){{$user_complemento->cellphone}}@else{{old('cellphone')}}@endif">
+                        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Celular" onkeypress="maskCellphone('#cellphone');" value="@if(isset($user_complemento)){{$user_complemento->cellphone}}@else{{old('cellphone')}}@endif">
                     </div>
                 </div>
             </div>

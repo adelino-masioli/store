@@ -96,6 +96,12 @@ function  moneyReverse($date)
     $price = str_replace('.', '', $date);
     return  str_replace(',', '.', $price);
 }
+//generateTransaction
+function generateTransaction($length)
+{
+    return substr(md5(uniqid(rand(), true)), 0, $length);
+}
+
 //return status type
 function statusRegisterType($type)
 {
@@ -347,8 +353,26 @@ function statusOrder($status){
         case "delivered":
             return  12;
             break;
-        case "canceled":
+        case "new":
             return  13;
+            break;
+        case "prospection":
+            return  14;
+            break;
+        case "contacted":
+            return  15;
+            break;
+        case "proposal":
+            return  16;
+            break;
+        case "negotiation":
+            return  17;
+            break;
+        case "closed":
+            return  18;
+            break;
+        case "canceled":
+            return  19;
             break;
     }
 }

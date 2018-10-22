@@ -21,7 +21,7 @@ $('.select2').select2();
 //selected tabs
 $(document).ready(function(){
     setTimeout(function(){
-      $('.hidden-timeout').fadeOut();
+        $('.hidden-timeout').fadeOut();
     },2500)
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
@@ -50,7 +50,7 @@ $(document).ready(function(){
         $("#district").val("");
         $("#city").val("");
         $("#state").val("");
-     }
+    }
 
     //Quando o campo cep perde o foco.
     $("#zipcode").blur(function() {
@@ -117,19 +117,110 @@ function masMoney(){
     $('.money').mask('#.##0,00', {reverse: true});
 }
 
+function maskPhone() {
+    $('.phone').mask('99 9999-9999', {reverse: true});
+}
+
+function maskCellphone(input){
+    jQuery(input)
+        .mask("99 99999-9999")
+        .focusout(function (event) {
+            var target, phone, element;
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+            phone = target.value.replace(/\D/g, '');
+            element = $(target);
+            element.unmask();
+            if(phone.length > 10) {
+                element.mask("99 99999-9999");
+            } else {
+                element.mask("99 9999-99999");
+            }
+        });
+}
+
 function addImage(image) {
     $('.editor').summernote('insertImage',image);
 }
 
 //refresh datatable
- function funcionRefreshDatatable(){
-     table.ajax.reload();
- }
- //only number
- function onlyNumber(input) {
-     $(input).on('keypress input', function() {
-         var value = $(this).val();
-         value = value.replace(/\D+/, '');
-         $(this).val(value);
-     });
- }
+function funcionRefreshDatatable(){
+    table.ajax.reload();
+}
+//only number
+function onlyNumber(input) {
+    $(input).on('keypress input', function() {
+        var value = $(this).val();
+        value = value.replace(/\D+/, '');
+        $(this).val(value);
+    });
+}
+
+//submit forms
+function functionSave(formid) {
+    $(formid).ajaxForm({
+        success: function (data) {
+            if (data.status == 1) {
+                //show success
+                toast('Success', data.response, 'top-right', '#2594ff');
+                //reset form
+                if ($('#formreset').val() == 'reset') {
+                    resetForm(formid);
+                }
+                if (data.redirect) {
+                   setTimeout(function () {
+                       window.location.replace(data.redirect);
+                   }, 400);
+                }
+                return false;
+            } else {
+                if (data.status != 2 && data.status != 400) {
+                    //show alert fail
+                    toast('Error', data.error, 'top-right', '#ff0000');
+                }else{
+                    //show alert fail
+                    toast('Error', formatErrors(data.error), 'top-right', '#ff0000');
+                }
+                return false;
+            }
+            return false;
+        },
+        error: function (data) {
+            //show erro message and validations
+            if( data.error){
+                toast('Error', data.error, 'top-right', '#ff0000');
+            }else{
+                toast('Error', 'Contact support', 'top-right', '#ff0000');
+            }
+            return false;
+        },
+        type: 'post',
+        dataType: 'json',
+        url: $(formid).attr('action'),
+        headers: {
+            '_token': $('input[name="_token"]').attr('content'),
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }).submit();
+    return false;
+}
+
+//format error
+function formatErrors(errorMsg) {
+    var errors = errorMsg;
+    //show messages
+    for (var e in errors) {
+        return errors[e];
+    }
+}
+//reset form
+function resetForm(form) {
+    $(form).each(function () {
+        this.reset();
+    });
+}
+//scroll
+function scrollToDiv(div){
+    $("html, body").animate({
+        scrollTop: $(div).offset().top
+    }, 1000);
+}

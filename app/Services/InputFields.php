@@ -280,6 +280,7 @@ class InputFields
             $fields = [
                 'name' => $request['name'],
                 'description' => $request['description'],
+                'link' => $request['link'],
                 'configuration_id' => $configuration_id,
                 'status_id' => $status
             ];
@@ -287,6 +288,7 @@ class InputFields
             $fields = [
                 'name' => $request['name'],
                 'description' => $request['description'],
+                'link' => $request['link'],
                 'file' => $fileName,
                 'extension' => $extension,
                 'size' => $size,
@@ -500,6 +502,25 @@ class InputFields
                 'user_id'          => $request['id'],
             ];
         }
+
+        return $fields;
+    }
+
+    public static function inputFieldsContact($request)
+    {
+        if(Auth::user() && Auth::user()->configuration_id){
+            $configuration_id = Auth::user()->configuration_id;
+        }else{
+            $configuration_id = ConfigurationSite::getConfiguration()->id;
+        }
+
+        $fields = [
+            'name'             => $request['name'],
+            'about'            => $request['about'],
+            'message'          => $request['message'],
+            'configuration_id' => $configuration_id,
+            'status_id'        => statusOrder('new')
+        ];
 
         return $fields;
     }

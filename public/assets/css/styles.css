@@ -15,6 +15,10 @@ textarea{
     min-width: 100%;
 }
 
+.text-info{
+    color: #00c0ef;
+}
+
 .alert{
     border-radius: 0px;
     margin-bottom: 0px;
@@ -263,4 +267,36 @@ body.preloader-site {
 .bg-finish, .bg-finish:hover, .bg-finish:active, .bg-finish.active, .bg-finish:focus{
     background: #2dff2e!important;
     color: #ffffff!important;
+}
+
+.box-dashboard  .box-header {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px;
+}
+.box-dashboard  .box-body {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px;
+}
+.box-dashboard  .box-footer {
+    text-align: right;
+    padding: 5px;
+    color: #999999;
+}
+.box-dashboard  .box-footer a {
+    color: #999999;
+}
+.box-dash .box-title{
+     width: 100%;
+}
+.box-dash .box-title a{
+    font-size: 12px;
+}
+@media (max-width: 990px){
+    .box-dash{
+        height: auto;
+        margin-bottom: 19px!important;
+        overflow:auto;
+    }
 }

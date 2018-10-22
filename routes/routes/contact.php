@@ -14,6 +14,12 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'middleware' => 'roles',
         'roles' => permission_level_four()
     ]);
+    Route::get('contact/create/{transaction}', [
+        'uses' => 'ContactController@create',
+        'as' => 'contact-create',
+        'middleware' => 'roles',
+        'roles' => permission_level_four()
+    ]);
     Route::get('contact/edit/{id}', [
         'uses' => 'ContactController@edit',
         'as' => 'contact-edit',
@@ -26,5 +32,6 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'middleware' => 'roles',
         'roles' => permission_level_three()
     ]);
+    Route::post('/contact/store', 'ContactController@store')->name('contact-store');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
 });

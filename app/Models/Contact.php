@@ -22,8 +22,6 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $fillable = [
         'name',
-        'email',
-        'phone',
         'about',
         'message',
         'status_id',
@@ -35,5 +33,17 @@ class Contact extends Model
     }
     public function configuration() {
         return $this->belongsTo('App\Models\Configuration', 'configuration_id');
+    }
+    public function attachments() {
+        return $this->hasMany('App\Models\ContactAttachment', 'contact_id');
+    }
+    public function phones() {
+        return $this->hasMany('App\Models\ContactPhone', 'contact_id');
+    }
+    public function emails() {
+        return $this->hasMany('App\Models\ContactEmail', 'contact_id');
+    }
+    public function companies() {
+        return $this->hasMany('App\Models\ContactCompany', 'contact_id');
     }
 }
