@@ -14,7 +14,7 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'middleware' => 'roles',
         'roles' => permission_level_four()
     ]);
-    Route::get('contact/create/{transaction}', [
+    Route::get('contact/create', [
         'uses' => 'ContactController@create',
         'as' => 'contact-create',
         'middleware' => 'roles',
@@ -38,9 +38,24 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'middleware' => 'roles',
         'roles' => permission_level_three()
     ]);
+    Route::get('contact/attachment/{id}', [
+        'uses' => 'ContactAttachmentController@index',
+        'as' => 'contact-attachment-get',
+        'middleware' => 'roles',
+        'roles' => permission_level_three()
+    ]);
+    Route::get('contact/download/{id}', [
+        'uses' => 'ContactAttachmentController@download',
+        'as' => 'contact-attachment-download',
+        'middleware' => 'roles',
+        'roles' => permission_level_three()
+    ]);
     Route::post('/contact/store', 'ContactController@store')->name('contact-store');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
     Route::post('/contact/none/store', 'ContactNoteController@store')->name('contact-note-store');
     Route::post('/contact/none/update', 'ContactNoteController@update')->name('contact-note-update');
     Route::post('/contact/none/destroy', 'ContactNoteController@destroy')->name('contact-note-destroy');
+    Route::post('/contact/attachment/store', 'ContactAttachmentController@store')->name('contact-attachment-store');
+    Route::post('/contact/attachment/update', 'ContactAttachmentController@update')->name('contact-attachment-update');
+    Route::post('/contact/attachment/destroy', 'ContactAttachmentController@destroy')->name('contact-attachment-destroy');
 });

@@ -242,4 +242,18 @@ class Messages
     }
 
 
+    public  static function msgAttachment()
+    {
+        $messages = [
+            'name.required'             => 'Favor informar o NOME DO ARQUIVO',
+            'name.string'               => 'Favor informar o NOME DO ARQUIVO como texto',
+            'name.min'                  => 'Favor informar o NOME DO ARQUIVO com mínimo 3 caracteres',
+            'file.required'             => 'Favor selecionar o ARQUIVO',
+            'file.mimes'                => 'Favor selecionar o ARQUIVO com as extensões: jpeg,jpg,png,pdf,docx,doc',
+        ];
+
+        return $messages;
+    }
+
+
 }

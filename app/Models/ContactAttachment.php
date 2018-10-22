@@ -35,4 +35,9 @@ class ContactAttachment extends Model
     public function contact() {
         return $this->belongsTo('App\Models\Contact', 'contact_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date_br($value);
+    }
 }

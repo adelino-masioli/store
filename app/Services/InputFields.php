@@ -525,4 +525,28 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsAttachement($request, $extension, $size, $fileName){
+
+        if($extension == null || $size == null || $fileName == null) {
+            $fields = [
+                'name'        => $request['name'],
+                'description' => $request['description'],
+                'contact_id'  => $request['id'],
+            ];
+        }else{
+            $fields = [
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'file'        => $fileName,
+                'extension'   => $extension,
+                'size'        => $size,
+                'date'        => date('Y:m:d'),
+                'time'        => date('H:i:s'),
+                'contact_id'  => $request['id']
+            ];
+        }
+
+        return $fields;
+    }
+
 }

@@ -12,8 +12,8 @@
             </div>
         </div>
         <div class="form-group col-md-12 form-group-sm">
-            <button class="btn btn-xs btn-info btn-flat" type="button" onclick="functionCancel();">Cancelar</button>
-            <button class="btn btn-xs btn-success btn-flat" type="button" onclick="functionSave('#formNoteSubmit');">Salvar</button>
+            <button class="btn btn-xs btn-warning btn-flat" type="button" onclick="functionCancel();">Cancelar</button>
+            <button class="btn btn-xs btn-info btn-flat" type="button" onclick="functionSave('#formNoteSubmit');">Salvar</button>
             <button class="btn btn-xs btn-danger btn-flat btn-destroy" style="display: none;" type="button" onclick="functionRemove('#formNoteSubmit', '{{ route('contact-note-destroy') }}');"><i class="fa fa-trash"></i></button>
         </div>
     </div>
@@ -33,9 +33,9 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            getData();
+            getDataNote();
         });
-        function getData(){
+        function getDataNote(){
             var listNotes = '';
             var url = "{{route('contact-note-get', [$contact->id])}}";
 

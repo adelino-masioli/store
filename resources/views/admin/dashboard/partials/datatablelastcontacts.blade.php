@@ -1,7 +1,7 @@
 <div class="col-md-4">
     <div class="box box-info box-dash" style="height: calc(100vh - 290px);overflow:hidden; margin-bottom: 0px;">
         <div class="box-header with-border">
-            <h3 class="box-title">Contatos e Prospecções <a href="#" class="pull-right text-info"><i class="fa fa-plus-circle text-info"></i> NOVO</a></h3>
+            <h3 class="box-title">Contatos e Prospecções <a href="{{route('contact-create')}}" class="pull-right text-info"><i class="fa fa-plus-circle text-info"></i> NOVO</a></h3>
         </div>
 
         <div class="box-body">

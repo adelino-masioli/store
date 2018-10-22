@@ -279,3 +279,23 @@ function scrollToDiv(div){
         scrollTop: $(div).offset().top
     }, 1000);
 }
+
+//shortcuts key
+$(window).bind('keydown', function(event) {
+    if (event.ctrlKey || event.metaKey) {
+        switch (String.fromCharCode(event.which).toLowerCase()) {
+            case 's':
+                event.preventDefault();
+                $('.key-save').click();
+                break;
+            case 'f':
+                event.preventDefault();
+                colsole.log('ctrl-f');
+                break;
+            case 'g':
+                event.preventDefault();
+                colsole.log('ctrl-g');
+                break;
+        }
+    }
+});

@@ -110,7 +110,7 @@ class ContactNoteController extends Controller
 
                 $note->update($data);
             }
-            $msg = ['status' => 1, 'response' => 'Salvo com sucesso!'];
+            $msg = ['status' => 1, 'response' => 'Excluído com sucesso!'];
             return response()->json($msg);
 
         }catch(\Exception $e){

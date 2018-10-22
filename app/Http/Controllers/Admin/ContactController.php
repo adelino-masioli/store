@@ -49,10 +49,10 @@ class ContactController extends Controller
     }
 
     //create
-    public function create($transaction)
+    public function create()
     {
         $status = Status::where('flag', 'crm')->get();
-        return view('admin.contact.create', compact('status', 'transaction'));
+        return view('admin.contact.create', compact('status'));
     }
 
     //store

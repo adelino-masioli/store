@@ -332,7 +332,11 @@ ul.timeline > li:before {
     height: 20px;
     z-index: 400;
 }
-
+ul.timeline > li  a{
+    display: block;
+    color: #00c0ef;
+    margin-top:10px;
+}
 
 
 
