@@ -32,6 +32,15 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'middleware' => 'roles',
         'roles' => permission_level_three()
     ]);
+    Route::get('contact/note/{id}', [
+        'uses' => 'ContactNoteController@index',
+        'as' => 'contact-note-get',
+        'middleware' => 'roles',
+        'roles' => permission_level_three()
+    ]);
     Route::post('/contact/store', 'ContactController@store')->name('contact-store');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
+    Route::post('/contact/none/store', 'ContactNoteController@store')->name('contact-note-store');
+    Route::post('/contact/none/update', 'ContactNoteController@update')->name('contact-note-update');
+    Route::post('/contact/none/destroy', 'ContactNoteController@destroy')->name('contact-note-destroy');
 });

@@ -166,6 +166,11 @@ function functionSave(formid) {
                 if ($('#formreset').val() == 'reset') {
                     resetForm(formid);
                 }
+                //get data
+                if ($('#getdata').val() == 'true') {
+                    getData();
+                    functionCancel();
+                }
                 if (data.redirect) {
                    setTimeout(function () {
                        window.location.replace(data.redirect);
@@ -203,6 +208,56 @@ function functionSave(formid) {
     }).submit();
     return false;
 }
+
+
+//remove
+function functionRemove(formid, url) {
+    $(formid).ajaxForm({
+        success: function (data) {
+            if (data.status == 1) {
+                //show success
+                toast('Success', data.response, 'top-right', '#2594ff');
+                //reset form
+                if ($('#formreset').val() == 'reset') {
+                    resetForm(formid);
+                }
+                if ($('#getdata').val() == 'true') {
+                    getData();
+                    functionCancel();
+                }
+                return false;
+            } else {
+                if (data.status != 2 && data.status != 400) {
+                    //show alert fail
+                    toast('Error', data.error, 'top-right', '#ff0000');
+                }else{
+                    //show alert fail
+                    toast('Error', formatErrors(data.error), 'top-right', '#ff0000');
+                }
+                return false;
+            }
+            return false;
+        },
+        error: function (data) {
+            //show erro message and validations
+            if( data.error){
+                toast('Error', data.error, 'top-right', '#ff0000');
+            }else{
+                toast('Error', 'Contact support', 'top-right', '#ff0000');
+            }
+            return false;
+        },
+        type: 'post',
+        dataType: 'json',
+        url: url,
+        headers: {
+            '_token': $('input[name="_token"]').attr('content'),
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }).submit();
+    return false;
+}
+
 
 //format error
 function formatErrors(errorMsg) {

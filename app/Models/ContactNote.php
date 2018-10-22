@@ -22,10 +22,20 @@ class ContactNote extends Model
     protected $table = 'contact_notes';
     protected $fillable = [
         'note',
-        'configuration_id'
+        'status_id',
+        'user_id',
+        'contact_id'
     ];
 
     public function contact() {
         return $this->belongsTo('App\Models\Contact', 'contact_id');
+    }
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date_br($value);
     }
 }

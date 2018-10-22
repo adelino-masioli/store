@@ -17,6 +17,10 @@ class CreateContactNotesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('contact_id')->nullable();
             $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('status_id')->nullable();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->text('note')->nullable();
             $table->timestamps();
         });

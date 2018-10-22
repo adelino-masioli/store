@@ -122,23 +122,6 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('.editor').summernote({
-                lang: 'pt-BR',
-                height: 100,
-                minHeight: 100,
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['paragraph']]
-                ]
-            });
-
-            maskZipCode();
-
-        });
-
         function removeRow(div) {
             $(div).remove();
         }
