@@ -3,6 +3,7 @@
     <input type="hidden" name="id" value="{{$contact->id}}">
     <input type="hidden" name="note_id" id="note_id">
     <input type="hidden" name="getdata" id="getdata" value="true">
+    <input type="hidden" name="formreset" id="formreset" value="reset">
 
     <div class="row">
         <div class="col-md-12">

@@ -30,25 +30,43 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
         'uses' => 'ContactController@destroy',
         'as' => 'contact-destroy',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
     ]);
     Route::get('contact/note/{id}', [
         'uses' => 'ContactNoteController@index',
         'as' => 'contact-note-get',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
     ]);
     Route::get('contact/attachment/{id}', [
         'uses' => 'ContactAttachmentController@index',
         'as' => 'contact-attachment-get',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
     ]);
     Route::get('contact/download/{id}', [
         'uses' => 'ContactAttachmentController@download',
         'as' => 'contact-attachment-download',
         'middleware' => 'roles',
-        'roles' => permission_level_three()
+        'roles' => permission_level_four()
+    ]);
+    Route::get('contact/quote/index', [
+        'uses' => 'ContactQuoteController@index',
+        'as' => 'contact-quote-index',
+        'middleware' => 'roles',
+        'roles' => permission_level_four()
+    ]);
+    Route::get('contact/quote/{id}', [
+        'uses' => 'ContactQuoteController@get',
+        'as' => 'contact-quote-get',
+        'middleware' => 'roles',
+        'roles' => permission_level_four()
+    ]);
+    Route::get('contact/quote/pdf/{id}', [
+        'uses' => 'ContactQuoteController@pdf',
+        'as' => 'contact-quote-pdf',
+        'middleware' => 'roles',
+        'roles' => permission_level_four()
     ]);
     Route::post('/contact/store', 'ContactController@store')->name('contact-store');
     Route::post('/contact/update', 'ContactController@update')->name('contact-update');
@@ -58,4 +76,10 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
     Route::post('/contact/attachment/store', 'ContactAttachmentController@store')->name('contact-attachment-store');
     Route::post('/contact/attachment/update', 'ContactAttachmentController@update')->name('contact-attachment-update');
     Route::post('/contact/attachment/destroy', 'ContactAttachmentController@destroy')->name('contact-attachment-destroy');
+    Route::post('/contact/quote/store', 'ContactQuoteController@store')->name('quote-item-store');
+    Route::post('/contact/quote/remove', 'ContactQuoteController@remove')->name('quote-item-remove');
+    Route::post('/contact/quote/discount', 'ContactQuoteController@discount')->name('quote-item-discount');
+    Route::post('/contact/quote/cancel', 'ContactQuoteController@cancel')->name('quote-item-cancel');
+    Route::post('/contact/quote/finish', 'ContactQuoteController@finish')->name('quote-item-finish');
+    Route::post('/contact/quote/status', 'ContactQuoteController@status')->name('quote-status');
 });

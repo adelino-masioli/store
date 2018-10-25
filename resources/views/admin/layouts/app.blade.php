@@ -42,6 +42,8 @@
 
     <link href="{{ asset('assets/plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('assets/plugins/confirm/jquery-confirm.min.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     @stack('styles')
 </head>
@@ -101,6 +103,8 @@
     <script src="{{ asset('assets/plugins/summernote/dist/lang/summernote-pt-BR.min.js') }}"></script>
 
     <script src="{{ asset('assets/plugins/form/jquery.form.min.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/confirm/jquery-confirm.min.js') }}"></script>
 
     <script src="{{asset('assets/js/script.js')}}"></script>
 

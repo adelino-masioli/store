@@ -32,7 +32,7 @@
 
                             <div class="col-xs-12 col-md-3">
                                 <form action="{{route('contact-update')}}" method="post"  id="formsubmit">
-                                    <input type="hidden" name="id" value="{{$contact->id}}">
+                                    <input type="hidden" name="id" id="customer_id" value="{{$contact->id}}">
                                     @include('admin.contact.partials.form')
                                 </form>
                             </div>

@@ -342,6 +342,24 @@ class InputFields
         return $fields;
     }
 
+    public static function inputFieldsQuote($request, $customer, $email,  $phone,  $total)
+    {
+        $fields = [
+            'origin'           => quoteOrigin(1),
+            'type'             => 2,
+            'name'             => $customer->name,
+            'email'            => $email->email,
+            'phone'            => $phone->phone,
+            'total'            => $total,
+            'status_id'        => statusOrder('new'),
+            'configuration_id' => Auth::user()->configuration_id,
+            'user_id'          => Auth::user()->id,
+            'customer_id'      => $request['customer_id'],
+        ];
+
+        return $fields;
+    }
+
     public static function inputFieldsOrderAnnotation($request){
         $fields = [
             'user_name'        => $request['user_name'],

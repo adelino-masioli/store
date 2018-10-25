@@ -54,4 +54,12 @@ class Order extends Model
     public function customer() {
         return $this->belongsTo('App\User', 'customer_id');
     }
+    public function getTotalAttribute($value)
+    {
+        return money_br($value);
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        return date_br($value);
+    }
 }

@@ -7,7 +7,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_note">
-            @if($contact)
+            @if(isset($contact))
                 @include('admin.contact.partials.form_note')
             @else
                 <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
@@ -15,14 +15,20 @@
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_attachment">
-            @if($contact)
+            @if(isset($contact))
                 @include('admin.contact.partials.form_attachment')
             @else
                 <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
             @endif
         </div>
         <!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_quote">3</div>
+        <div class="tab-pane" id="tab_quote">
+            @if(isset($contact))
+                @include('admin.contact.partials.form_quote')
+            @else
+                <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
+            @endif
+        </div>
         <!-- /.tab-pane -->
     </div>
     <!-- /.tab-content -->

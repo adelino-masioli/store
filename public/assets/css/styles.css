@@ -338,6 +338,33 @@ ul.timeline > li  a{
     margin-top:10px;
 }
 
+.nav-tabs-custom>.tab-content, .box-body{
+    padding: 10px 10px 0px 10px;
+}
+
+.jconfirm .jconfirm-box .jconfirm-buttons button{
+    border-radius: 0px;
+}
+
+/*modal*/
+.modal-open{
+    overflow: auto!important;
+    padding-right: 0px!important;
+}
+.modal-dialog {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.modal.fade .modal-dialog {
+    transform: translate(0, -100%);
+}
+.modal.in .modal-dialog {
+    transform: translate(0, 0);
+}
 
 
 

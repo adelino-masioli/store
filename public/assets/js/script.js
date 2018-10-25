@@ -299,3 +299,30 @@ $(window).bind('keydown', function(event) {
         }
     }
 });
+
+//confirm
+function confirmAction(content, callback, args, bgbutton) {
+    $.confirm({
+        title: 'Confirmar!',
+        content: content,
+        animationBounce: 1.5,
+        buttons: {
+            cancel: {
+                text: 'Não',
+                btnClass: 'btn-default btn-flat',
+                keys: ['enter', 'shift'],
+                action: function(){
+                    //$.alert('Something else?');
+                }
+            },
+            confirm: {
+                text: 'Sim',
+                btnClass: bgbutton,
+                keys: ['enter', 'shift'],
+                action: function(){
+                    callback.apply(this, args);
+                }
+            },
+        }
+    });
+}
