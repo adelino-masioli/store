@@ -10,7 +10,7 @@
             @if(isset($contact))
                 @include('admin.contact.partials.form_note')
             @else
-                <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
+                <p class="text-center" style="padding: 10px;"><i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.</p>
             @endif
         </div>
         <!-- /.tab-pane -->
@@ -18,7 +18,7 @@
             @if(isset($contact))
                 @include('admin.contact.partials.form_attachment')
             @else
-                <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
+                <p class="text-center" style="padding: 10px;"><i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.</p>
             @endif
         </div>
         <!-- /.tab-pane -->
@@ -26,7 +26,7 @@
             @if(isset($contact))
                 @include('admin.contact.partials.form_quote')
             @else
-                <i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.
+                <p class="text-center" style="padding: 10px;"><i class="fa fa-exclamation-triangle"></i> Aguardando criar o contato.</p>
             @endif
         </div>
         <!-- /.tab-pane -->
@@ -40,6 +40,7 @@
         function  getData() {
             getDataNote();
             getDataAttachement();
+            getDataQuote();
         }
     </script>
 @endpush

@@ -342,7 +342,7 @@ class InputFields
         return $fields;
     }
 
-    public static function inputFieldsQuote($request, $customer, $email,  $phone,  $total)
+    public static function inputFieldsQuote($request, $customer, $email,  $phone, $company, $total)
     {
         $fields = [
             'origin'           => quoteOrigin(1),
@@ -350,7 +350,15 @@ class InputFields
             'name'             => $customer->name,
             'email'            => $email->email,
             'phone'            => $phone->phone,
+            'zipcode'          => $company ? $company->zipcode : null,
+            'address'          => $company ? $company->address : null,
+            'district'         => $company ? $company->district : null,
+            'number'           => $company ? $company->number : null,
+            'state'            => $company ? $company->state : null,
+            'city'             => $company ? $company->city : null,
             'total'            => $total,
+            'discount'         => $request->discount,
+            'description'      => $request->description,
             'status_id'        => statusOrder('new'),
             'configuration_id' => Auth::user()->configuration_id,
             'user_id'          => Auth::user()->id,
@@ -534,7 +542,7 @@ class InputFields
 
         $fields = [
             'name'             => $request['name'],
-            'about'            => $request['about'],
+            'origin'           => 1,
             'message'          => $request['message'],
             'configuration_id' => $configuration_id,
             'status_id'        => statusOrder('new')

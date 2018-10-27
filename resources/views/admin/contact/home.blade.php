@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <a href="{{route('orders')}}" class="btn btn-sm bg-aqua margin-r-5">Listagem de Orçamentos</a>
+                    <a href="{{route('contact-create')}}" class="btn btn-sm bg-aqua margin-r-5"><i class="fa fa-plus"></i> Novo Contato</a>
                 </div>
 
                 <div class="box-body">
@@ -37,7 +37,8 @@
                                     <th class="col-md-3 text-center">NOME DO CONTATO</th>
                                     <th class="col-md-2 text-center">EMAIL</th>
                                     <th class="col-md-1 text-center">TELEFONE</th>
-                                    <th class="col-md-3 text-center">ASSUNTO</th>
+                                    <th class="col-md-1 text-center">ORIGEM</th>
+                                    <th class="col-md-2 text-center">ORÇAMENTOS</th>
                                     <th class="hidden-xs col-md-1 text-center">STATUS</th>
                                 </tr>
                                 </thead>
@@ -68,7 +69,8 @@
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
                 {data: 'phone', name: 'phone'},
-                {data: 'about', name: 'about'},
+                {data: 'origin', name: 'origin'},
+                {data: 'quotes', name: 'quotes'},
                 {data: 'status', name: 'status', className: 'text-center'},
             ],
             lengthMenu: [[8,10, 20, 30, -1], [8, 10, 20, 30, "Todos"]],

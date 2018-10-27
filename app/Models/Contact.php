@@ -22,7 +22,7 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $fillable = [
         'name',
-        'about',
+        'origin',
         'message',
         'status_id',
         'configuration_id'
@@ -45,5 +45,15 @@ class Contact extends Model
     }
     public function companies() {
         return $this->hasMany('App\Models\ContactCompany', 'contact_id');
+    }
+
+    public static function email($contact_id) {
+        return ContactEmail::where('contact_id', $contact_id)->first()->email;
+    }
+    public static function phone($contact_id) {
+        return ContactPhone::where('contact_id', $contact_id)->first()->phone;
+    }
+    public static function quote($contact_id) {
+        return Order::where('customer_id', $contact_id)->count();
     }
 }

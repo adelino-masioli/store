@@ -1,3 +1,5 @@
+var base_url = $('meta[name=base-url]').attr("content");
+
 $(document).ready(function($) {
     var Body = $('body');
     Body.addClass('preloader-site');
@@ -326,3 +328,52 @@ function confirmAction(content, callback, args, bgbutton) {
         }
     });
 }
+
+function preloadInitFc(div) {
+    $(div).css('position', 'relative');
+    $(div).html('<div class="preload-content" style="position:absolute;width:100%;height: 100%;background:#ffffff;text-align: center;padding: 30px;">Carregando...</div>');
+}
+function preloadEndFc(div) {
+    $(div).css('position', 'relative');
+    $('.preload-content').fadeOut();
+    $('.preload-content').html('');
+}
+
+function preloadWait(act, content){
+    let backgroundimage = base_url+'/assets/images/bg-transp-black.png';
+    if(act === 1){
+        $("<div class='preload-wait'>"+content+"</div>").css({
+            position: "fixed",
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            'background-image': "url('"+backgroundimage+"')",
+            'background-repeat': "repeat"
+        }).appendTo($(".wrapper").css("position", "relative"));
+    }else{
+        $('.preload-wait').fadeOut();
+    }
+}
+
+//detect no action page
+activityTimeout = setTimeout(inActive, 5 * 60 * 1000);
+
+function resetActive(){
+    preloadWait(2);
+    clearTimeout(activityTimeout);
+    activityTimeout = setTimeout(inActive, 5 * 60 * 1000);
+}
+function inActive(){
+    preloadWait(1, '<i class="fa fa-2x fa-exclamation-triangle"></i> <p>Caso não haja interação com o sistema, você será deslogado a qualquer momento.</p>');
+    setTimeout(function(){
+        exitSys()
+    }, 10 * 60 * 1000)
+}
+$(document).bind('mousemove', function(){resetActive()});
+
+
+//confirm reload page
+// window.onbeforeunload = function(event){
+//     return "Bye";
+// }

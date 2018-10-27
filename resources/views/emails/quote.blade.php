@@ -10,17 +10,17 @@
                         <h2 class="page-header" style="margin-top: 0px;">
                                <span>
                                     @if($config_site->brand)
-                                       <img width="100" src="{{public_path().defineUploadPath('brands', null).'thumb/'.$config_site->brand}}" alt="{{$config_site->name}}">
-                                       {{--<img  src="{{url('').defineUploadPath('brands', null).'thumb/'.$config_site->brand}}" alt="{{$config_site->name}}">--}}
+                                       {{--<img width="100" src="{{public_path().defineUploadPath('brands', null).'thumb/'.$config_site->brand}}" alt="{{$config_site->name}}">--}}
+                                       <img  src="{{url('').defineUploadPath('brands', null).'thumb/'.$config_site->brand}}" alt="{{$config_site->name}}">
                                    @else
                                        {{$config_site->name}}
                                    @endif
                                </span>
                             <div class="text-header">
-                               @if($data->status_id == statusOrder('new'))
+                                @if($data->status_id == statusOrder('new'))
                                     ORÇAMENTO
                                 @else
-                                   PEDIDO
+                                    PEDIDO
                                 @endif
                             </div>
 
@@ -105,27 +105,27 @@
                         <?php $discount = $data->discount != null ? $data->discount : 0.00; ?>
 
                         <tfoot>
-                            <tr class="text-right">
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="2" class="text-right"></th>
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="1" class="text-right border">Subtotal:</th>
-                                <td colspan="1" class="border border-right">{{money_br($subtotal)}}</td>
-                            </tr>
-                            <tr class="text-right">
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="2" class="text-right"></th>
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="1" class="text-right border">Desconto</th>
-                                <td colspan="1" class="border border-right">{{money_br($discount)}}</td>
-                            </tr>
-                            <tr class="text-right">
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="2" class="text-right"></th>
-                                <th colspan="1" class="text-right"></th>
-                                <th colspan="1" class="text-right border">Total:</th>
-                                <td colspan="1" class="border border-right">{{money_br(moneyReverse($data->total) - $discount)}}</td>
-                            </tr>
+                        <tr class="text-right">
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="2" class="text-right"></th>
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="1" class="text-right border">Subtotal:</th>
+                            <td colspan="1" class="border border-right">{{money_br($subtotal)}}</td>
+                        </tr>
+                        <tr class="text-right">
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="2" class="text-right"></th>
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="1" class="text-right border">Desconto</th>
+                            <td colspan="1" class="border border-right">{{money_br($discount)}}</td>
+                        </tr>
+                        <tr class="text-right">
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="2" class="text-right"></th>
+                            <th colspan="1" class="text-right"></th>
+                            <th colspan="1" class="text-right border">Total:</th>
+                            <td colspan="1" class="border border-right">{{money_br(moneyReverse($data->total) - $discount)}}</td>
+                        </tr>
                         </tfoot>
                     </table>
 
@@ -143,9 +143,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="6" class="text-left">@if($data->description) {{$data->description}} @else NDA @endif</td>
-                            </tr>
+                        <tr>
+                            <td colspan="6" class="text-left">@if($data->description) {{$data->description}} @else NDA @endif</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

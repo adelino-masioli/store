@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="base-url" content="{{ url('/') }}">
     <title>{{ config('app.name_admin', 'Administrador') }}</title>
     <link rel="icon" href="{{asset('assets/images')}}/favicon.png">
     <!-- Tell the browser to be responsive to screen width -->
@@ -109,5 +110,21 @@
     <script src="{{asset('assets/js/script.js')}}"></script>
 
 @stack('scripts')
+
+    <script>
+        function exitSys() {
+            var urlExit = '{{route('logout')}}';
+            var vDataExit = {
+                _token:$('input[name=_token]').val()
+            };
+            $.post(
+                urlExit,
+                vDataExit,
+                function (response) {
+                    window.location.replace('{{route('login')}}');
+                }
+            );
+        }
+    </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Mail\UserQuote;
 use App\Models\Contact;
+use App\Models\ContactCompany;
 use App\Models\ContactEmail;
 use App\Models\ContactPhone;
 use App\Models\Order;
@@ -12,6 +14,7 @@ use App\Services\InputFields;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class ContactQuoteController extends Controller
@@ -130,6 +133,7 @@ class ContactQuoteController extends Controller
 
         try{
             Cart::destroy();
+            session()->forget('discount');
 
             $msg = ['status' => 1, 'response' => 'Orçamento cancelado com sucesso!'];
             return response()->json($msg);
@@ -151,9 +155,10 @@ class ContactQuoteController extends Controller
             $customer = Contact::findOrFail($request->customer_id);
             $email = ContactEmail::where('contact_id', $customer->id)->first();
             $phone = ContactPhone::where('contact_id', $customer->id)->first();
+            $company = ContactCompany::where('contact_id', $customer->id)->first();
 
             $total = Cart::total() - Cart::tax();
-            $order =  Order::create(InputFields::inputFieldsQuote($request, $customer, $email,  $phone,  $total));
+            $order =  Order::create(InputFields::inputFieldsQuote($request, $customer, $email,  $phone, $company,  $total));
             foreach(Cart::content() as $row):
                 $qty = $row->qty > 0 ? $row->qty : 1;
                 $array = [
@@ -168,6 +173,7 @@ class ContactQuoteController extends Controller
             endforeach;
 
             Cart::destroy();
+            session()->forget('discount');
 
             $msg = ['status' => 1, 'response' => 'Orçamento finalizado com sucesso!'];
             return response()->json($msg);
@@ -204,10 +210,29 @@ class ContactQuoteController extends Controller
             $pdf = \PDF::loadView('admin.contact.pdf', compact('data', 'items'));
             $filename = str_slug(date('d-m-Y H-i-s'), '-');
             return $pdf->download('orcamento'.$filename.'.pdf');
+
+            //return view('admin.contact.pdf', compact('data', 'items'));
         }else{
             session()->flash('error', 'Erro ao processar o arquivo PDF. Favor verificar a existência do mesmo!');
             return redirect()->back();
             exit();
+        }
+    }
+
+    public static function sendMail(Request $request)
+    {
+        $order = base64_decode($request->order_id);
+        $data = Order::where('id', $order)->where('configuration_id', Auth::user()->configuration_id)->first();
+        if($data){
+            $items = OrderItem::where('order_id', $data->id)->get();
+
+            Mail::to($data->email)->send(new UserQuote($data, $items));
+
+            $msg = ['status' => 1, 'response' => 'E-mail enviado com sucesso!'];
+            return response()->json($msg);
+        }else{
+            $msg = ['status' => 2, 'response' => 'Erro ao enviar e-mail!'];
+            return response()->json($msg);
         }
     }
 

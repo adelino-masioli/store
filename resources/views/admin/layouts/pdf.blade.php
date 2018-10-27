@@ -21,32 +21,53 @@
             width: 100%;
         }
         .invoice-header {
-            height: 250px;
+            height: 230px;
             font-size: 8px;
+            border: 1px solid #ddd!important;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 10px;
         }
         .invoice {
             position: relative;
             background: #fff;
-            padding: 20px;
-            margin: 10px 25px;
+            padding: 10px;
+            margin: 10px;
         }
         .page-header {
             margin: 10px 0 20px 0;
             font-size: 22px;
             border-bottom: 1px solid #ddd!important;
             padding-bottom: 10px;
+            text-align: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        .page-header>span{
+            float: left;
         }
         .page-header>small {
             margin-top: 5px;
             float: right!important;
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .page-header>.text-header{
+            margin: auto;
+            display: inline-block;
+            font-weight: 400;
+            font-size: 20px;
+            letter-spacing: 3px;
         }
         .col-sm-4 {
-            width: 33.33333333%;
+            width: 30%;
             float: left;
+            border-right: 1px solid #ddd!important;
+            padding: 1.5%;
         }
         address, .invoice-col, strong {
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             font-style: normal;
             line-height: 1.42857143;
             font-size: 12px;
@@ -89,6 +110,9 @@
         }
         .bg-gray{
             background: #e9e9e9;
+        }
+        .no-border-right{
+            border-right: 0px!important;
         }
     </style>
 

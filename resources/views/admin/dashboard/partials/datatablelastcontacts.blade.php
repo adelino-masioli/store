@@ -16,13 +16,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="col-md-1 text-center"><a href="#" class="text-info"><i class="fa fa-search text-info"></i></a></td>
-                            <td class="col-md-9">João da Silva</td>
-                            <td class="hidden-xs col-md-2 text-center">Contato</td>
-                        </tr>
-
-
                         @foreach($contacts->take(3) as $contact)
                             <tr>
                                 <td class="col-md-1 text-center"><a href="{{route('contact-edit', [base64_encode($contact->id)])}}" class="btn btn-flat btn-xs bg-info"><i class="fa fa-search"></i></a></td>

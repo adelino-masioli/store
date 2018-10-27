@@ -33,18 +33,31 @@ class ContactController extends Controller
     public function getDatatable(Request $request)
     {
         $model = new \App\Models\Contact;
-        $columns = ['id',  'name', 'email', 'phone', 'about', 'status_id'];
+        $columns = ['id',  'name',  'origin', 'status_id'];
         $result  = $this->dataTable($model, $columns);
 
         return DataTables::eloquent($result)
+            ->addColumn('email', function ($data) {
+                return Contact::email($data->id);
+            })
+            ->addColumn('phone', function ($data) {
+                return Contact::phone($data->id);
+            })
+            ->addColumn('origin', function ($data) {
+                return quoteOrigin($data->origin);
+            })
+            ->addColumn('quotes', function ($data) {
+                return Contact::quote($data->id) > 0 ? '<span class="badge bg-green">'.Contact::quote($data->id).'</span>  Orçamento(s)' :  '<span class="badge bg-red">0</span> orçamento';
+            })
             ->addColumn('status', function ($data) {
                 return $data->status->status;
             })
             ->addColumn('action', function ($data) {
-                return '<a onclick="localStorage.clear();" href="'.route('contact-edit', [base64_encode($data->id)]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-envelope-open-o"></i></a>
+                return '<a onclick="localStorage.clear();" href="'.route('contact-edit', [base64_encode($data->id)]).'"     title="Visualizar" class="btn bg-aqua btn-xs"><i class="fa fa-pencil"></i></a>
                         <a href="'.route('contact-destroy', [base64_encode($data->id)]).'"  title="Excluir" class="btn bg-red btn-xs"><i class="fa fa-trash"></i></a>
                         ';
             })
+            ->rawColumns(['action', 'quotes'])
             ->toJson();
     }
 

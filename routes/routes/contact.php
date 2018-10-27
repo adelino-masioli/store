@@ -82,4 +82,5 @@ Route::middleware(['auth', 'checkstatus', 'suspended'])->namespace('Admin')->pre
     Route::post('/contact/quote/cancel', 'ContactQuoteController@cancel')->name('quote-item-cancel');
     Route::post('/contact/quote/finish', 'ContactQuoteController@finish')->name('quote-item-finish');
     Route::post('/contact/quote/status', 'ContactQuoteController@status')->name('quote-status');
+    Route::post('/contact/quote/email', 'ContactQuoteController@sendMail')->name('quote-send-email');
 });

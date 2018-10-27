@@ -33,6 +33,7 @@
                             <div class="col-xs-12 col-md-3">
 
                                 <form action="{{route('contact-store')}}" method="post" id="formsubmit">
+                                    <input type="hidden" name="formreset" id="formreset" value="reset">
                                     @include('admin.contact.partials.form')
                                 </form>
 

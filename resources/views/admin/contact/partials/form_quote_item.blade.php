@@ -36,7 +36,7 @@
 </div>
 <div class="row">
    <div class="col-md-12">
-       <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;">
+       <table class="table table-responsive table-striped table-condensed table-hover table-bordered" style="width: 100%;margin-bottom: 10px;">
            <thead>
                <tr>
                    <th class="col-md-1 text-center">CÓDIGO</th>
@@ -69,6 +69,17 @@
            </tfoot>
        </table>
    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="description">Descrição</label>
+            <textarea name="description" id="description"  rows="3" placeholder="Descrição" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-sm bg-red btn-flat"  onclick="confirmAction('Tem certeza que deseja cancelar este orçamento?', cancelOrder, [null], 'bg-red');">Cancelar</button>
+        <button type="button" class="btn btn-sm bg-aqua btn-flat" onclick="confirmAction('Tem certeza que deseja finalizar este orçamento?', finishOrder, [null], 'bg-aqua');">Confirmar Orçamento</button>
+    </div>
 </div>
 
 @push('scripts')
@@ -190,6 +201,7 @@
                         toast('Importante',  response.response, 'top-right', '#2dff2e')
                         $('#modal-quote').modal('hide');
                         getTableItens();
+                        showHideFormQuote(2)
                     } else {
                         toast('Importante',  response.response, 'top-right', '#ff0000')
                     }
@@ -202,7 +214,9 @@
             var vDatadiscount = {
                 _token:$('input[name=_token]').val(),
                 discount:$('#discount').val(),
-                customer_id:$('#customer_id').val()
+                customer_id:$('#customer_id').val(),
+                description:$('#description').val(),
+                discount:$('#discount').val()
             };
             $.post(
                 urlRemove,
@@ -210,9 +224,11 @@
                 function (response) {
                     if (response.status === 1) {
                         toast('Importante',  response.response, 'top-right', '#2dff2e')
-                        $('#modal-quote').modal('hide');
+                        //$('#modal-quote').modal('hide');
                         getTableItens();
                         getDataQuote();
+
+                        showHideFormQuote(2);
                     } else {
                         toast('Importante',  response.response, 'top-right', '#ff0000')
                     }
@@ -222,6 +238,7 @@
 
 
         function getTableItens(){
+            preloadInitFc('.list-results-items');
             var vUrlGetItem = '{{route('contact-quote-index')}}';
             var listItems = '';
             var listItemTotal = '';
@@ -241,6 +258,8 @@
                     }
                     listItemTotal = data.total;
                 });
+
+                preloadEndFc('.list-results-items');
                 $('.total').html(listItemTotal);
                 $('.list-results-items').html(listItems);
             });

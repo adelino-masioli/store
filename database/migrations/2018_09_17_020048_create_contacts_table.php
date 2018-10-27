@@ -20,7 +20,7 @@ class CreateContactsTable extends Migration
             $table->unsignedInteger('configuration_id')->nullable();
             $table->foreign('configuration_id')->references('id')->on('configurations');
             $table->string('name');
-            $table->string('about')->nullable();
+            $table->integer('origin')->nullable();
             $table->text('message')->nullable();
             $table->timestamps();
         });
